@@ -3,8 +3,7 @@
 #include "allegro5/allegro.h"
 #include "allegro5/allegro_image.h"
 #include "allegro5/allegro_native_dialog.h"
-
-
+#include "GeometryDash.h"
 
 
 const float FPS = 60;
@@ -20,15 +19,11 @@ enum MYKEYS {
  
 int main(int argc, char **argv){
  
- 
- 
    ALLEGRO_DISPLAY *display = NULL;
    ALLEGRO_EVENT_QUEUE *event_queue = NULL;
    ALLEGRO_TIMER *timer = NULL;
-   ALLEGRO_BITMAP *bouncer = NULL;
-   
-   
-
+   //ALLEGRO_BITMAP *bouncer = NULL;
+  
   
    ALLEGRO_BITMAP  *image   = NULL;//fondo
    ALLEGRO_BITMAP  *image2   = NULL;//piso
@@ -36,13 +31,15 @@ int main(int argc, char **argv){
    ALLEGRO_BITMAP  *image4   = NULL;//enemigo
    ALLEGRO_BITMAP  *image5   = NULL;//explosion
    
+	const int maxFrame = 10;
+	int curFrame = 0;
+	int frameCount = 0;
+	int frameDelay = 5;
+	int frameWidth = 283;
+	int frameHeight = 300;
  
    float bouncer_x = SCREEN_W / 2.0 - BOUNCER_SIZE / 2.0;
    float bouncer_y = SCREEN_H / 2.0 - BOUNCER_SIZE / 2.0;//piso
-   float bouncer_dx = -4.0, bouncer_dy = 4.0;
-   float i,i2,i3;
-
-   bool redraw = true;
    
    float bouncer_x2 = SCREEN_W / 2.0 - BOUNCER_SIZE / 2.0;
    float bouncer_y2 = SCREEN_H / 2.0 - BOUNCER_SIZE / 2.0;//cubo
@@ -53,15 +50,14 @@ int main(int argc, char **argv){
    float bouncer_x4 = SCREEN_W / 2.0 - BOUNCER_SIZE / 2.0;
    float bouncer_y4 = SCREEN_H / 2.0 - BOUNCER_SIZE / 2.0;//fondo
    
-   
-   
-   int aux1, aux2;
-
-	bool key[1] = { false };
+   float bouncer_dx = -4.0, bouncer_dy = 4.0;
   
+   float i,i2,i3;
+   int aux1, aux2;
+   
+   bool redraw = true;
+   bool key[1] = { false };
    bool doexit = false;
- 
- 
  
    if(!al_init()) {
       al_show_native_message_box(display, "Error", "Error", "Failed to initialize allegro!", 
@@ -74,7 +70,7 @@ int main(int argc, char **argv){
       return 0;
    }
    
- timer = al_create_timer(1.0 / FPS);
+   timer = al_create_timer(1.0 / FPS);
    if(!timer) {
       fprintf(stderr, "failed to create timer!\n");
       return -1;
@@ -87,19 +83,14 @@ int main(int argc, char **argv){
    }
  
    display = al_create_display(924,640);
- 
    if(!display) {
       al_show_native_message_box(display, "Error", "Error", "Failed to initialize display!", 
-                                 NULL, ALLEGRO_MESSAGEBOX_ERROR);
-                                 
-                                 
+                                 NULL, ALLEGRO_MESSAGEBOX_ERROR);                            
       al_destroy_timer(timer);
       return 0;
    }
    
-   
    image3 = al_load_bitmap("cubo.png");
- 
    if(!image3) {
       al_show_native_message_box(display, "Error", "Error", "Failed to load image!", 
                                  NULL, ALLEGRO_MESSAGEBOX_ERROR);
@@ -107,25 +98,18 @@ int main(int argc, char **argv){
       return 0;
    }
    al_set_target_bitmap(image3);
-   // al_set_target_bitmap(image5);
-
-
-
  
    al_set_target_bitmap(al_get_backbuffer(display));
  
  
-bouncer = al_create_bitmap(BOUNCER_SIZE, BOUNCER_SIZE);
-
+  /* bouncer = al_create_bitmap(BOUNCER_SIZE, BOUNCER_SIZE);
    if(!bouncer) {
       fprintf(stderr, "failed to create bouncer bitmap!\n");
       al_destroy_display(display);
       al_destroy_timer(timer);
       return -1;
-   }
-   
+   }*/
   // al_set_target_bitmap(bouncer);
- 
    al_clear_to_color(al_map_rgb(255, 0, 255));
  
  //  al_set_target_bitmap(al_get_backbuffer(display));
@@ -133,7 +117,7 @@ bouncer = al_create_bitmap(BOUNCER_SIZE, BOUNCER_SIZE);
    event_queue = al_create_event_queue();
    if(!event_queue) {
       fprintf(stderr, "failed to create event_queue!\n");
-      al_destroy_bitmap(bouncer);
+      //al_destroy_bitmap(bouncer);
       al_destroy_display(display);
       al_destroy_timer(timer);
       return -1;
@@ -155,7 +139,8 @@ bouncer = al_create_bitmap(BOUNCER_SIZE, BOUNCER_SIZE);
    image = al_load_bitmap("fondo1.png");
    image2 = al_load_bitmap("piso.png");
    image4 = al_load_bitmap("enemigo.png"); 
-   image5 = al_load_bitmap("explosion.png");
+   image5 = al_load_bitmap("sprite_explosiones.png");
+   al_convert_mask_to_alpha(image5, al_map_rgb(106, 76, 48));
  
    if(!image) {
       al_show_native_message_box(display, "Error", "Error", "Failed to load image!", 
@@ -169,31 +154,18 @@ bouncer = al_create_bitmap(BOUNCER_SIZE, BOUNCER_SIZE);
  
   while(1)
    {
-	   
-   
-   
- 
-	   
-	   
-	   
       ALLEGRO_EVENT ev;
       al_wait_for_event(event_queue, &ev);
  
       if(ev.type == ALLEGRO_EVENT_TIMER) {
 		  
 		  
-		  //------------------------------------------------------
-		  	  
+		  //-----------------------------------------------------	  	  
 		 if(key[KEY_SPACE] ) {
 			 if( bouncer_y2 >= 300.0){
 				aux1=1;
 			}  
 				
-			/* if( bouncer_y >= 100.0)
-		   {
-            bouncer_y -= 8.0;
-			}*/
-			 
 		 }
 		 else{
 			 aux1=0;
@@ -213,53 +185,41 @@ bouncer = al_create_bitmap(BOUNCER_SIZE, BOUNCER_SIZE);
 			else
 			{
 				aux1=0;
-			}
-            
+			}   
 		  }
-
- 
-     //   redraw = true;
-      
+  		  //-------------------------------------------------
 		  
-		  		  //-------------------------------------------------
-		  
-		  
-		  
-         if(bouncer_x < -256)  {
-           //bouncer_dx = -bouncer_dx;
-          //bouncer_dx = 6.0;         
-          bouncer_x= bouncer_x+256; }
-            bouncer_x += bouncer_dx;
-            
+		 	  
+         if(bouncer_x < -256)              
+			bouncer_x= bouncer_x+256; 
+		bouncer_x += bouncer_dx;
+                 
               
-         if(bouncer_x4 < -256)  {
-           //bouncer_dx = -bouncer_dx;
-          //bouncer_dx = 6.0;         
-          bouncer_x4= bouncer_x4+1024; }
-            bouncer_x4+= bouncer_dx/3;
+         if(bouncer_x4 < -256)           
+			bouncer_x4= bouncer_x4+1024; 
+	     bouncer_x4+= bouncer_dx/3;
+                        
             
+         if(bouncer_x3 < -256)                
+			bouncer_x3= bouncer_x+1256;
+         bouncer_x3 += bouncer_dx*2;
+           
+           //---------------------------------------------------- 
             
+            if(++frameCount >= frameDelay)
+			{
+				if(++curFrame >= maxFrame)
+					curFrame = 0;
+
+				frameCount = 0;
+			}
+
+		//	bouncer_x2 -= 5;
+
+		/*	if(bouncer_x2 <= 0 - frameWidth)
+				bouncer_x2 = SCREEN_W;*/
             
-            
-         if(bouncer_x3 < -256)  {
-                   
-          bouncer_x3= bouncer_x+1256;
-         }
-            bouncer_x3 += bouncer_dx*2;
-            
-            
-      /*   if( bouncer_x > SCREEN_W - BOUNCER_SIZE)
-         {
-			 bouncer_dx = -bouncer_dx;
-			 
-			 }*/
-       /*  if(bouncer_y < 0 || bouncer_y > SCREEN_H - BOUNCER_SIZE) {
-            bouncer_dy = -bouncer_dy;
-            bouncer_dy = -4.0;
-             
-         }*/
-       //  bouncer_y += bouncer_dy;
-          
+            //-----------------------------------------------------------
           
  
          redraw = true;
@@ -273,8 +233,6 @@ bouncer = al_create_bitmap(BOUNCER_SIZE, BOUNCER_SIZE);
 			 case ALLEGRO_KEY_SPACE:
                key[KEY_SPACE] = true;
                break;
-			 
-
          }
       }
       else if(ev.type == ALLEGRO_EVENT_KEY_UP) {
@@ -283,7 +241,6 @@ bouncer = al_create_bitmap(BOUNCER_SIZE, BOUNCER_SIZE);
 			 case ALLEGRO_KEY_SPACE:
               key[KEY_SPACE] = false;
                break;
-
          }
       }
  
@@ -292,78 +249,57 @@ bouncer = al_create_bitmap(BOUNCER_SIZE, BOUNCER_SIZE);
 		
 		i=bouncer_x;
 		i2=bouncer_x4;
-		/*i2=bouncer_x/2;
+
 		
-		
-		 if(i2 > 0)  {
-                   
-          i2= i2+768;
-           }*/
-		
-         al_clear_to_color(al_map_rgb(0,0,0));
+	    al_clear_to_color(al_map_rgb(0,0,0));
          
-   
-  
-         
-         
-			al_draw_bitmap(image,i2-800,0,0);
-			al_draw_bitmap(image,i2+220,0,0);
-		   al_draw_bitmap(image2,i,500,0);
-		   al_draw_bitmap(image2,i+256,500,0);
-		   al_draw_bitmap(image2,i+256*2,500,0);
-		   al_draw_bitmap(image2,i+256*3,500,0);
-		   al_draw_bitmap(image2,i+256*4,500,0);
-		   al_draw_bitmap(image2,i+256*5,500,0);
-		   
-		   al_draw_bitmap(image4,bouncer_x3,350,0);
-		   
-		   // 
-		   al_draw_bitmap(image3,bouncer_x2-200, bouncer_y2+115,0);
-		   
-		   
-		  if(bouncer_x3<bouncer_x2-125&&bouncer_x3>bouncer_x2-330){
-		   //bouncer_x3<bouncer_x2-120&&
-		   
-			   if(bouncer_y2>150)
-			  al_draw_bitmap(image5,bouncer_x2-250, bouncer_y2+50,0);
-		   
-		   
-		    
+     
+	 //al_draw_bitmap(bouncer, bouncer_x, bouncer_y, 0);
+	   al_draw_bitmap(image,i2-800,0,0);
+	   al_draw_bitmap(image,i2+220,0,0);
+	   
+	   al_draw_bitmap(image2,i,500,0);
+	   al_draw_bitmap(image2,i+256,500,0);
+	   al_draw_bitmap(image2,i+256*2,500,0);
+	   al_draw_bitmap(image2,i+256*3,500,0);
+	   al_draw_bitmap(image2,i+256*4,500,0);
+	   al_draw_bitmap(image2,i+256*5,500,0);
+	   
+	   al_draw_bitmap(image4,bouncer_x3,350,0);
+	   
+	   al_draw_bitmap(image3,bouncer_x2-200, bouncer_y2+115,0);
+	   
+	    if(bouncer_x3<bouncer_x2-125&&bouncer_x3>bouncer_x2-330){	   
+		   if(bouncer_y2>150){   
+			   curFrame==0;			      	
+				i3=1;
 			}
-         //al_draw_bitmap(bouncer, bouncer_x, bouncer_y, 0);
- 
+		}
+	   if(i3==1){
+		al_draw_bitmap_region(image5, (curFrame * frameWidth)-59, 0, frameWidth, frameHeight+20,bouncer_x2-300, bouncer_y2+30, 0);
+		}
+       if(curFrame==9)
+       {   
+		   curFrame==0;
+		   i3=0;
+		   }
          al_flip_display();
          
-         
-
-      // al_rest(50);
       }
-      
-
-
    }
+      
    
-
- 
- 
-  
- 
-   al_destroy_bitmap(bouncer);
    al_destroy_timer(timer);
    al_destroy_display(display);
    al_destroy_event_queue(event_queue);
- 
-
-
-
- 
    al_destroy_display(display);
+   
+   //al_destroy_bitmap(bouncer);
    al_destroy_bitmap(image);
    al_destroy_bitmap(image2);
-   
    al_destroy_bitmap(image3);
-      al_destroy_bitmap(image4);
-      al_destroy_bitmap(image5);
+   al_destroy_bitmap(image4);
+   al_destroy_bitmap(image5);
  
    return 0;
 }
