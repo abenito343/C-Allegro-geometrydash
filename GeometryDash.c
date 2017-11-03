@@ -146,7 +146,11 @@ int main(int argc, char **argv){
    image4 = al_load_bitmap("enemigo.png"); 
    image5 = al_load_bitmap("sprite_explosiones.png");
    image6 = al_load_bitmap("pared.png");
-   al_convert_mask_to_alpha(image5, al_map_rgb(106, 76, 48));
+   
+   
+//   al_convert_mask_to_alpha(image5, al_map_rgb(106, 76, 48));		// Si no da core dump
+ 
+ 
  
    if(!image) {
       al_show_native_message_box(display, "Error", "Error", "Failed to load image!", 
@@ -340,9 +344,15 @@ int main(int argc, char **argv){
 			
 			}
 		}
+		
+/* REVISAR ****************************************************
+
 	   if(i3==1){
 		al_draw_bitmap_region(image5, (curFrame * frameWidth)-59, 0, frameWidth, frameHeight+20,bouncer_x2-300, bouncer_y2+30, 0);
 		}
+
+***************************************************************/
+		
        if(curFrame==9)
        {   
 		   curFrame==0;
