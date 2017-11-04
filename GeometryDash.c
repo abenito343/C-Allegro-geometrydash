@@ -1,8 +1,15 @@
-#include <stdio.h> 
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
 #include <allegro5/allegro.h>
 #include "allegro5/allegro.h"
 #include "allegro5/allegro_image.h"
 #include "allegro5/allegro_native_dialog.h"
+#include "allegro5/allegro_font.h"
+#include "allegro5/allegro_ttf.h"
+#include <allegro5/allegro_primitives.h>
+#include <allegro5/allegro_audio.h>
+#include <allegro5/allegro_acodec.h>
 #include "GeometryDash.h"
 
 
@@ -31,6 +38,7 @@ int main(int argc, char **argv){
    ALLEGRO_BITMAP  *image4   = NULL;//enemigo
    ALLEGRO_BITMAP  *image5   = NULL;//explosion
    ALLEGRO_BITMAP  *image6   = NULL;//explosion
+   ALLEGRO_SAMPLE *sample=NULL;  
    
 	const int maxFrame = 10;
 	int curFrame = 0;
@@ -85,6 +93,27 @@ int main(int argc, char **argv){
       al_show_native_message_box(display, "Error", "Error", "Failed to initialize al_init_image_addon!", 
                                  NULL, ALLEGRO_MESSAGEBOX_ERROR);
       return 0;
+   }
+   
+   
+     if(!al_install_audio()){
+      fprintf(stderr, "failed to initialize audio!\n");
+      return -1;
+   }
+    if(!al_init_acodec_addon()){
+      fprintf(stderr, "failed to initialize audio codecs!\n");
+      return -1;
+   }
+   
+      if (!al_reserve_samples(1)){
+      fprintf(stderr, "failed to reserve samples!\n");
+      return -1;
+   }
+    sample = al_load_sample( "Forever Bound - Stereo Madness.wav" );
+
+   if (!sample){
+      printf( "Audio clip sample not loaded!\n" ); 
+      return -1;
    }
  
    display = al_create_display(924,640);
@@ -282,7 +311,7 @@ int main(int argc, char **argv){
          switch(ev.keyboard.keycode) {
 			 
 			   case ALLEGRO_KEY_UP:
-               key[KEY_UP] = false;
+               key[KEY_UP] = false;https://forums.warframe.com/topic/701033-argentenno-evento/
                break;
 			 
 			 case ALLEGRO_KEY_SPACE:
@@ -300,7 +329,8 @@ int main(int argc, char **argv){
 
 		
 	    al_clear_to_color(al_map_rgb(0,0,0));
-         
+	    
+         al_play_sample(sample, 1.0, 0.0,1.0,ALLEGRO_PLAYMODE_LOOP,NULL);
      
 	 //al_draw_bitmap(bouncer, bouncer_x, bouncer_y, 0);
 	   al_draw_bitmap(image,i2-800,0,0);
@@ -359,8 +389,9 @@ int main(int argc, char **argv){
    al_destroy_display(display);
    al_destroy_event_queue(event_queue);
    al_destroy_display(display);
-   
+   al_destroy_sample(sample);
    //al_destroy_bitmap(bouncer);
+   
    al_destroy_bitmap(image);
    al_destroy_bitmap(image2);
    al_destroy_bitmap(image3);
