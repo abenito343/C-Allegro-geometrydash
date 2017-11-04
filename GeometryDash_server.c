@@ -216,54 +216,33 @@ int main(int argc, char **argv){
          switch(sentkey) {
             case KEY_UP:
                if(status){
-               
-				i6=i6+1;
-				if(i6==3){
-				i5=i5+1;
-				i6=12;	
-				}
-				}  	  
-				else{
-					i6=0;
-					
-				}
-				if(i5==12)
-				{
-					i5=0;
-					i7=i7+1;
-				}
-				if(i7==5)
-					i7=0;
-				
-
-               redraw = true;
+				   key[KEY_UP] = true;
+			   }
+			   else {
+				   key[KEY_UP] = false;
+			   }
                break;
                
             case KEY_SPACE:
                if(status){
-				 
-				if(key[KEY_SPACE] ) {
-					if( bouncer_y2 >= 300.0){
-						aux1=1;
-					}  				
-				}
-				else{
-					aux1=0;
-					}
-				}
-									 
-               redraw = true;
+				   key[KEY_SPACE] = true;
+			   }
+			   else {
+				   key[KEY_SPACE] = false;
+			   }
                break;
                
             case KEY_EXIT:
                doexit = true;
                break;               
          }
+         
+	 }
       
 
 // Partes del original
 
-/*      ALLEGRO_EVENT ev;
+      ALLEGRO_EVENT ev;
       al_wait_for_event(event_queue, &ev);
  
       if(ev.type == ALLEGRO_EVENT_TIMER) {
@@ -301,7 +280,7 @@ int main(int argc, char **argv){
 		 else{
 			 aux1=0;
 			 }
-*/
+
 
 		 if(aux1==0){
 			 if( bouncer_y2 <= 300.0)
@@ -367,9 +346,9 @@ int main(int argc, char **argv){
             //-----------------------------------------------------------
           
  
- /*        redraw = true;
+         redraw = true;
       }
-      else if(ev.type == ALLEGRO_EVENT_DISPLAY_CLOSE) {
+/*      else if(ev.type == ALLEGRO_EVENT_DISPLAY_CLOSE) {
          break;
       } 
       else if(ev.type == ALLEGRO_EVENT_KEY_DOWN) {
@@ -396,7 +375,7 @@ int main(int argc, char **argv){
          }
       }
 */
-	}
+
 
       if(redraw) {
          redraw = false;
