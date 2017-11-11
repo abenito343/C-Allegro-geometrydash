@@ -14,8 +14,8 @@
 
 
 const float FPS = 60;
-const int SCREEN_W = 924;
-const int SCREEN_H = 640;
+const int SCREEN_W = 1280;
+const int SCREEN_H = 720;
 const int BOUNCER_SIZE = 32;
 
 
@@ -38,7 +38,26 @@ int main(int argc, char **argv){
    ALLEGRO_BITMAP  *image4   = NULL;//enemigo
    ALLEGRO_BITMAP  *image5   = NULL;//explosion
    ALLEGRO_BITMAP  *image6   = NULL;//explosion
+   ALLEGRO_BITMAP  *image9   = NULL; // rip
+   ALLEGRO_BITMAP  *image10   = NULL; // muerto
    ALLEGRO_SAMPLE *sample=NULL;  
+   ALLEGRO_SAMPLE *sample2=NULL;  
+   ALLEGRO_EVENT ev;
+   
+   // menu
+   
+   ALLEGRO_BITMAP  *image7   = NULL; // fondo menu
+   ALLEGRO_BITMAP  *image8   = NULL; // opciones menu
+   ALLEGRO_FONT   *font = NULL;
+   ALLEGRO_SAMPLE *sample3=NULL;
+   ALLEGRO_EVENT ev2;
+   int i8,i9,i10=1;
+   int auxx, auxy;
+   char aux3[11],aux4[11];
+   
+   
+   
+   
    
 	const int maxFrame = 10;
 	int curFrame = 0;
@@ -66,6 +85,22 @@ int main(int argc, char **argv){
    float bouncer_dx = -4.0, bouncer_dy = 4.0;
   
    float i,i2,i3,i4,i5=0,i6=0,i7=0;
+   int vida =3;
+   
+   char vidac[2];
+   
+   int verifvida=0;
+   
+   
+   int score=0;
+   
+   char scores[10];
+   
+   /*i es lo que mueve el piso
+    * 
+    * 
+    * 
+    * */
    int aux1, aux2;
    
    bool redraw = true;
@@ -95,6 +130,10 @@ int main(int argc, char **argv){
       return 0;
    }
    
+   if(!al_install_mouse()) {
+      fprintf(stderr, "failed to initialize the mouse!\n");
+      return -1;
+   }
    
      if(!al_install_audio()){
       fprintf(stderr, "failed to initialize audio!\n");
@@ -110,13 +149,15 @@ int main(int argc, char **argv){
       return -1;
    }
     sample = al_load_sample( "Forever Bound - Stereo Madness.wav" );
+    sample2 = al_load_sample( "explosion.wav" );
+    sample3 = al_load_sample( "DJVI - Back On Track.wav" );
 
    if (!sample){
       printf( "Audio clip sample not loaded!\n" ); 
       return -1;
    }
  
-   display = al_create_display(924,640);
+   display = al_create_display(1280,720);
    if(!display) {
       al_show_native_message_box(display, "Error", "Error", "Failed to initialize display!", 
                                  NULL, ALLEGRO_MESSAGEBOX_ERROR);                            
@@ -160,6 +201,8 @@ int main(int argc, char **argv){
    al_register_event_source(event_queue, al_get_display_event_source(display));
  
    al_register_event_source(event_queue, al_get_timer_event_source(timer));
+   
+   al_register_event_source(event_queue, al_get_mouse_event_source());
 
  
    al_register_event_source(event_queue, al_get_keyboard_event_source());
@@ -175,7 +218,16 @@ int main(int argc, char **argv){
    image4 = al_load_bitmap("enemigo.png"); 
    image5 = al_load_bitmap("sprite_explosiones.png");
    image6 = al_load_bitmap("pared.png");
+   image7 = al_load_bitmap("menu.jpg");
+   image8 = al_load_bitmap("opciones.png");
+   image9 = al_load_bitmap("descansa-en-paz.png");
+   image10 = al_load_bitmap("muerto.png");
    al_convert_mask_to_alpha(image5, al_map_rgb(106, 76, 48));
+   
+   al_init_font_addon();
+   al_init_ttf_addon();
+   
+   font = al_load_font ("Lato-Black.ttf" , 24 , 0);
  
    if(!image) {
       al_show_native_message_box(display, "Error", "Error", "Failed to load image!", 
@@ -189,7 +241,92 @@ int main(int argc, char **argv){
  
   while(1)
    {
-      ALLEGRO_EVENT ev;
+      
+      if(i10==1){
+		  
+		  vida=3;
+		  score=0;
+		  
+      al_wait_for_event(event_queue, &ev);
+      
+     if(ev.mouse.x>0 && ev.mouse.x<1280&&ev.mouse.y>0 && ev.mouse.y<720){
+      auxx=ev.mouse.x;
+      auxy=ev.mouse.y;
+	}
+      
+      sprintf(aux3, "%d", auxx);
+      sprintf(aux4, "%d", auxy);
+      
+       if(auxx>454 && auxx<726&&auxy>499 && auxy<596)
+  {
+				i9=265;
+			}
+			else{
+					i9=0;
+				} 	
+		
+      
+  if(auxx>485 && auxx<692&&auxy>602 && auxy<671)
+  {
+				i8=215;
+			}
+			else{
+					i8=0;
+				} 	
+		
+		
+ 
+      if(ev.type == ALLEGRO_EVENT_TIMER) {
+         redraw = true;
+      }
+      else if(ev.type == ALLEGRO_EVENT_DISPLAY_CLOSE) {
+         break;
+      }
+      else if(ev.type == ALLEGRO_EVENT_MOUSE_AXES ||
+              ev.type == ALLEGRO_EVENT_MOUSE_ENTER_DISPLAY) {
+ 
+        
+      }
+      else if(ev.type == ALLEGRO_EVENT_MOUSE_BUTTON_UP) {
+		if(auxx>485 && auxx<692&&auxy>602 && auxy<671)
+			 	break;
+		 if(auxx>454 && auxx<726&&auxy>499 && auxy<596)
+			 	i10=0;
+			
+      }
+
+ 
+ 
+      if(redraw && al_is_event_queue_empty(event_queue)) {
+         redraw = false;
+ 
+         al_clear_to_color(al_map_rgb(0,0,0));
+         
+                  
+        
+		al_play_sample(sample3, 1.0, 0.0,1.0,ALLEGRO_PLAYMODE_ONCE,NULL);
+        
+	    al_draw_bitmap(image7,0,0,0);
+	   
+		al_draw_bitmap_region(image8,0+i9,0,260,95,457,500,0);
+		al_draw_bitmap_region(image8,0+i8,90,210,90,479,590,0);
+
+
+		al_draw_text(font, al_map_rgb(255, 0, 255), 50, 50, 0, aux3);
+		al_draw_text(font, al_map_rgb(255, 0, 255), 10, 50, 0, "X:");
+		al_draw_text(font, al_map_rgb(255, 0, 255), 50, 100, 0, aux4);
+		al_draw_text(font, al_map_rgb(255, 0, 255), 10, 100, 0, "Y:");
+ 
+ 
+         al_flip_display();
+      }
+   }
+   else if(i10==0){
+      
+      
+      
+      	 
+      
       al_wait_for_event(event_queue, &ev);
  
       if(ev.type == ALLEGRO_EVENT_TIMER) {
@@ -219,7 +356,7 @@ int main(int argc, char **argv){
 			i7=0;
 		 
 		 if(key[KEY_SPACE] ) {
-			 if( bouncer_y2 >= 300.0){
+			 if( bouncer_y2 >= 339.0){
 				aux1=1;
 			}  
 				
@@ -228,7 +365,7 @@ int main(int argc, char **argv){
 			 aux1=0;
 			 }
 		 if(aux1==0){
-			 if( bouncer_y2 <= 300.0)
+			 if( bouncer_y2 <= 339.0)
 				{
 					bouncer_y2 += 8.0;
 				}
@@ -265,7 +402,7 @@ int main(int argc, char **argv){
                         
             
          if(bouncer_x3 < -256)                
-			bouncer_x3= bouncer_x3+1256;
+			bouncer_x3= bouncer_x3+1556;
          bouncer_x3 += bouncer_dx*2;
          
          
@@ -283,6 +420,17 @@ int main(int argc, char **argv){
 				frameCount = 0;
 			}
 
+
+			if(vida==0)
+			{
+				i10=2;
+				
+				
+				
+				}
+
+
+			score=score+1;
 		//	bouncer_x2 -= 5;
 
 		/*	if(bouncer_x2 <= 0 - frameWidth)
@@ -325,16 +473,22 @@ int main(int argc, char **argv){
 		
 		i=bouncer_x;
 		i2=bouncer_x4;
+			
+		sprintf(vidac, "%d", vida);
+		sprintf(scores, "%d", score);
 		
+		
+	
 
 		
 	    al_clear_to_color(al_map_rgb(0,0,0));
 	    
-         al_play_sample(sample, 1.0, 0.0,1.0,ALLEGRO_PLAYMODE_LOOP,NULL);
-     
+        //al_play_sample(sample, 1.0, 0.0,1.0,ALLEGRO_PLAYMODE_LOOP,NULL);
+
 	 //al_draw_bitmap(bouncer, bouncer_x, bouncer_y, 0);
 	   al_draw_bitmap(image,i2-800,0,0);
 	   al_draw_bitmap(image,i2+220,0,0);
+	   al_draw_bitmap(image,i2+1240,0,0);
 	   
 	   al_draw_bitmap(image2,i,500,0);
 	   al_draw_bitmap(image2,i+256,500,0);
@@ -343,7 +497,7 @@ int main(int argc, char **argv){
 	   al_draw_bitmap(image2,i+256*4,500,0);
 	   al_draw_bitmap(image2,i+256*5,500,0);
 	   
-	   al_draw_bitmap(image6,bouncer_x5+400,440,100);
+/*	   al_draw_bitmap(image6,bouncer_x5+400,440,100);
 	   al_draw_bitmap(image6,bouncer_x5+400+(62*1),440,100);
 	   al_draw_bitmap(image6,bouncer_x5+400+(62*2),440,100);
 	   al_draw_bitmap(image6,bouncer_x5+400+(62*3),440,100);
@@ -352,14 +506,14 @@ int main(int argc, char **argv){
 	   al_draw_bitmap(image6,bouncer_x5+400+(62*6),440,100);
 	   al_draw_bitmap(image6,bouncer_x5+400+(62*7),440,100);
 	   al_draw_bitmap(image6,bouncer_x5+400+(62*8),440,100);
-	 
+	 */
 	   
 	 //  al_draw_bitmap(image4,bouncer_x3,350,0);
 	   
 	   	al_draw_bitmap_region(image4,i4*140,0,140,150,bouncer_x3,355,0);
 	   	
 	   	
-	   	al_draw_bitmap_region(image3,9+(97*i5)-(i5/4),55+(96*i7),89,87,bouncer_x2-200, bouncer_y2+109,0);
+	   	al_draw_bitmap_region(image3,9+(97*i5)-(i5/4),55+(96*i7),89,87,bouncer_x2-200, bouncer_y2+70,0);
 	   //al_draw_bitmap(image3,bouncer_x2-200, bouncer_y2+115,0);
 	   
 	    if(bouncer_x3<bouncer_x2-125&&bouncer_x3>bouncer_x2-330){	   
@@ -367,23 +521,133 @@ int main(int argc, char **argv){
 			   curFrame==0;			      	
 				i3=1;
 				i4=0;
+				if(verifvida==0)
+				{
+				vida=vida-1;
+				verifvida=1;	
+					}
+				verifvida=1;
+				
 			
 			}
 		}
+		
 	   if(i3==1){
+		        al_play_sample(sample2, 1.0, 0.0,2.0,ALLEGRO_PLAYMODE_ONCE,NULL);
 		al_draw_bitmap_region(image5, (curFrame * frameWidth)-59, 0, frameWidth, frameHeight+20,bouncer_x2-300, bouncer_y2+30, 0);
+		
 		}
        if(curFrame==9)
-       {   
+       {      
+		   //al_destroy_sample(sample2);
 		   curFrame==0;
 		   i3=0;
+		   
 		   i4=1;
-		   }
+		   verifvida=0;
+		}
+		al_draw_text(font, al_map_rgb(0, 255, 0), 280, 50, 0, vidac);
+		al_draw_text(font, al_map_rgb(0, 255, 0), 210, 50, 0, "Vidas:");
+		al_draw_text(font, al_map_rgb(0, 255, 144), 580, 50, 0, scores);
+		al_draw_text(font, al_map_rgb(0, 255, 144), 510, 50, 0, "Score:");
+		
          al_flip_display();
          
       }
-   }
+   }else if(i10==2) //-------------------------------------------------------------------------------------------------------------
+   {
+	   
+	   
+	    al_wait_for_event(event_queue, &ev);
       
+     if(ev.mouse.x>0 && ev.mouse.x<1280&&ev.mouse.y>0 && ev.mouse.y<720){
+      auxx=ev.mouse.x;
+      auxy=ev.mouse.y;
+	}
+      
+      sprintf(aux3, "%d", auxx);
+      sprintf(aux4, "%d", auxy);
+      
+       if(auxx>454 && auxx<726&&auxy>499 && auxy<596)
+  {
+				i9=265;
+			}
+			else{
+					i9=0;
+				} 	
+		
+      
+  if(auxx>106 && auxx<313&&auxy>602 && auxy<671)
+  {
+				i8=215;
+			}
+			else{
+					i8=0;
+				} 	
+		
+		
+ 
+      if(ev.type == ALLEGRO_EVENT_TIMER) {
+         redraw = true;
+      }
+      else if(ev.type == ALLEGRO_EVENT_DISPLAY_CLOSE) {
+         break;
+      }
+      else if(ev.type == ALLEGRO_EVENT_MOUSE_AXES ||
+              ev.type == ALLEGRO_EVENT_MOUSE_ENTER_DISPLAY) {
+ 
+        
+      }
+      else if(ev.type == ALLEGRO_EVENT_MOUSE_BUTTON_UP) {
+		 if(auxx>106 && auxx<313&&auxy>602 && auxy<671)
+			 	break;
+		 if(auxx>454 && auxx<726&&auxy>499 && auxy<596)
+			 	i10=0;
+			
+      }
+
+ 
+ 
+      if(redraw && al_is_event_queue_empty(event_queue)) {
+         redraw = false;
+ 
+         al_clear_to_color(al_map_rgb(0,0,0));
+         
+                  
+        
+		//al_play_sample(sample3, 1.0, 0.0,1.0,ALLEGRO_PLAYMODE_ONCE,NULL);
+        
+	   // al_draw_bitmap(image7,0,0,0);
+	   
+		//al_draw_bitmap_region(image8,0+i9,0,260,95,457,500,0);
+		
+
+
+	
+ 
+ 
+         
+	   al_draw_bitmap(image,-600,0,0);
+	   al_draw_bitmap(image,420,0,0);
+	   
+	    al_draw_bitmap(image9,400,400,0);
+	     al_draw_bitmap(image10,770,220,0);
+	     
+	     al_draw_bitmap_region(image8,0+i8,90,210,90,100,590,0);
+	     
+	     	al_draw_text(font, al_map_rgb(255, 0, 255), 50, 50, 0, aux3);
+		al_draw_text(font, al_map_rgb(255, 0, 255), 10, 50, 0, "X:");
+		al_draw_text(font, al_map_rgb(255, 0, 255), 50, 100, 0, aux4);
+		al_draw_text(font, al_map_rgb(255, 0, 255), 10, 100, 0, "Y:");
+	    
+		al_draw_text(font, al_map_rgb(255, 0, 0), 580, 50, 0, "TE QUEDASTE SIN VIDAS MANCO");
+		al_draw_text(font, al_map_rgb(0, 255, 144), 580, 300, 0, scores);
+		al_draw_text(font, al_map_rgb(0, 255, 144), 510, 250, 0, "TU SCORE FINAL:");
+	   
+	   al_flip_display();
+	   }
+	   }
+  }
    
    al_destroy_timer(timer);
    al_destroy_display(display);
