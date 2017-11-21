@@ -1,0 +1,17 @@
+# Funcionalizacion
+
+- variables
+
+- inicializacion
+	* timer
+	* sonido
+	* pantalla
+	* fuentes
+	
+- gameloop
+	* menu 
+		· Normal
+		· Red
+	* partida
+	* fin
+   
