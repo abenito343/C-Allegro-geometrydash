@@ -153,7 +153,8 @@ int	Inicializar (ini_var *variables) {
 	(variables -> volverimg) = al_load_bitmap("volveralmenu.png");
 	
 	(variables -> muertofinimg)  = al_load_bitmap("muerto.png");
-	al_convert_mask_to_alpha((variables -> explosionimg), al_map_rgb(106, 76, 48));
+
+	al_convert_mask_to_alpha((variables -> explosionimg), al_map_rgb(106, 76, 48));		//DA CORE DUMP NETBOOK MAX
 	
 	al_init_font_addon();
 	al_init_ttf_addon();

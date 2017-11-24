@@ -583,7 +583,7 @@ int	GameLoop (ini_var *variables) {
 
 		else if(auxestadojuego == 0){
 			
-			auxestadojuego = partida (variables, vida, score, &scores);
+			auxestadojuego = partida (variables, vida, score, scores);
 		
 			if (auxestadojuego == -1) {
 			
@@ -595,7 +595,7 @@ int	GameLoop (ini_var *variables) {
 		
 		else if(auxestadojuego == 2) {
 			
-			auxestadojuego = fin (variables, &scores);
+			auxestadojuego = fin (variables, scores);
 			
 			if (auxestadojuego == -1) {
 			

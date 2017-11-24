@@ -14,7 +14,7 @@
 
 int main(int argc, char **argv){
  
-	ini_var *variables;
+	ini_var *variables = malloc (sizeof (ini_var));
 	
 	(variables -> display) = NULL;
 	(variables -> event_queue) = NULL;
@@ -52,3 +52,5 @@ int main(int argc, char **argv){
 	
 	return 0;
 }
+
+//fprintf (stderr, "hasta aca anda \n");
