@@ -14,7 +14,7 @@
 #include <allegro5/allegro_acodec.h>
 #include "datos.h"
 
-	const float FPS = 30;
+	const float FPS = 60;
 //	const int INI_SCREEN_W = 1280;
 //	const int INI_SCREEN_H = 720;
 
