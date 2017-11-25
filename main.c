@@ -46,9 +46,9 @@ int main(int argc, char **argv){
 	(variables -> font2) = NULL;
 	(variables -> temamenu) = NULL;
 	
-	Inicializar (variables);
+	Inicializar (&variables);
 	
-	GameLoop (variables);
+	GameLoop (&variables);
 	
 	return 0;
 }

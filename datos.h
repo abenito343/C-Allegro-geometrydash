@@ -43,4 +43,64 @@ typedef struct ini_var {
 	ALLEGRO_FONT   *font2;
 	ALLEGRO_SAMPLE *temamenu;
 	
+	bool key[2];
+	
 } ini_var;
+
+typedef struct posicion {
+	
+	float bouncer_x;
+	
+	float bouncer_x2;
+	float bouncer_y2;
+
+	float bouncer_x3;
+
+	float bouncer_x4;
+
+	float bouncer_x5;
+
+	float bouncer_x6;
+	float bouncer_y6;
+
+	float bouncer_dx;
+
+} posicion;
+
+typedef struct auxpartida {
+	
+	char vidac[2];
+	int verifvida;
+	
+	int aux1;
+	
+	int auxmoneda1,auxmoneda2;
+		
+	float auxpisox,auxfondox,auxcolision;
+	float auxspriteenemigo;
+	float auxspritecubox;
+	float auxspritecubov;
+	float auxspritecuboy;
+
+
+} auxpartida;
+
+typedef struct frameExplosion {
+
+	int curFrameExplosion;
+	int frameCountExplosion;
+	int frameDelayExplosion;
+	int frameWidthExplosion;
+	int frameHeightExplosion;
+
+} frameExplosion;
+
+typedef struct frameMonedita {
+	
+	int curFrameMonedita;
+	int frameCountMonedita;
+	int frameDelayMonedita;
+	int frameWidthMonedita;
+	int frameHeightMonedita;
+	
+} frameMonedita;

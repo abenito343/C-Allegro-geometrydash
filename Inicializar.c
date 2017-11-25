@@ -15,10 +15,19 @@
 #include "datos.h"
 
 	const float FPS = 60;
-	const int INI_SCREEN_W = 1280;
-	const int INI_SCREEN_H = 720;
+//	const int INI_SCREEN_W = 1280;
+//	const int INI_SCREEN_H = 720;
 
-int	Inicializar (ini_var *variables) {
+int	Inicializar (ini_var **var) {
+
+	ini_var *variables;
+	
+//	bool tecla[2] = { false , false };
+	
+	variables = *(var);
+	
+	(variables -> key)[0] = false;
+	(variables -> key)[1] = false;
 
 	if(!al_init()) {
 		al_show_native_message_box((variables -> display), "Error", "Error", "Failed to initialize allegro!", 
