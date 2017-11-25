@@ -20,7 +20,7 @@
 
 int menu (ini_var *mvariables, int *mvida, int *mscore) {
 
-	int mauxestadojuego;
+	int mauxestadojuego = 1;
 	int mauxopcionessalir,mauxopcionesjugar,mauxopcionesvolver;
 	int mauxx, mauxy;	//mouse
 	char maux3[11],maux4[11];
@@ -114,7 +114,7 @@ int partida (ini_var *pvariables, int *pvida, int *pscore, char *pscores[]) {
 	bool predraw = true;
 	bool key[2] = { false , false};	
 
-	int pauxestadojuego;
+	int pauxestadojuego = 0;
 	int pauxopcionessalir,pauxopcionesjugar,pauxopcionesvolver;
 	int pauxx, pauxy;	//mouse
 	char paux3[11],paux4[11];
@@ -311,7 +311,7 @@ int partida (ini_var *pvariables, int *pvida, int *pscore, char *pscores[]) {
 				}
 
 
-			*(pscore) ++;
+			*(pscore) = *(pscore) + 1;
 		//	bouncer_x2 -= 5;
 
 		/*	if(bouncer_x2 <= 0 - frameWidthExplosion)
@@ -406,7 +406,7 @@ int partida (ini_var *pvariables, int *pvida, int *pscore, char *pscores[]) {
 				auxspriteenemigo=0;
 				if(verifvida==0)
 				{
-				*(pvida) --;
+				*(pvida) = *(pvida) - 1;
 				verifvida=1;	
 					}
 				verifvida=1;
@@ -463,7 +463,7 @@ int fin (ini_var *fvariables, char *fscores[]) {
 
 	bool fredraw = true;
 		
-	int fauxestadojuego;
+	int fauxestadojuego = 2;
 	int fauxopcionessalir,fauxopcionesjugar,fauxopcionesvolver;
 	int fauxx, fauxy;	//mouse
 	char faux3[11], faux4[11];
@@ -559,7 +559,7 @@ int	GameLoop (ini_var *variables) {
 	
 	int auxestadojuego = 1;		// Arranca en el menu
 
-	int *vida = malloc (sizeof (int)); *(vida) =5;  // inicializa en 5?
+	int *vida = malloc (sizeof (int)); //*(vida) =5;  // inicializa en 5?
 	int *score = malloc (sizeof (int)); *(score) =0;	
 	char *scores[10];	
 
