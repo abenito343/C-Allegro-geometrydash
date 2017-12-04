@@ -410,6 +410,7 @@ int partida (ini_var **pvar, int *pvida, int *pscore, posicion *ppos, auxpartida
 			*(pscore) = *(pscore)+100; 
 			(ppos -> bouncer_x6)= (ppos -> bouncer_x6)+1500;
 			//al_play_sample((pvariables -> monedasfx), 1.0, 0.0,2.0,ALLEGRO_PLAYMODE_ONCE,NULL);
+			//al_play_sample((pvariables -> explosionsfx), 1.0, 0.0,2.0,ALLEGRO_PLAYMODE_ONCE,NULL);
 			(pauxpar -> auxmoneda2)=0;
 		}
 		
