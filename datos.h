@@ -12,10 +12,11 @@
 #include <sys/types.h>
 #include <sys/socket.h>
 #include <netinet/in.h>
+#include <netdb.h>
 
 enum MYKEYS {
 
-   KEY_UP,KEY_SPACE
+   KEY_UP, KEY_DOWN, KEY_LEFT, KEY_RIGHT, KEY_EXIT, KEY_SPACE
 };
 
 typedef struct ini_var {

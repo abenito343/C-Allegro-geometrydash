@@ -29,7 +29,9 @@ int main(int argc, char **argv){
 	
 	variablescliente *varcliente = malloc (sizeof (variablescliente));
 	
-	
+	(varcliente -> cantarg) = argc;				// Para probar unicamente
+	(varcliente -> strarg) = argv;		// Carga la ip en la lista de variables del cliente
+		
 	(variables -> display) = NULL;
 	(variables -> event_queue) = NULL;
 	(variables -> timer) = NULL;

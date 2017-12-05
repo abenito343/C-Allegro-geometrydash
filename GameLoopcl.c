@@ -12,7 +12,14 @@
 #include <allegro5/allegro_primitives.h>
 #include <allegro5/allegro_audio.h>
 #include <allegro5/allegro_acodec.h>
-#include "datos.h"
+
+#include <unistd.h>
+#include <sys/types.h>
+#include <sys/socket.h>
+#include <netinet/in.h>
+#include <netdb.h>
+
+#include "funcionesred.h"
 
 	const int SCREEN_W = 1280;
 	const int SCREEN_H = 720;
@@ -79,7 +86,7 @@ int menu (ini_var **mvar, int *mvida, int *mscore) {
 		if(mauxx > 485 && mauxx < 692 && mauxy > 602 && mauxy < 671)
 			return -1;
 		if(mauxx > 454 && mauxx < 726 && mauxy > 499 && mauxy < 596)
-				mauxestadojuego=0;
+				mauxestadojuego=3;										// ESTA EN 3 PARA PROBAR
 			
 	}
 
@@ -291,9 +298,24 @@ int partida (ini_var **pvar, int *pvida, int *pscore, char *pscores[], posicion 
 			
 			case ALLEGRO_KEY_UP:
 			(pvariables -> key)[KEY_UP] = true;
+			
+			if ((pvarcl -> netflag) == 1){
+				
+				put_network_data((pvarcl -> sockfd), (pvarcl -> buffer), KEY_UP, true);		// Manda por red tecla arriba
+				
+			}
+			
 			break;
+			
 			case ALLEGRO_KEY_SPACE:
 			(pvariables -> key)[KEY_SPACE] = true;
+			
+			if ((pvarcl -> netflag) == 1){
+				
+				put_network_data((pvarcl -> sockfd), (pvarcl -> buffer), KEY_SPACE, true);	// Manda por red barra espaciadora
+				
+			}			
+			
 			break;
 		}
 	}
@@ -302,10 +324,25 @@ int partida (ini_var **pvar, int *pvida, int *pscore, char *pscores[], posicion 
 			
 			case ALLEGRO_KEY_UP:
 			(pvariables -> key)[KEY_UP] = false;
+
+			if ((pvarcl -> netflag) == 1){
+				
+				put_network_data((pvarcl -> sockfd), (pvarcl -> buffer), KEY_UP, false);		// Manda por red tecla arriba
+				
+			}
+			
+	
 			break;
 			
 			case ALLEGRO_KEY_SPACE:
 			(pvariables -> key)[KEY_SPACE] = false;
+
+			if ((pvarcl -> netflag) == 1){
+				
+				put_network_data((pvarcl -> sockfd), (pvarcl -> buffer), KEY_SPACE, false);	// Manda por red barra espaciadora
+				
+			}			
+
 			break;
 		}
 	}
@@ -416,6 +453,12 @@ int partida (ini_var **pvar, int *pvida, int *pscore, char *pscores[], posicion 
 		
 	}
 	
+	if (((pvarcl -> netflag) == 1) && (pauxestadojuego == 2)) {
+		
+	   close((pvarcl -> sockfd));													// Cierra el socket si se termina el juego
+	
+	}
+	
 	return pauxestadojuego;
 
 }
@@ -519,17 +562,67 @@ int fin (ini_var **fvar, char *fscores[]) {
 	
 }
 
+// Funcion de inicializacion Cliente
+
+int inicializar_cl (variablescliente *varcl){
+	
+	(varcl -> netflag) = 0;
+	(varcl -> cx_stat) = 0;
+	
+// Inicializacion Server TCP
+
+    if ((varcl -> cantarg) < 2) {
+       fprintf(stderr,"usage %s hostname\n", (varcl -> strarg)[0]);
+       exit(0);
+    }
+
+    (varcl -> sockfd) = socket(AF_INET, SOCK_STREAM, 0);
+
+    if ((varcl -> sockfd) < 0) 
+        error("ERROR opening socket");
+
+    (varcl -> server) = gethostbyname((varcl -> strarg)[1]);
+
+    if ((varcl -> server) == NULL) {
+        fprintf(stderr,"ERROR, no such host\n");
+        exit(0);
+    }
+
+    memset((void *) &(varcl -> serv_addr), '\0', sizeof(varcl -> serv_addr));
+
+    (varcl -> serv_addr).sin_family = AF_INET;
+
+    bcopy((char *)(varcl -> server)->h_addr, 
+         (char *)&(varcl -> serv_addr).sin_addr.s_addr,
+         (varcl -> server) -> h_length);
+
+    (varcl -> serv_addr).sin_port = htons(PUERTO);
+
+    if (connect((varcl -> sockfd),(struct sockaddr *) &(varcl -> serv_addr),sizeof((varcl -> serv_addr))) < 0){
+		 
+		error("ERROR connecting");
+		
+		return 0;
+		
+	}
+
+	return 1;				// Si logro la cx devuelve 1
+	
+}
+
+
 // Pantalla para ingresar la ip del servidor
 
 int cargar_ip (ini_var **cvar, variablescliente *vcl) {		
 	
 	int cauxestadojuego = 3;
 	
-	(vcl -> cx_stat) = inicializar_cl (*vcl);
+	(vcl -> cx_stat) = inicializar_cl (vcl);
 	
 	if (vcl -> cx_stat) {
 		
-		cauxestadojuego = 0;
+		(vcl -> netflag) = 1;				// Activa el flag de modo de red
+		cauxestadojuego = 0;				// Si se conecta arranca la partida
 		
 	}
 	
@@ -537,7 +630,7 @@ int cargar_ip (ini_var **cvar, variablescliente *vcl) {
 	
 }
 
-int	GameLoop (ini_var **var, variablescliente *varcl) {
+int	GameLoop (ini_var **var, variablescliente *varcliente) {
 
 	ini_var *variables;
 
@@ -609,7 +702,7 @@ int	GameLoop (ini_var **var, variablescliente *varcl) {
 		
 		if(auxestadojuego == 3){
 			
-			auxestadojuego = cargar_ip (&variables, varcl);
+			auxestadojuego = cargar_ip (&variables, varcliente);
 		
 			if (auxestadojuego == -1) {
 			
@@ -621,7 +714,7 @@ int	GameLoop (ini_var **var, variablescliente *varcl) {
 
 		else if(auxestadojuego == 0){
 			
-			auxestadojuego = partida (&variables, vida, score, scores, pos, auxpar, fE, fM, varcl);
+			auxestadojuego = partida (&variables, vida, score, scores, pos, auxpar, fE, fM, varcliente);
 		
 			if (auxestadojuego == -1) {
 			
