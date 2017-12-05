@@ -8,6 +8,11 @@
 #include <allegro5/allegro_audio.h>
 #include <allegro5/allegro_acodec.h>
 
+#include <unistd.h>
+#include <sys/types.h>
+#include <sys/socket.h>
+#include <netinet/in.h>
+
 enum MYKEYS {
 
    KEY_UP,KEY_SPACE
@@ -104,3 +109,32 @@ typedef struct frameMonedita {
 	int frameHeightMonedita;
 	
 } frameMonedita;
+
+// Variables de Cliente TCP
+   
+typedef struct variablescliente {
+    
+    int cantarg;					//	argc del main
+    char **strarg;					//	argv del main
+		
+    int netflag;					//	Indica si esta en modo red
+	int cx_stat;					//	Indica si hay conexion (0 = sin cx; 1 = hay cx) (PROBAR)
+    
+    int sockfd;
+    struct sockaddr_in serv_addr;
+    struct hostent *server;
+	char buffer[256];
+
+} variablescliente;
+
+// Variables de Server TCP
+ 
+typedef struct variablesservidor {
+	
+    int sockfd, newsockfd;
+    socklen_t clilen;
+    char buffer[256];
+    struct sockaddr_in serv_addr, cli_addr;
+	int net, status, sentkey;
+
+} variablesservidor;

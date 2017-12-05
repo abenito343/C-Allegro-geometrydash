@@ -112,7 +112,7 @@ int menu (ini_var **mvar, int *mvida, int *mscore) {
 	return mauxestadojuego;
 }
 
-int partida (ini_var **pvar, int *pvida, int *pscore, char *pscores[], posicion *ppos, auxpartida *pauxpar, frameExplosion *pfE, frameMonedita *pfM) {
+int partida (ini_var **pvar, int *pvida, int *pscore, char *pscores[], posicion *ppos, auxpartida *pauxpar, frameExplosion *pfE, frameMonedita *pfM, variablescliente *pvarcl) {
 
 	ini_var *pvariables;
 
@@ -519,7 +519,25 @@ int fin (ini_var **fvar, char *fscores[]) {
 	
 }
 
-int	GameLoop (ini_var **var) {
+// Pantalla para ingresar la ip del servidor
+
+int cargar_ip (ini_var **cvar, variablescliente *vcl) {		
+	
+	int cauxestadojuego = 3;
+	
+	(vcl -> cx_stat) = inicializar_cl (*vcl);
+	
+	if (vcl -> cx_stat) {
+		
+		cauxestadojuego = 0;
+		
+	}
+	
+	return cauxestadojuego;
+	
+}
+
+int	GameLoop (ini_var **var, variablescliente *varcl) {
 
 	ini_var *variables;
 
@@ -588,10 +606,22 @@ int	GameLoop (ini_var **var) {
 			}
 
 		}
+		
+		if(auxestadojuego == 3){
+			
+			auxestadojuego = cargar_ip (&variables, varcl);
+		
+			if (auxestadojuego == -1) {
+			
+				break;
+			
+			}
+
+		}
 
 		else if(auxestadojuego == 0){
 			
-			auxestadojuego = partida (&variables, vida, score, scores, pos, auxpar, fE, fM);
+			auxestadojuego = partida (&variables, vida, score, scores, pos, auxpar, fE, fM, varcl);
 		
 			if (auxestadojuego == -1) {
 			
