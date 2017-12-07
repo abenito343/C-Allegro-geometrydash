@@ -18,7 +18,7 @@
 	const int SCREEN_H = 720;
 	const int BOUNCER_SIZE = 32;
 
-int menu (ini_var **mvar, int *mvida, int *mscore) {
+int menu (ini_var **mvar, int *mvida, int *mscore,int *mnivel) {
 
 	ini_var *mvariables;
 
@@ -33,6 +33,7 @@ int menu (ini_var **mvar, int *mvida, int *mscore) {
 
 	*(mvida) = 3;
 	*(mscore) = 0;
+	*(mnivel) =1;
 		
 	al_wait_for_event((mvariables -> event_queue), &(mvariables -> ev));
 	
@@ -112,14 +113,61 @@ int menu (ini_var **mvar, int *mvida, int *mscore) {
 	return mauxestadojuego;
 }
 
-int partida (ini_var **pvar, int *pvida, int *pscore, posicion *ppos, auxpartida *pauxpar, frameExplosion *pfE, frameMonedita *pfM) {
+int partida (ini_var **pvar, int *pvida, int *pscore, int *pnivel, posicion *ppos, auxpartida *pauxpar, frameExplosion *pfE, frameMonedita *pfM) {
 
 	ini_var *pvariables;
 
 	bool predraw = true;	
 
 	int pauxestadojuego = 0;
+	int pauxnivel;
 	
+	int auximagen;
+	
+	if(	*(pscore) >1000&&*(pscore) <2000)
+	*(pnivel)=2;
+	if(*(pscore) >2000&&*(pscore) <3000)
+	*(pnivel)=3;
+	if(*(pscore) >3000&&*(pscore) <4000)
+	*(pnivel)=4;
+	if(*(pscore) >4000&&*(pscore) <5000)
+	*(pnivel)=5;
+	
+	
+
+/*	
+    if(	*(pscore) <1000)
+		pauxnivel = 1;
+	if(	*(pscore)>1000 && 	*(pscore) <2000)
+		pauxnivel = 2;
+	if(	*(pscore)>2000 && 	*(pscore) <300)
+		pauxnivel = 3;
+	if(	*(pscore)>3000 && 	*(pscore)<4000)
+		pauxnivel = 4;
+	if(	*(pscore)>4000 )
+		pauxnivel = 5;
+		*/
+		
+	
+			switch(pauxnivel){	
+		case 1:
+			auximagen=0;
+			break;
+		case 2:
+			auximagen=1;
+			break;
+		case 3:
+			auximagen=2;
+			break;
+		case 4:
+			auximagen=3;
+			break;
+		case 5:
+			auximagen=4;
+			break;
+			}
+	
+	 
 	
 
 	const int maxFrameExplosion = 10;
@@ -326,6 +374,8 @@ int partida (ini_var **pvar, int *pvida, int *pscore, posicion *ppos, auxpartida
 		
 		sprintf((pauxpar -> scorec), "%d", *(pscore)); //esto
 		
+			sprintf((pauxpar -> nivelc), "%d", *(pnivel)); //esto
+		
 		
 	
 
@@ -335,16 +385,16 @@ int partida (ini_var **pvar, int *pvida, int *pscore, posicion *ppos, auxpartida
 		//al_play_sample((pvariables -> temajuego), 1.0, 0.0,1.0,ALLEGRO_PLAYMODE_LOOP,NULL);
 
 	//al_draw_bitmap(bouncer, (ppos -> bouncer_x), bouncer_y, 0);
-	al_draw_bitmap((pvariables -> fondoimg),(pauxpar -> auxfondox)-800,0,0);
-	al_draw_bitmap((pvariables -> fondoimg),(pauxpar -> auxfondox)+220,0,0);
-	al_draw_bitmap((pvariables -> fondoimg),(pauxpar -> auxfondox)+1240,0,0);
+	al_draw_bitmap(	pvariables -> fondoimg[*(pnivel)],(pauxpar -> auxfondox)-800,0,0);
+	al_draw_bitmap(	pvariables -> fondoimg[*(pnivel)],(pauxpar -> auxfondox)+220,0,0);
+	al_draw_bitmap(	pvariables -> fondoimg[*(pnivel)],(pauxpar -> auxfondox)+1240,0,0);
 	
-	al_draw_bitmap((pvariables -> pisoimg),(pauxpar -> auxpisox),500,0);
-	al_draw_bitmap((pvariables -> pisoimg),(pauxpar -> auxpisox)+256,500,0);
-	al_draw_bitmap((pvariables -> pisoimg),(pauxpar -> auxpisox)+256*2,500,0);
-	al_draw_bitmap((pvariables -> pisoimg),(pauxpar -> auxpisox)+256*3,500,0);
-	al_draw_bitmap((pvariables -> pisoimg),(pauxpar -> auxpisox)+256*4,500,0);
-	al_draw_bitmap((pvariables -> pisoimg),(pauxpar -> auxpisox)+256*5,500,0);
+	al_draw_bitmap(pvariables -> pisoimg[*(pnivel)],(pauxpar -> auxpisox),500,0);
+	al_draw_bitmap(pvariables -> pisoimg[*(pnivel)],(pauxpar -> auxpisox)+256,500,0);
+	al_draw_bitmap(pvariables -> pisoimg[*(pnivel)],(pauxpar -> auxpisox)+256*2,500,0);
+	al_draw_bitmap(pvariables -> pisoimg[*(pnivel)],(pauxpar -> auxpisox)+256*3,500,0);
+	al_draw_bitmap(pvariables -> pisoimg[*(pnivel)],(pauxpar -> auxpisox)+256*4,500,0);
+	al_draw_bitmap(pvariables -> pisoimg[*(pnivel)],(pauxpar -> auxpisox)+256*5,500,0);
 	
 /*	   al_draw_bitmap((pvariables -> bloqueimg)  ,(ppos -> bouncer_x5)+400,440,100);
 	al_draw_bitmap((pvariables -> bloqueimg)  ,(ppos -> bouncer_x5)+400+(62*1),440,100);
@@ -364,6 +414,8 @@ int partida (ini_var **pvar, int *pvida, int *pscore, posicion *ppos, auxpartida
 	al_draw_bitmap_region((pvariables -> monedaimg), ((pfM -> curFrameMonedita) * (pfM -> frameWidthMonedita))-13, 0, (pfM -> frameWidthMonedita), (pfM -> frameHeightMonedita)+20,(ppos -> bouncer_x6),(ppos -> bouncer_y6), 0);
 	
 	al_draw_text((pvariables -> font), al_map_rgb(0, 255, 144), 580, 50, 0, (pauxpar -> scorec));
+	
+	al_draw_text((pvariables -> font), al_map_rgb(0, 255, 144), 880, 50, 0, (pauxpar -> nivelc));
 		
 		al_draw_bitmap_region((pvariables -> cuboimg),9+(97*(pauxpar -> auxspritecubox))-((pauxpar -> auxspritecubox)/4),55+(96*(pauxpar -> auxspritecuboy)),89,87,(ppos -> bouncer_x2)-200, (ppos -> bouncer_y2)+70,0);
 	//al_draw_bitmap((pvariables -> cuboimg),(ppos -> bouncer_x2)-200, (ppos -> bouncer_y2)+115,0);
@@ -420,6 +472,8 @@ int partida (ini_var **pvar, int *pvida, int *pscore, posicion *ppos, auxpartida
 		al_draw_text((pvariables -> font), al_map_rgb(0, 255, 0), 210, 50, 0, "Vidas:");
 		al_draw_text((pvariables -> font), al_map_rgb(0, 255, 144), 580, 50, 0, (pauxpar -> scorec));
 		al_draw_text((pvariables -> font), al_map_rgb(0, 255, 144), 510, 50, 0, "Score:");
+		al_draw_text((pvariables -> font), al_map_rgb(0, 255, 255), 880, 50, 0, (pauxpar -> nivelc));
+		al_draw_text((pvariables -> font), al_map_rgb(0, 255, 255), 810, 50, 0, "Nivel:");
 		
 		al_flip_display();
 		
@@ -502,8 +556,10 @@ int fin (ini_var **fvar, auxpartida *pauxpar) {
 	
 		//al_draw_bitmap_region((fvariables -> opcionesmenuimg),0+fauxopcionesjugar,0,260,95,457,500,0);
 		
-		al_draw_bitmap((fvariables -> fondoimg),-600,0,0);
-		al_draw_bitmap((fvariables -> fondoimg),420,0,0);
+		
+		al_draw_bitmap((fvariables -> fondoimg[6]),-600,0,0);
+		al_draw_bitmap((fvariables -> fondoimg[6]),420,0,0);
+	
 		
 			
 		al_draw_bitmap((fvariables -> muertofinimg) ,790,330,0);
@@ -521,6 +577,10 @@ int fin (ini_var **fvar, auxpartida *pauxpar) {
 		al_draw_text((fvariables -> font2), al_map_rgb(0, 255, 144), 750, 300, 0, (pauxpar -> scorec));
 		
 		al_draw_text((fvariables -> font2), al_map_rgb(0, 255, 144), 380, 300, 0, "TU SCORE FINAL:");
+		
+		al_draw_text((fvariables -> font2), al_map_rgb(0, 255, 255), 900, 150, 0, (pauxpar -> nivelc));
+		
+		al_draw_text((fvariables -> font2), al_map_rgb(0, 255, 255), 280, 150, 0, "LLEGASTE HASTA EL NIVEL:");
 		
 		al_flip_display();
 	
@@ -544,6 +604,7 @@ int	GameLoop (ini_var **var) {
 	int *vida = malloc (sizeof (int)); //*(vida) =5;  // inicializa en 5?
 	int *score = malloc (sizeof (int)); *(score) =0;	
 	char *scores[10];	
+	int *nivel = malloc (sizeof (int)); *(nivel) =1;
 
 // Inicializacion de variables partidas
 
@@ -590,7 +651,7 @@ int	GameLoop (ini_var **var) {
 		
 		if(auxestadojuego == 1){
 			
-			auxestadojuego = menu (&variables, vida, score);
+			auxestadojuego = menu (&variables, vida, score,nivel);
 		
 			if (auxestadojuego == -1) {
 			
@@ -602,7 +663,7 @@ int	GameLoop (ini_var **var) {
 
 		else if(auxestadojuego == 0){
 			
-			auxestadojuego = partida (&variables, vida, score, pos, auxpar, fE, fM);
+			auxestadojuego = partida (&variables, vida, score,nivel, pos, auxpar, fE, fM);
 		
 			if (auxestadojuego == -1) {
 			
@@ -633,8 +694,17 @@ int	GameLoop (ini_var **var) {
 	al_destroy_sample(variables -> temajuego);
 	//al_destroy_bitmap(variables -> bouncer);
 	
-	al_destroy_bitmap(variables -> fondoimg);
-	al_destroy_bitmap(variables -> pisoimg);
+	/*al_destroy_bitmap(variables -> fondoimg1);
+	al_destroy_bitmap(variables -> fondoimg2);
+	al_destroy_bitmap(variables -> fondoimg3);
+	al_destroy_bitmap(variables -> fondoimg4);
+	al_destroy_bitmap(variables -> fondoimg5);*/
+	
+	/*al_destroy_bitmap(variables -> pisoimg1);
+	al_destroy_bitmap(variables -> pisoimg2);
+	al_destroy_bitmap(variables -> pisoimg3);
+	al_destroy_bitmap(variables -> pisoimg4);
+	al_destroy_bitmap(variables -> pisoimg5);*/
 	al_destroy_bitmap(variables -> cuboimg);
 	al_destroy_bitmap(variables -> enemigoimg );
 	al_destroy_bitmap(variables -> explosionimg);

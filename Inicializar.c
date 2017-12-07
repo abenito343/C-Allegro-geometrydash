@@ -150,9 +150,25 @@ int	Inicializar (ini_var **var) {
 	al_start_timer((variables -> timer));
 
 // Imagenes
+	//(variables -> fondoimg) = al_load_bitmap("imagenes/fondo5.png");
+	(variables -> fondoimg[0]) = al_load_bitmap("imagenes/fondo1.png");
+	(variables -> fondoimg[1]) = al_load_bitmap("imagenes/fondo1.png");
+	(variables -> fondoimg[2]) = al_load_bitmap("imagenes/fondo2.png");
+	(variables -> fondoimg[3])= al_load_bitmap("imagenes/fondo3.png");
+	(variables -> fondoimg[4]) = al_load_bitmap("imagenes/fondo4.png");
+	(variables -> fondoimg[5]) = al_load_bitmap("imagenes/fondo5.png");
+	(variables -> fondoimg[6]) = al_load_bitmap("imagenes/final.png");
 	
-	(variables -> fondoimg) = al_load_bitmap("imagenes/fondo1.png");
-	(variables -> pisoimg) = al_load_bitmap("imagenes/piso.png");
+	(variables -> pisoimg[0]) = al_load_bitmap("imagenes/piso1.png");
+	(variables -> pisoimg[1]) = al_load_bitmap("imagenes/piso1.png");
+	(variables -> pisoimg[2]) = al_load_bitmap("imagenes/piso2.png");
+	(variables -> pisoimg[3]) = al_load_bitmap("imagenes/piso3.png");
+	(variables -> pisoimg[4]) = al_load_bitmap("imagenes/piso4.png");
+	(variables -> pisoimg[5]) = al_load_bitmap("imagenes/piso5.png");
+	
+				
+	
+	
 	(variables -> enemigoimg)  = al_load_bitmap("imagenes/enemigo.png"); 
 	(variables -> explosionimg)= al_load_bitmap("imagenes/sprite_explosiones.png");
 	(variables -> bloqueimg)   = al_load_bitmap("imagenes/pared.png");
@@ -172,7 +188,7 @@ int	Inicializar (ini_var **var) {
 	(variables -> font) = al_load_font ("fuentes/Lato-Black.ttf" , 24 , 0);
 	(variables -> font2) = al_load_font ("fuentes/Strings Theory.otf" , 48 , 0);
 	
-	if(!(variables -> fondoimg)) {
+	if(!(variables -> fondoimg[0])) {
 		al_show_native_message_box((variables -> display), "Error", "Error", "Failed to load image!", 
 								NULL, ALLEGRO_MESSAGEBOX_ERROR);
 		al_destroy_display((variables -> display));

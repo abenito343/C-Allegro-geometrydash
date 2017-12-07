@@ -21,8 +21,12 @@ typedef struct ini_var {
 	
 	ALLEGRO_EVENT ev;
 	
-	ALLEGRO_BITMAP  *fondoimg;//fondo
-	ALLEGRO_BITMAP  *pisoimg;//piso
+	ALLEGRO_BITMAP  *fondoimg[7];
+
+	
+	ALLEGRO_BITMAP  *pisoimg[6];
+
+	
 	ALLEGRO_BITMAP  *cuboimg;//cubo
 	ALLEGRO_BITMAP  *enemigoimg;//enemigo
 	ALLEGRO_BITMAP  *explosionimg;//explosion
@@ -71,6 +75,7 @@ typedef struct auxpartida {
 	
 	char vidac[2];
 	char scorec[22];
+	char nivelc[5];
 	int verifvida;
 	
 	int aux1;
