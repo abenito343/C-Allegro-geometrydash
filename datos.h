@@ -38,6 +38,8 @@ typedef struct ini_var {
 	ALLEGRO_SAMPLE *temajuego;  
 	ALLEGRO_SAMPLE *explosionsfx;  
 	ALLEGRO_SAMPLE *monedasfx;
+	ALLEGRO_SAMPLE *levelsfx;
+   
    
 	// menu
 	

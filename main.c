@@ -49,7 +49,7 @@ int main(int argc, char **argv){
 	(variables -> temajuego) = NULL;  
 	(variables -> explosionsfx) = NULL;  
 	(variables -> monedasfx) = NULL;
-	
+	(variables -> levelsfx) = NULL;
 	
 	// menu
 	

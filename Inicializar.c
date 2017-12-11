@@ -78,7 +78,8 @@ int	Inicializar (ini_var **var) {
 	
 	(variables -> temajuego)= al_load_sample( "sonidos/Forever Bound - Stereo Madness.wav" );
 	(variables -> explosionsfx) = al_load_sample( "sonidos/explosion.wav" );
-	(variables -> monedasfx) = al_load_sample( "(sonidos/monedasfx).wav" );
+	(variables -> monedasfx) = al_load_sample( "sonidos/monedasfx.wav" );
+	(variables -> levelsfx) = al_load_sample( "sonidos/nivel.wav" );
 	(variables -> temamenu)= al_load_sample( "sobidos/DJVI - Back On Track.wav" );
 	
 	if (!(variables -> temajuego)){
