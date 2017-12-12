@@ -26,9 +26,11 @@ typedef struct ini_var {
 	
 	ALLEGRO_BITMAP  *pisoimg[6];
 
+	ALLEGRO_BITMAP  *enemigoimg[6];//enemigo
+	
 	
 	ALLEGRO_BITMAP  *cuboimg;//cubo
-	ALLEGRO_BITMAP  *enemigoimg;//enemigo
+	
 	ALLEGRO_BITMAP  *explosionimg;//explosion
 	ALLEGRO_BITMAP  *bloqueimg;//bloque
 	ALLEGRO_BITMAP  *muertofinimg; // muerto

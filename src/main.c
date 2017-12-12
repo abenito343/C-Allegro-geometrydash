@@ -35,10 +35,16 @@ int main(int argc, char **argv){
 	(variables -> pisoimg[3]) = NULL;
 	(variables -> pisoimg[4]) = NULL;
 	
+    (variables -> enemigoimg[0])   = NULL;
+    (variables -> enemigoimg[1])   = NULL;
+    (variables -> enemigoimg[2])   = NULL;
+    (variables -> enemigoimg[3])   = NULL;
+    (variables -> enemigoimg[4])   = NULL;
+    (variables -> enemigoimg[5])   = NULL;
 	
 				
 	(variables -> cuboimg)  = NULL;//cubo
-	(variables -> enemigoimg)   = NULL;//enemigo
+
 	(variables -> explosionimg)   = NULL;//explosion
 	(variables -> bloqueimg)   = NULL;//bloque
 	(variables -> muertofinimg)   = NULL; // muerto

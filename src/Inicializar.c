@@ -77,7 +77,7 @@ int	Inicializar (ini_var **var) {
 // Sonidos
 	
 	(variables -> temajuego)= al_load_sample( "sonidos/Forever Bound - Stereo Madness.wav" );
-	(variables -> explosionsfx) = al_load_sample( "sonidos/explosion.wav" );
+	(variables -> explosionsfx) = al_load_sample( "sonidos/explosion3.wav" );
 	(variables -> monedasfx) = al_load_sample( "sonidos/monedasfx.wav" );
 	(variables -> levelsfx) = al_load_sample( "sonidos/nivel.wav" );
 	(variables -> temamenu)= al_load_sample( "sobidos/DJVI - Back On Track.wav" );
@@ -167,10 +167,16 @@ int	Inicializar (ini_var **var) {
 	(variables -> pisoimg[4]) = al_load_bitmap("imagenes/piso4.png");
 	(variables -> pisoimg[5]) = al_load_bitmap("imagenes/piso5.png");
 	
+
+	(variables -> enemigoimg[1])  = al_load_bitmap("imagenes/enemigo12.jpg"); 
+	(variables -> enemigoimg[2])  = al_load_bitmap("imagenes/enemigo22.jpg"); 
+	(variables -> enemigoimg[3])  = al_load_bitmap("imagenes/enemigo3.png"); 
+	(variables -> enemigoimg[4])  = al_load_bitmap("imagenes/enemigo42.jpg");
+	(variables -> enemigoimg[5])  = al_load_bitmap("imagenes/enemigo52.jpg");   
 				
 	
 	
-	(variables -> enemigoimg)  = al_load_bitmap("imagenes/enemigo.png"); 
+
 	(variables -> explosionimg)= al_load_bitmap("imagenes/sprite_explosiones.png");
 	(variables -> bloqueimg)   = al_load_bitmap("imagenes/pared.png");
 	(variables -> fondomenuimg) = al_load_bitmap("imagenes/menu.jpg");
