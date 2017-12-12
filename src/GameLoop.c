@@ -133,7 +133,7 @@ int partida (ini_var **pvar, int *pvida, int *pscore, int *pnivel, posicion *ppo
 	if(*(pscore) >4000&&*(pscore) <5000)
 	*(pnivel)=5;
 	
-	if(*(pscore) = 1000||*(pscore) = 2000*(pscore) = 3000||*(pscore) = 4000)
+	//if(*(pscore) = 1000 || *(pscore) = 2000 || *(pscore) = 3000 || *(pscore) = 4000)
 	
 	
 			switch(pauxnivel){	
