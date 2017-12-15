@@ -62,7 +62,9 @@ typedef struct posicion {
 	float bouncer_x2;
 	float bouncer_y2;
 
-	float bouncer_x3;
+	float bouncer_x3a;
+	float bouncer_x3b;
+	float bouncer_x3c;
 
 	float bouncer_x4;
 
@@ -74,6 +76,15 @@ typedef struct posicion {
 	float bouncer_dx;
 
 } posicion;
+
+typedef struct niveles{
+	
+	int t_aparicion;
+	int clase;
+	
+	struct niveles *sig;
+	
+	} niveles;
 
 typedef struct auxpartida {
 	
