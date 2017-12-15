@@ -85,11 +85,10 @@ int	Inicializar (ini_var **var) {
 
 // Sonidos
 	
-	(variables -> temajuego)= al_load_sample( "sonidos/Forever Bound - Stereo Madness.wav" );
-	(variables -> explosionsfx) = al_load_sample( "sonidos/explosion3.wav" );
-	(variables -> monedasfx) = al_load_sample( "sonidos/monedasfx.wav" );
-	(variables -> levelsfx) = al_load_sample( "sonidos/nivel.wav" );
-	(variables -> temamenu)= al_load_sample( "sobidos/DJVI - Back On Track.wav" );
+	(variables -> temajuego)= al_load_sample( "Forever Bound - Stereo Madness.wav" );
+	(variables -> explosionsfx) = al_load_sample( "explosion.wav" );
+	(variables -> monedasfx) = al_load_sample( "(variables -> monedasfx).wav" );
+	(variables -> temamenu)= al_load_sample( "DJVI - Back On Track.wav" );
 	
 	if (!(variables -> temajuego)){
 		printf( "Audio clip sample not loaded!\n" ); 
@@ -107,7 +106,7 @@ int	Inicializar (ini_var **var) {
 	return -1;
 	}
 	
-	(variables -> cuboimg) = al_load_bitmap("imagenes/cubos.png");
+	(variables -> cuboimg) = al_load_bitmap("cubos.png");
 	
 	if(!(variables -> cuboimg)) {
 		al_show_native_message_box((variables -> display), "Error", "Error", "Failed to load image!", 
@@ -160,39 +159,18 @@ int	Inicializar (ini_var **var) {
 	al_start_timer((variables -> timer));
 
 // Imagenes
-	//(variables -> fondoimg) = al_load_bitmap("imagenes/fondo5.png");
-	(variables -> fondoimg[0]) = al_load_bitmap("imagenes/fondo1.png");
-	(variables -> fondoimg[1]) = al_load_bitmap("imagenes/fondo1.png");
-	(variables -> fondoimg[2]) = al_load_bitmap("imagenes/fondo2.png");
-	(variables -> fondoimg[3])= al_load_bitmap("imagenes/fondo3.png");
-	(variables -> fondoimg[4]) = al_load_bitmap("imagenes/fondo4.png");
-	(variables -> fondoimg[5]) = al_load_bitmap("imagenes/fondo5.png");
-	(variables -> fondoimg[6]) = al_load_bitmap("imagenes/final.png");
 	
-	(variables -> pisoimg[0]) = al_load_bitmap("imagenes/piso1.png");
-	(variables -> pisoimg[1]) = al_load_bitmap("imagenes/piso1.png");
-	(variables -> pisoimg[2]) = al_load_bitmap("imagenes/piso2.png");
-	(variables -> pisoimg[3]) = al_load_bitmap("imagenes/piso3.png");
-	(variables -> pisoimg[4]) = al_load_bitmap("imagenes/piso4.png");
-	(variables -> pisoimg[5]) = al_load_bitmap("imagenes/piso5.png");
+	(variables -> fondoimg) = al_load_bitmap("fondo1.png");
+	(variables -> pisoimg) = al_load_bitmap("piso.png");
+	(variables -> enemigoimg)  = al_load_bitmap("enemigo.png"); 
+	(variables -> explosionimg)= al_load_bitmap("sprite_explosiones.png");
+	(variables -> bloqueimg)   = al_load_bitmap("pared.png");
+	(variables -> fondomenuimg) = al_load_bitmap("menu.jpg");
+	(variables -> opcionesmenuimg) = al_load_bitmap("opciones.png");
+	(variables -> monedaimg) = al_load_bitmap("monedita.png");
+	(variables -> volverimg) = al_load_bitmap("volveralmenu.png");
 	
-
-	(variables -> enemigoimg[1])  = al_load_bitmap("imagenes/enemigo12.jpg"); 
-	(variables -> enemigoimg[2])  = al_load_bitmap("imagenes/enemigo22.jpg"); 
-	(variables -> enemigoimg[3])  = al_load_bitmap("imagenes/enemigo3.png"); 
-	(variables -> enemigoimg[4])  = al_load_bitmap("imagenes/enemigo42.jpg");
-	(variables -> enemigoimg[5])  = al_load_bitmap("imagenes/enemigo52.jpg");   
-				
-	
-	
-
-	(variables -> explosionimg)= al_load_bitmap("imagenes/sprite_explosiones.png");
-	(variables -> bloqueimg)   = al_load_bitmap("imagenes/pared.png");
-	(variables -> fondomenuimg) = al_load_bitmap("imagenes/menu.jpg");
-	(variables -> opcionesmenuimg) = al_load_bitmap("imagenes/opciones.png");
-	(variables -> monedaimg) = al_load_bitmap("imagenes/monedita.png");
-	(variables -> volverimg) = al_load_bitmap("imagenes/volveralmenu.png");
-	(variables -> muertofinimg)  = al_load_bitmap("imagenes/muerto.png");
+	(variables -> muertofinimg)  = al_load_bitmap("muerto.png");
 
 	al_convert_mask_to_alpha((variables -> explosionimg), al_map_rgb(106, 76, 48));		//DA CORE DUMP NETBOOK MAX
 	
@@ -201,10 +179,10 @@ int	Inicializar (ini_var **var) {
 
 // Fuentes
 	
-	(variables -> font) = al_load_font ("fuentes/Lato-Black.ttf" , 24 , 0);
-	(variables -> font2) = al_load_font ("fuentes/Strings Theory.otf" , 48 , 0);
+	(variables -> font) = al_load_font ("Lato-Black.ttf" , 24 , 0);
+	(variables -> font2) = al_load_font ("Strings Theory.otf" , 48 , 0);
 	
-	if(!(variables -> fondoimg[0])) {
+	if(!(variables -> fondoimg)) {
 		al_show_native_message_box((variables -> display), "Error", "Error", "Failed to load image!", 
 								NULL, ALLEGRO_MESSAGEBOX_ERROR);
 		al_destroy_display((variables -> display));

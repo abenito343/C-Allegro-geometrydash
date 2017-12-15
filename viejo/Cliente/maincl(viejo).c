@@ -37,30 +37,11 @@ int main(int argc, char **argv){
 	(variables -> timer) = NULL;
 	//ALLEGRO_BITMAP *bouncer = NULL;
 	
-	(variables -> fondoimg[0]) = NULL;
-	(variables -> fondoimg[1]) = NULL;
-	(variables -> fondoimg[2]) = NULL;
-	(variables -> fondoimg[3]) = NULL;
-	(variables -> fondoimg[4]) = NULL;
-	(variables -> fondoimg[5]) = NULL;
 	
-	
-	(variables -> pisoimg[0]) = NULL;
-	(variables -> pisoimg[1]) = NULL;
-	(variables -> pisoimg[2]) = NULL;
-	(variables -> pisoimg[3]) = NULL;
-	(variables -> pisoimg[4]) = NULL;
-	
-    (variables -> enemigoimg[0])   = NULL;
-    (variables -> enemigoimg[1])   = NULL;
-    (variables -> enemigoimg[2])   = NULL;
-    (variables -> enemigoimg[3])   = NULL;
-    (variables -> enemigoimg[4])   = NULL;
-    (variables -> enemigoimg[5])   = NULL;
-	
-				
+	(variables -> fondoimg)   = NULL;//fondo
+	(variables -> pisoimg)   = NULL;//piso
 	(variables -> cuboimg)  = NULL;//cubo
-
+	(variables -> enemigoimg)   = NULL;//enemigo
 	(variables -> explosionimg)   = NULL;//explosion
 	(variables -> bloqueimg)   = NULL;//bloque
 	(variables -> muertofinimg)   = NULL; // muerto
@@ -71,7 +52,7 @@ int main(int argc, char **argv){
 	(variables -> temajuego) = NULL;  
 	(variables -> explosionsfx) = NULL;  
 	(variables -> monedasfx) = NULL;
-	(variables -> levelsfx) = NULL;
+	
 	
 	// menu
 	
