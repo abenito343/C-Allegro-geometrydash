@@ -23,7 +23,7 @@ int menu (ini_var **mvar, int *mvida, int *mscore,int *mnivel) {
 	ini_var *mvariables;
 
 	int mauxestadojuego = 1;
-	int mauxopcionessalir,mauxopcionesjugar,mauxopcionesvolver;	//No se usa volver
+	int mauxopcionessalir,mauxopcionesjugar,mauxopcionesvolver,mauxjugarenlinea;	//No se usa volver
 	int mauxx, mauxy;	//mouse
 	char maux3[11],maux4[11];
 	
@@ -54,9 +54,19 @@ int menu (ini_var **mvar, int *mvida, int *mscore,int *mnivel) {
 	else{
 			mauxopcionesjugar=0;
 	} 	
+	if(mauxx > 354 && mauxx < 970 && mauxy > 610 && mauxy < 680) {
+		
+		mauxjugarenlinea=93;
+		
+	}
+	
+	else{
+			mauxjugarenlinea=0;
+	} 	
+	
 		
 	
-	if(mauxx > 485 && mauxx < 692 && mauxy > 602 && mauxy < 671) {
+		if(mauxx > 1056 && mauxx < 1263 && mauxy > 637 && mauxy < 706) {
 
 		mauxopcionessalir=215;
 	}
@@ -77,34 +87,40 @@ int menu (ini_var **mvar, int *mvida, int *mscore,int *mnivel) {
 		
 	}
 	else if((mvariables -> ev).type == ALLEGRO_EVENT_MOUSE_BUTTON_UP) {
-		if(mauxx > 485 && mauxx < 692 && mauxy > 602 && mauxy < 671)
+		if(mauxx > 1056 && mauxx < 1263 && mauxy > 637 && mauxy < 706)
 			return -1;
 		if(mauxx > 454 && mauxx < 726 && mauxy > 499 && mauxy < 596)
 				mauxestadojuego=0;
-			
+		if(mauxx > 354 && mauxx < 970 && mauxy > 610 && mauxy < 680) {
+			mauxestadojuego=3;
+		}
 	}
 
 
 
 	if(mredraw && al_is_event_queue_empty(mvariables -> event_queue)) {
 		mredraw = false;
-
-		al_clear_to_color(al_map_rgb(0,0,0));
 		
-				
+		
+		
+		
+		al_clear_to_color(al_map_rgb(0,0,0));
 		
 		//al_play_sample((mvariables -> temamenu), 1.0, 0.0,1.0,ALLEGRO_PLAYMODE_ONCE,NULL);
 		
 		al_draw_bitmap((mvariables -> fondomenuimg),0,0,0);
-	
+		
 		al_draw_bitmap_region((mvariables -> opcionesmenuimg),0+mauxopcionesjugar,0,260,95,457,500,0);
-		al_draw_bitmap_region((mvariables -> opcionesmenuimg),0+mauxopcionessalir,90,210,90,479,590,0);
+		
+		al_draw_bitmap_region((mvariables -> jugarenlineaimg),0,0+mauxjugarenlinea,650,95,350,590,0);
+		
+		al_draw_bitmap_region((mvariables -> opcionesmenuimg),0+mauxopcionessalir,90,210,90,1050,625,0);//y625 x1050 y+35 x + 71
 
-
+/*
 		al_draw_text((mvariables -> font), al_map_rgb(255, 0, 255), 50, 50, 0, maux3);
 		al_draw_text((mvariables -> font), al_map_rgb(255, 0, 255), 10, 50, 0, "X:");
 		al_draw_text((mvariables -> font), al_map_rgb(255, 0, 255), 50, 100, 0, maux4);
-		al_draw_text((mvariables -> font), al_map_rgb(255, 0, 255), 10, 100, 0, "Y:");
+		al_draw_text((mvariables -> font), al_map_rgb(255, 0, 255), 10, 100, 0, "Y:");*/
 
 
 		al_flip_display();
@@ -113,6 +129,194 @@ int menu (ini_var **mvar, int *mvida, int *mscore,int *mnivel) {
 	return mauxestadojuego;
 }
 
+int ingresarip (ini_var **ivar ) {
+
+	ini_var *ivariables;
+	
+	
+	int iauxestadojuego = 3;
+	char *ip;
+	char ip2[33];
+	
+	int auxip,auxip2,auxip3,auxip4;
+	
+	
+	bool iredraw = true;
+	
+	ivariables = *(ivar);
+		
+	al_wait_for_event((ivariables -> event_queue), &(ivariables -> ev));
+	
+
+	if(auxip3!=1)
+	{	
+		auxip=0;
+		auxip2=0;
+		//ip[0]=NULL;
+		//ip[0]="1";
+	}
+		auxip3=1;
+
+	if((ivariables -> ev).type == ALLEGRO_EVENT_TIMER) {
+		iredraw = true;
+				
+		
+		if((ivariables -> key)[KEY_1] ) {
+			
+			auxip=1;
+			//ip[0]="1";
+			//ip[auxip2]="1";
+			auxip2=auxip2+1;
+	
+		}  	  
+		
+		if((ivariables -> key)[KEY_2] ) {
+		
+			auxip=2;	
+		}	
+		
+			if((ivariables -> key)[KEY_3] ) {
+		
+			auxip=3;	
+		}	
+
+		if((ivariables -> key)[KEY_4] ) {
+		
+			auxip=4;	
+		}	
+
+		if((ivariables -> key)[KEY_5] ) {
+		
+			auxip=5;	
+		}	
+
+		if((ivariables -> key)[KEY_6] ) {
+		
+			auxip=6;	
+		}	
+
+		if((ivariables -> key)[KEY_7] ) {
+		
+			auxip=7;	
+		}	
+
+		if((ivariables -> key)[KEY_8] ) {
+		
+			auxip=8;	
+		}	
+
+		if((ivariables -> key)[KEY_9] ) {
+		
+			auxip=9;	
+		}	
+
+		if((ivariables -> key)[KEY_0] ) {
+		
+			auxip=0;	
+		}	
+
+		
+		sprintf(ip, "%d",auxip);
+		strcpy(ip2,ip);
+	}
+		else if((ivariables -> ev).type == ALLEGRO_EVENT_KEY_DOWN) {
+		switch((ivariables -> ev).keyboard.keycode) {
+			
+			case ALLEGRO_KEY_1:
+			(ivariables -> key)[KEY_1] = true;
+			break;
+			case ALLEGRO_KEY_2:
+			(ivariables -> key)[KEY_2] = true;
+			break;
+			case ALLEGRO_KEY_3:
+			(ivariables -> key)[KEY_3] = true;
+			break;
+			case ALLEGRO_KEY_4:
+			(ivariables -> key)[KEY_4] = true;
+			break;
+			case ALLEGRO_KEY_5:
+			(ivariables -> key)[KEY_5] = true;
+			break;
+			case ALLEGRO_KEY_6:
+			(ivariables -> key)[KEY_6] = true;
+			break;
+			case ALLEGRO_KEY_7:
+			(ivariables -> key)[KEY_7] = true;
+			break;
+			case ALLEGRO_KEY_8:
+			(ivariables -> key)[KEY_8] = true;
+			break;
+			case ALLEGRO_KEY_9:
+			(ivariables -> key)[KEY_9] = true;
+			break;
+			case ALLEGRO_KEY_0:
+			(ivariables -> key)[KEY_0] = true;
+			break;
+		}
+	}
+	else if((ivariables -> ev).type == ALLEGRO_EVENT_KEY_UP) {
+		switch((ivariables -> ev).keyboard.keycode) {
+			
+			case ALLEGRO_KEY_1:
+			(ivariables -> key)[KEY_1] = false;
+			break;
+			
+			case ALLEGRO_KEY_2:
+			(ivariables -> key)[KEY_2] = false;
+			break;
+			case ALLEGRO_KEY_3:
+			(ivariables -> key)[KEY_3] = false;
+			break;
+			case ALLEGRO_KEY_4:
+			(ivariables -> key)[KEY_4] = false;
+			break;
+			case ALLEGRO_KEY_5:
+			(ivariables -> key)[KEY_5] = false;
+			break;
+			case ALLEGRO_KEY_6:
+			(ivariables -> key)[KEY_6] = false;
+			break;
+			case ALLEGRO_KEY_7:
+			(ivariables -> key)[KEY_7] = false;
+			break;
+			case ALLEGRO_KEY_8:
+			(ivariables -> key)[KEY_8] = false;
+			break;
+			case ALLEGRO_KEY_9:
+			(ivariables -> key)[KEY_9] = false;
+			break;
+			case ALLEGRO_KEY_0:
+			(ivariables -> key)[KEY_0] = false;
+			break;
+		}
+	}
+		
+	else if((ivariables -> ev).type == ALLEGRO_EVENT_DISPLAY_CLOSE) {
+		return -1;
+	}
+
+
+
+
+	if(iredraw && al_is_event_queue_empty(ivariables -> event_queue)) {
+		iredraw = false;
+
+		al_clear_to_color(al_map_rgb(0,0,0));
+		
+		
+		al_draw_bitmap((ivariables -> fondoipimg),-764,0,0);
+		al_draw_bitmap((ivariables -> fondoipimg),200,0,0);
+		al_draw_bitmap((ivariables -> fondoipimg),1224,0,0);
+		al_draw_text((ivariables -> font2), al_map_rgb(0, 0, 255), 280, 100, 0, "Inserte su IP:");
+		al_draw_text((ivariables -> font2), al_map_rgb(0, 0, 255), 300, 200, 0, ip);
+	//	al_draw_text((ivariables -> font2), al_map_rgb(0, 0, 255), 300, 250, 0, ip2);
+		//+(auxip2*30),
+
+		al_flip_display();
+	}
+	
+	return iauxestadojuego;
+}
 int partida (ini_var **pvar, int *pvida, int *pscore, int *pnivel, posicion *ppos, auxpartida *pauxpar, frameExplosion *pfE, frameMonedita *pfM) {
 
 	ini_var *pvariables;
@@ -559,10 +763,10 @@ int fin (ini_var **fvar, auxpartida *pauxpar) {
 		al_draw_bitmap_region((fvariables -> volverimg),0+fauxopcionesvolver,0,400,400,350,390,0);
 		al_draw_bitmap_region((fvariables -> opcionesmenuimg),0+fauxopcionessalir,90,210,90,400,590,0);
 		
-		al_draw_text((fvariables -> font), al_map_rgb(255, 0, 255), 50, 50, 0, faux3);
+		/*al_draw_text((fvariables -> font), al_map_rgb(255, 0, 255), 50, 50, 0, faux3);
 		al_draw_text((fvariables -> font), al_map_rgb(255, 0, 255), 10, 50, 0, "X:");
 		al_draw_text((fvariables -> font), al_map_rgb(255, 0, 255), 50, 100, 0, faux4);
-		al_draw_text((fvariables -> font), al_map_rgb(255, 0, 255), 10, 100, 0, "Y:");
+		al_draw_text((fvariables -> font), al_map_rgb(255, 0, 255), 10, 100, 0, "Y:");*/
 		
 		al_draw_text((fvariables -> font2), al_map_rgb(255, 0, 0), 280, 50, 0, "TE QUEDASTE SIN VIDAS MANCO");
 		
@@ -668,6 +872,17 @@ int	GameLoop (ini_var **var) {
 		else if(auxestadojuego == 2) {
 			
 			auxestadojuego = fin (&variables, auxpar);
+			
+			if (auxestadojuego == -1) {
+			
+				break;
+			
+			}
+
+		}
+		else if(auxestadojuego == 3) {
+			
+			auxestadojuego = ingresarip (&variables);
 			
 			if (auxestadojuego == -1) {
 			
