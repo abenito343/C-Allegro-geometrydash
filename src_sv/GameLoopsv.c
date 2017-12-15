@@ -1,4 +1,4 @@
-// GameLoop y sus funciones cliente
+// GameLoop y sus funciones server
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -25,102 +25,7 @@
 	const int SCREEN_H = 720;
 	const int BOUNCER_SIZE = 32;
 
-int menu (ini_var **mvar, int *mvida, int *mscore,int *mnivel) {
-
-	ini_var *mvariables;
-
-	int mauxestadojuego = 1;
-	int mauxopcionessalir,mauxopcionesjugar,mauxopcionesvolver;	//No se usa volver
-	int mauxx, mauxy;	//mouse
-	char maux3[11],maux4[11];
-	
-	bool mredraw = true;
-	
-	mvariables = *(mvar);
-
-	*(mvida) = 3;
-	*(mscore) = 0;
-	*(mnivel) =1;
-		
-	al_wait_for_event((mvariables -> event_queue), &(mvariables -> ev));
-	
-	if(((mvariables -> ev).mouse.x > 0) && (((mvariables -> ev).mouse.x) < 1280) && (((mvariables -> ev).mouse.y) > 0) && ((mvariables -> ev).mouse.y < 720)){
-		mauxx=(mvariables -> ev).mouse.x;
-		mauxy=(mvariables -> ev).mouse.y;
-	}
-	
-	sprintf(maux3, "%d", mauxx);
-	sprintf(maux4, "%d", mauxy);
-	
-	if(mauxx > 454 && mauxx < 726 && mauxy > 499 && mauxy < 596) {
-		
-		mauxopcionesjugar=265;
-		
-	}
-	
-	else{
-			mauxopcionesjugar=0;
-	} 	
-		
-	
-	if(mauxx > 485 && mauxx < 692 && mauxy > 602 && mauxy < 671) {
-
-		mauxopcionessalir=215;
-	}
-	
-	else{
-		mauxopcionessalir=0;
-	} 		
-
-	if((mvariables -> ev).type == ALLEGRO_EVENT_TIMER) {
-		mredraw = true;
-	}
-	else if((mvariables -> ev).type == ALLEGRO_EVENT_DISPLAY_CLOSE) {
-		return -1;
-	}
-	else if((mvariables -> ev).type == ALLEGRO_EVENT_MOUSE_AXES ||
-			(mvariables -> ev).type == ALLEGRO_EVENT_MOUSE_ENTER_DISPLAY) {
-
-		
-	}
-	else if((mvariables -> ev).type == ALLEGRO_EVENT_MOUSE_BUTTON_UP) {
-		if(mauxx > 485 && mauxx < 692 && mauxy > 602 && mauxy < 671)
-			return -1;
-		if(mauxx > 454 && mauxx < 726 && mauxy > 499 && mauxy < 596)
-				mauxestadojuego=3;										// ESTA EN 3 PARA PROBAR
-			
-	}
-
-
-
-	if(mredraw && al_is_event_queue_empty(mvariables -> event_queue)) {
-		mredraw = false;
-
-		al_clear_to_color(al_map_rgb(0,0,0));
-		
-				
-		
-		//al_play_sample((mvariables -> temamenu), 1.0, 0.0,1.0,ALLEGRO_PLAYMODE_ONCE,NULL);
-		
-		al_draw_bitmap((mvariables -> fondomenuimg),0,0,0);
-	
-		al_draw_bitmap_region((mvariables -> opcionesmenuimg),0+mauxopcionesjugar,0,260,95,457,500,0);
-		al_draw_bitmap_region((mvariables -> opcionesmenuimg),0+mauxopcionessalir,90,210,90,479,590,0);
-
-
-		al_draw_text((mvariables -> font), al_map_rgb(255, 0, 255), 50, 50, 0, maux3);
-		al_draw_text((mvariables -> font), al_map_rgb(255, 0, 255), 10, 50, 0, "X:");
-		al_draw_text((mvariables -> font), al_map_rgb(255, 0, 255), 50, 100, 0, maux4);
-		al_draw_text((mvariables -> font), al_map_rgb(255, 0, 255), 10, 100, 0, "Y:");
-
-
-		al_flip_display();
-	}
-	
-	return mauxestadojuego;
-}
-
-int partida (ini_var **pvar, int *pvida, int *pscore, int *pnivel, posicion *ppos, auxpartida *pauxpar, frameExplosion *pfE, frameMonedita *pfM, variablescliente *pvarcl) {
+int partida (ini_var **pvar, int *pvida, int *pscore, int *pnivel, posicion *ppos, auxpartida *pauxpar, frameExplosion *pfE, frameMonedita *pfM) {
 
 	ini_var *pvariables;
 
@@ -329,7 +234,10 @@ int partida (ini_var **pvar, int *pvida, int *pscore, int *pnivel, posicion *ppo
 	else if((pvariables -> ev).type == ALLEGRO_EVENT_DISPLAY_CLOSE) {
 		return -1;
 	} 
-	else if((pvariables -> ev).type == ALLEGRO_EVENT_KEY_DOWN) {
+
+// Teclado Desactivado en server
+
+/*	else if((pvariables -> ev).type == ALLEGRO_EVENT_KEY_DOWN) {
 		switch((pvariables -> ev).keyboard.keycode) {
 			
 			case ALLEGRO_KEY_UP:
@@ -382,7 +290,7 @@ int partida (ini_var **pvar, int *pvida, int *pscore, int *pnivel, posicion *ppo
 			break;
 		}
 	}
-
+*/
 	if(predraw && al_is_event_queue_empty((pvariables -> event_queue))) {
 		predraw = false;
 		
@@ -510,7 +418,7 @@ int partida (ini_var **pvar, int *pvida, int *pscore, int *pnivel, posicion *ppo
 
 }
 
-int fin (ini_var **fvar, auxpartida *pauxpar) {
+int fin (ini_var **fvar, auxpartida *pauxpar, variablesservidor *fvarsv) {
 
 	ini_var *fvariables;
 
@@ -565,8 +473,9 @@ int fin (ini_var **fvar, auxpartida *pauxpar) {
 	else if((fvariables -> ev).type == ALLEGRO_EVENT_MOUSE_BUTTON_UP) {
 		if(fauxx>406 && fauxx<613&&fauxy>602 && fauxy<671)
 				return -1;
-		if(fauxx>355 && fauxx<750&&fauxy>400 && fauxy<560)
-				fauxestadojuego=1;
+		if(fauxx>355 && fauxx<750&&fauxy>400 && fauxy<560)		// Cambia el estado para volver al menu
+				fauxestadojuego = 1;
+				close (fvarsv -> sockfd);						// Cierra el socket
 			
 	}
 	
@@ -617,71 +526,60 @@ int fin (ini_var **fvar, auxpartida *pauxpar) {
 
 // Funcion de inicializacion Cliente
 
-int inicializar_cl (variablescliente *varcl){
+int wait_cx (variablesservidor *varsv){
+
+    printf("Esperando jugador en red...\n");	
 	
-	(varcl -> netflag) = 0;
-	(varcl -> cx_stat) = 0;
+    // Llamado bloqueante a accept()
+    (varsv -> newsockfd) = accept(varsv -> sockfd, (struct sockaddr *) &(varsv -> cli_addr), &(varsv -> clilen));
+    if ((varsv -> newsockfd) < 0) error("ERROR on accept");
+    printf("Conexion jugador aceptada!\n");
 
-    if ((varcl -> cantarg) < 2) {
-       fprintf(stderr,"usage %s hostname\n", (varcl -> strarg)[0]);
-       exit(0);
-    }
-
-    (varcl -> sockfd) = socket(AF_INET, SOCK_STREAM, 0);
-
-    if ((varcl -> sockfd) < 0) 
-        error("ERROR opening socket");
-
-    (varcl -> server) = gethostbyname((varcl -> strarg)[1]);
-
-    if ((varcl -> server) == NULL) {
-        fprintf(stderr,"ERROR, no such host\n");
-        exit(0);
-    }
-
-    memset((void *) &(varcl -> serv_addr), '\0', sizeof(varcl -> serv_addr));
-
-    (varcl -> serv_addr).sin_family = AF_INET;
-
-    bcopy((char *)(varcl -> server)->h_addr, 
-         (char *)&(varcl -> serv_addr).sin_addr.s_addr,
-         (varcl -> server) -> h_length);
-
-    (varcl -> serv_addr).sin_port = htons(PUERTO);
-
-    if (connect((varcl -> sockfd),(struct sockaddr *) &(varcl -> serv_addr),sizeof((varcl -> serv_addr))) < 0){
-		 
-		error("ERROR connecting");
-		
-		return 0;
-		
-	}
-
-	return 1;				// Si logro la cx devuelve 1
+	return 0;				// Si logro la cx devuelve 0
 	
 }
 
+int receive_data (ini_var **rvar, variablesservidor *varsv2) {
 
-// Pantalla para ingresar la ip del servidor
+	ini_var *rvariables;
+	
+	rvariables = *(rvar);	
+	
+	(varsv2 -> net) = get_network_data((varsv2 -> newsockfd), (varsv2 -> buffer), &(varsv2 -> status), &(varsv2 -> sentkey));
 
-int cargar_ip (ini_var **cvar, variablescliente *vcl) {		
-	
-	int cauxestadojuego = 3;
-	
-	(vcl -> cx_stat) = inicializar_cl (vcl);
-	
-	if (vcl -> cx_stat) {
+	if((varsv2 -> net) == 1) {
 		
-		(vcl -> netflag) = 1;				// Activa el flag de modo de red
-		cauxestadojuego = 0;				// Si se conecta arranca la partida
-		
+		switch(varsv2 -> sentkey) {
+			case KEY_UP:
+				if(varsv2 -> status){
+					(rvariables -> key)[KEY_UP] = true;
+				}
+				else {
+					(rvariables -> key)[KEY_UP] = false;
+				}
+				break;
+				
+			case KEY_SPACE:
+				if(varsv2 -> status){
+					(rvariables -> key)[KEY_SPACE] = true;
+				}
+				else {
+					(rvariables -> key)[KEY_SPACE] = false;
+				}
+				break;
+				
+/*			case KEY_EXIT:
+				doexit = true;
+				break;               
+*/		}
+	
 	}
-	
-	return cauxestadojuego;
-	
+    return 0;
+        
 }
 
-int	GameLoop (ini_var **var, variablescliente *varcliente) {
+
+int	GameLoop (ini_var **var, variablesservidor *varservidor) {
 
 	ini_var *variables;
 
@@ -742,31 +640,21 @@ int	GameLoop (ini_var **var, variablescliente *varcliente) {
 		
 		if(auxestadojuego == 1){
 			
-			auxestadojuego = menu (&variables, vida, score, nivel);
+			auxestadojuego = wait_cx (varservidor);
 		
 			if (auxestadojuego == -1) {
 			
 				break;
 			
 			}
-
-		}
 		
-		if(auxestadojuego == 3){
-			
-			auxestadojuego = cargar_ip (&variables, varcliente);
-		
-			if (auxestadojuego == -1) {
-			
-				break;
-			
-			}
-
 		}
 
 		else if(auxestadojuego == 0){
 			
-			auxestadojuego = partida (&variables, vida, score, nivel, pos, auxpar, fE, fM, varcliente);
+			receive_data (&variables, varservidor);
+			
+			auxestadojuego = partida (&variables, vida, score, nivel, pos, auxpar, fE, fM);
 		
 			if (auxestadojuego == -1) {
 			
@@ -778,7 +666,7 @@ int	GameLoop (ini_var **var, variablescliente *varcliente) {
 		
 		else if(auxestadojuego == 2) {
 			
-			auxestadojuego = fin (&variables, auxpar);
+			auxestadojuego = fin (&variables, auxpar, varservidor);
 			
 			if (auxestadojuego == -1) {
 			
@@ -815,4 +703,4 @@ int	GameLoop (ini_var **var, variablescliente *varcliente) {
 	
 	return 0;
 	
-	}
+}

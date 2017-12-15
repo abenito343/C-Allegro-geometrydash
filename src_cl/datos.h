@@ -14,6 +14,9 @@
 #include <netinet/in.h>
 #include <netdb.h>
 
+#define PUERTO 9123
+#define MY_EVENT_TYPE ALLEGRO_GET_EVENT_TYPE('S','O','C','K')
+
 enum MYKEYS {
 
    KEY_UP, KEY_DOWN, KEY_LEFT, KEY_RIGHT, KEY_EXIT, KEY_SPACE

@@ -14,6 +14,9 @@
 #include <netinet/in.h>
 #include <netdb.h>
 
+#define PUERTO 9123
+#define MY_EVENT_TYPE ALLEGRO_GET_EVENT_TYPE('S','O','C','K')
+
 enum MYKEYS {
 
    KEY_UP, KEY_DOWN, KEY_LEFT, KEY_RIGHT, KEY_EXIT, KEY_SPACE
@@ -27,10 +30,16 @@ typedef struct ini_var {
 	
 	ALLEGRO_EVENT ev;
 	
-	ALLEGRO_BITMAP  *fondoimg;//fondo
-	ALLEGRO_BITMAP  *pisoimg;//piso
+	ALLEGRO_BITMAP  *fondoimg[7];
+
+	
+	ALLEGRO_BITMAP  *pisoimg[6];
+
+	ALLEGRO_BITMAP  *enemigoimg[6];//enemigo
+	
+	
 	ALLEGRO_BITMAP  *cuboimg;//cubo
-	ALLEGRO_BITMAP  *enemigoimg;//enemigo
+	
 	ALLEGRO_BITMAP  *explosionimg;//explosion
 	ALLEGRO_BITMAP  *bloqueimg;//bloque
 	ALLEGRO_BITMAP  *muertofinimg; // muerto
@@ -40,6 +49,8 @@ typedef struct ini_var {
 	ALLEGRO_SAMPLE *temajuego;  
 	ALLEGRO_SAMPLE *explosionsfx;  
 	ALLEGRO_SAMPLE *monedasfx;
+	ALLEGRO_SAMPLE *levelsfx;
+   
    
 	// menu
 	
@@ -76,6 +87,8 @@ typedef struct posicion {
 typedef struct auxpartida {
 	
 	char vidac[2];
+	char scorec[22];
+	char nivelc[5];
 	int verifvida;
 	
 	int aux1;

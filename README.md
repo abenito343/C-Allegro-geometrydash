@@ -1,2 +1,7 @@
-# gitrepo_info1_template
-Template de repositorio git para Info1
+# Instrucciones
+
+1ero)   Compilar    (carpeta anotaciones para mas detalles)
+
+2do)    Ejecutar servidor
+
+3ro)    Ejecutar cliente
