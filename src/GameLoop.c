@@ -641,10 +641,10 @@ int Niveles(niveles** INI1){
 	char buffer[30];
 	int i;
 	
-	
-	fp = fopen("nivel2.txt","r");
+	printf("s\n");
+	fp = fopen("N","r");
 	if(!fp) return -1;
-
+	
 	 //NIVEL
 		memset(buffer,0,30);
 		while(fgets(buffer,30,fp)!=NULL){ 
@@ -671,6 +671,7 @@ int Niveles(niveles** INI1){
 				aux_comp->sig=aux;
 					}
 				memset(buffer,0,30);
+				printf("%d;%d\n",aux->t_aparicion,aux->clase);
 			}
 				
 
@@ -697,7 +698,7 @@ int	GameLoop (ini_var **var) {
 	char *scores[10];	
 	int *nivel = malloc (sizeof (int)); *(nivel) =1;
 	niveles *p=NULL,*aux_comp=NULL,*INI1=NULL;
-	int i;
+	int i,k;
 
 // Inicializacion de variables partidas
 
@@ -741,7 +742,9 @@ int	GameLoop (ini_var **var) {
 	bool doexit = false;	//AL PEDO
 	
 	variables = *(var);
-	Niveles(&INI1);
+	
+	k=Niveles(&INI1);
+	printf("%d\n",k);
 		
 	while(1) {			// Si alguna etapa devuelve -1 cierra el juego
 		
