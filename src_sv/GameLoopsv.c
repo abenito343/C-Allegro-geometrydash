@@ -540,7 +540,7 @@ int wait_cx (variablesservidor *varsv){
 }
 
 int receive_data (ini_var **rvar, variablesservidor *varsv2) {
-
+fprintf (stderr, "hasta aca anda \n");								// ANDA CON ESTO
 	ini_var *rvariables;
 	
 	rvariables = *(rvar);	
@@ -588,11 +588,11 @@ int	GameLoop (ini_var **var, variablesservidor *varservidor) {
 	frameExplosion *fE = malloc (sizeof (frameExplosion));
 	frameMonedita *fM = malloc (sizeof (frameMonedita));
 		
-	int auxestadojuego = 1;		// Arranca en el menu
+	int auxestadojuego = 1;		// Arranca esperando la cx
 
-	int *vida = malloc (sizeof (int)); //*(vida) =5;  // inicializa en 5?
+	int *vida = malloc (sizeof (int)); *(vida) = 3;
 	int *score = malloc (sizeof (int)); *(score) =0;	
-	char *scores[10];	
+//	char *scores[10];	//Sin uso
 	int *nivel = malloc (sizeof (int)); *(nivel) =1;
 
 // Inicializacion de variables partidas
@@ -641,9 +641,13 @@ int	GameLoop (ini_var **var, variablesservidor *varservidor) {
 		if(auxestadojuego == 1){
 			
 			auxestadojuego = wait_cx (varservidor);
+
+			*(vida) = 3;
+			*(score) = 0;	
+			*(nivel) = 1;
 		
 			if (auxestadojuego == -1) {
-			
+				
 				break;
 			
 			}
@@ -677,6 +681,8 @@ int	GameLoop (ini_var **var, variablesservidor *varservidor) {
 		}
 		
 	}
+	
+	close (varservidor -> sockfd);						// Cierra el socket
 	
 	al_destroy_timer(variables -> timer);
 	al_destroy_display(variables -> display);

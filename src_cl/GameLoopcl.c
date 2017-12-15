@@ -328,8 +328,12 @@ int partida (ini_var **pvar, int *pvida, int *pscore, int *pnivel, posicion *ppo
 	}
 	else if((pvariables -> ev).type == ALLEGRO_EVENT_DISPLAY_CLOSE) {
 		return -1;
-	} 
-	else if((pvariables -> ev).type == ALLEGRO_EVENT_KEY_DOWN) {
+
+/* ************************
+ * Envio de teclas por red
+ *************************/
+
+	} else if((pvariables -> ev).type == ALLEGRO_EVENT_KEY_DOWN) {
 		switch((pvariables -> ev).keyboard.keycode) {
 			
 			case ALLEGRO_KEY_UP:
@@ -694,7 +698,7 @@ int	GameLoop (ini_var **var, variablescliente *varcliente) {
 
 	int *vida = malloc (sizeof (int)); //*(vida) =5;  // inicializa en 5?
 	int *score = malloc (sizeof (int)); *(score) =0;	
-	char *scores[10];	
+//	char *scores[10];	//No se usa mas
 	int *nivel = malloc (sizeof (int)); *(nivel) =1;
 
 // Inicializacion de variables partidas
