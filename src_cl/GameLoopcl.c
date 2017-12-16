@@ -25,6 +25,9 @@
 	const int SCREEN_H = 720;
 	const int BOUNCER_SIZE = 32;
 
+	const int maxFrameExplosion = 10;	
+	const int maxFrameMonedita= 4;
+			
 int menu (ini_var **mvar, int *mvida, int *mscore,int *mnivel) {
 
 	ini_var *mvariables;
@@ -127,10 +130,7 @@ int partida (ini_var **pvar, int *pvida, int *pscore, int *pnivel, posicion *ppo
 	bool predraw = true;	
 
 	int pauxestadojuego = 0;
-	int pauxnivel;
-	
-	int auximagen;
-	
+
 	if(	*(pscore) >1000&&*(pscore) <2000)
 	*(pnivel)=2;
 	if(*(pscore) >2000&&*(pscore) <3000)
@@ -143,31 +143,6 @@ int partida (ini_var **pvar, int *pvida, int *pscore, int *pnivel, posicion *ppo
 	if(*(pscore) == 1000 || *(pscore) == 2000 || *(pscore) == 3000 || *(pscore) == 4000)
 	al_play_sample((pvariables -> levelsfx), 1.0, 0.0,1.2,ALLEGRO_PLAYMODE_ONCE,NULL);
 	
-			switch(pauxnivel){	
-		case 1:
-			auximagen=0;
-			break;
-		case 2:
-			auximagen=1;
-			break;
-		case 3:
-			auximagen=2;
-			break;
-		case 4:
-			auximagen=3;
-			break;
-		case 5:
-			auximagen=4;
-			break;
-			}
-	
-	 
-
-
-	const int maxFrameExplosion = 10;
-	
-	const int maxFrameMonedita= 4;
-			
 	pvariables = *(pvar);
 
 	al_wait_for_event((pvariables -> event_queue), &(pvariables -> ev));
@@ -341,7 +316,7 @@ int partida (ini_var **pvar, int *pvida, int *pscore, int *pnivel, posicion *ppo
 			
 			if ((pvarcl -> netflag) == 1){
 				
-				put_network_data((pvarcl -> sockfd), (pvarcl -> buffer), KEY_UP, true);		// Manda por red tecla arriba
+				put_network_data((pvarcl -> sockfd), (pvarcl -> buffercl), KEY_UP, true);		// Manda por red tecla arriba
 				
 			}
 			
@@ -352,7 +327,7 @@ int partida (ini_var **pvar, int *pvida, int *pscore, int *pnivel, posicion *ppo
 			
 			if ((pvarcl -> netflag) == 1){
 				
-				put_network_data((pvarcl -> sockfd), (pvarcl -> buffer), KEY_SPACE, true);	// Manda por red barra espaciadora
+				put_network_data((pvarcl -> sockfd), (pvarcl -> buffercl), KEY_SPACE, true);	// Manda por red barra espaciadora
 				
 			}			
 			
@@ -367,7 +342,7 @@ int partida (ini_var **pvar, int *pvida, int *pscore, int *pnivel, posicion *ppo
 
 			if ((pvarcl -> netflag) == 1){
 				
-				put_network_data((pvarcl -> sockfd), (pvarcl -> buffer), KEY_UP, false);		// Manda por red tecla arriba
+				put_network_data((pvarcl -> sockfd), (pvarcl -> buffercl), KEY_UP, false);		// Manda por red tecla arriba
 				
 			}
 			
@@ -379,7 +354,7 @@ int partida (ini_var **pvar, int *pvida, int *pscore, int *pnivel, posicion *ppo
 
 			if ((pvarcl -> netflag) == 1){
 				
-				put_network_data((pvarcl -> sockfd), (pvarcl -> buffer), KEY_SPACE, false);	// Manda por red barra espaciadora
+				put_network_data((pvarcl -> sockfd), (pvarcl -> buffercl), KEY_SPACE, false);	// Manda por red barra espaciadora
 				
 			}			
 
@@ -587,8 +562,8 @@ int fin (ini_var **fvar, auxpartida *pauxpar) {
 	
 		//al_draw_bitmap_region((fvariables -> opcionesmenuimg),0+fauxopcionesjugar,0,260,95,457,500,0);
 		
-		al_draw_bitmap((fvariables -> fondoimg),-600,0,0);
-		al_draw_bitmap((fvariables -> fondoimg),420,0,0);
+		al_draw_bitmap((fvariables -> fondoimg[6]),-600,0,0);
+		al_draw_bitmap((fvariables -> fondoimg[6]),420,0,0);
 		
 			
 		al_draw_bitmap((fvariables -> muertofinimg) ,790,330,0);

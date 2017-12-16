@@ -2,8 +2,6 @@
 
 #include "datos.h"
 
-#define PUERTO 9123
-
 void error(const char *msg)
 {
     perror(msg);

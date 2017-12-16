@@ -25,6 +25,9 @@
 	const int SCREEN_H = 720;
 	const int BOUNCER_SIZE = 32;
 
+	const int maxFrameExplosion = 10;	
+	const int maxFrameMonedita= 4;
+
 int partida (ini_var **pvar, int *pvida, int *pscore, int *pnivel, posicion *ppos, auxpartida *pauxpar, frameExplosion *pfE, frameMonedita *pfM) {
 
 	ini_var *pvariables;
@@ -32,10 +35,7 @@ int partida (ini_var **pvar, int *pvida, int *pscore, int *pnivel, posicion *ppo
 	bool predraw = true;	
 
 	int pauxestadojuego = 0;
-	int pauxnivel;
-	
-	int auximagen;
-	
+
 	if(	*(pscore) >1000&&*(pscore) <2000)
 	*(pnivel)=2;
 	if(*(pscore) >2000&&*(pscore) <3000)
@@ -46,32 +46,7 @@ int partida (ini_var **pvar, int *pvida, int *pscore, int *pnivel, posicion *ppo
 	*(pnivel)=5;
 	
 	if(*(pscore) == 1000 || *(pscore) == 2000 || *(pscore) == 3000 || *(pscore) == 4000)
-	al_play_sample((pvariables -> levelsfx), 1.0, 0.0,1.2,ALLEGRO_PLAYMODE_ONCE,NULL);
-	
-			switch(pauxnivel){	
-		case 1:
-			auximagen=0;
-			break;
-		case 2:
-			auximagen=1;
-			break;
-		case 3:
-			auximagen=2;
-			break;
-		case 4:
-			auximagen=3;
-			break;
-		case 5:
-			auximagen=4;
-			break;
-			}
-	
-	 
-
-
-	const int maxFrameExplosion = 10;
-	
-	const int maxFrameMonedita= 4;
+//	al_play_sample((pvariables -> levelsfx), 1.0, 0.0,1.2,ALLEGRO_PLAYMODE_ONCE,NULL);		//NO ANDA
 			
 	pvariables = *(pvar);
 
@@ -492,8 +467,8 @@ int fin (ini_var **fvar, auxpartida *pauxpar, variablesservidor *fvarsv) {
 	
 		//al_draw_bitmap_region((fvariables -> opcionesmenuimg),0+fauxopcionesjugar,0,260,95,457,500,0);
 		
-		al_draw_bitmap((fvariables -> fondoimg),-600,0,0);
-		al_draw_bitmap((fvariables -> fondoimg),420,0,0);
+		al_draw_bitmap((fvariables -> fondoimg[6]),-600,0,0);
+		al_draw_bitmap((fvariables -> fondoimg[6]),420,0,0);
 		
 			
 		al_draw_bitmap((fvariables -> muertofinimg) ,790,330,0);
@@ -540,12 +515,12 @@ int wait_cx (variablesservidor *varsv){
 }
 
 int receive_data (ini_var **rvar, variablesservidor *varsv2) {
-fprintf (stderr, "hasta aca anda \n");								// ANDA CON ESTO
+
 	ini_var *rvariables;
 	
 	rvariables = *(rvar);	
 	
-	(varsv2 -> net) = get_network_data((varsv2 -> newsockfd), (varsv2 -> buffer), &(varsv2 -> status), &(varsv2 -> sentkey));
+	(varsv2 -> net) = get_network_data((varsv2 -> newsockfd), (varsv2 -> buffersv), &(varsv2 -> status), &(varsv2 -> sentkey));
 
 	if((varsv2 -> net) == 1) {
 		
