@@ -601,17 +601,17 @@ int inicializar_cl (variablescliente *varcl){
 	(varcl -> netflag) = 0;
 	(varcl -> cx_stat) = 0;
 
-    if ((varcl -> cantarg) < 2) {
+/*    if ((varcl -> cantarg) < 2) {
        fprintf(stderr,"usage %s hostname\n", (varcl -> strarg)[0]);
        exit(0);
     }
-
+*/
     (varcl -> sockfd) = socket(AF_INET, SOCK_STREAM, 0);
 
     if ((varcl -> sockfd) < 0) 
         error("ERROR opening socket");
 
-    (varcl -> server) = gethostbyname((varcl -> strarg)[1]);
+    (varcl -> server) = gethostbyname(varcl -> hname);
 
     if ((varcl -> server) == NULL) {
         fprintf(stderr,"ERROR, no such host\n");
@@ -644,9 +644,205 @@ int inicializar_cl (variablescliente *varcl){
 // Pantalla para ingresar la ip del servidor
 
 int cargar_ip (ini_var **cvar, variablescliente *vcl) {		
+
+	ini_var *ivariables;
+		
+	int cauxestadojuego = 3,tecla;// "tecla": Ind. que impide que hagas letras de mas.
+	char *ip;
+	char ip2[33];
 	
-	int cauxestadojuego = 3;
+	int auxip,auxip2,auxip3,auxip4,act;//numero|cantidad de numeros|indicador prim. vez|?|indicador de tecla|
 	
+	if(auxip3!=1)
+	{	
+		auxip=0;
+		act=0;
+		auxip2=0;
+
+		memset(ip2,0,33);
+		
+	}
+	if(auxip2<12){
+			
+			
+		bool iredraw = true;
+		
+		ivariables = *(cvar);
+			
+		al_wait_for_event((ivariables -> event_queue), &(ivariables -> ev));
+		
+		
+		if((ivariables -> ev).type == ALLEGRO_EVENT_TIMER) {
+			iredraw = true;
+				
+			
+			if((ivariables -> key)[KEY_1] ) {
+				auxip=1;act=1;
+			}  	  
+			
+			if((ivariables -> key)[KEY_2] ) {
+				auxip=2;act=1;
+			}	
+			
+			if((ivariables -> key)[KEY_3] ) {
+				auxip=3;act=1;
+					}	
+
+			if((ivariables -> key)[KEY_4] ) {
+				auxip=4;act=1;
+					}	
+
+			if((ivariables -> key)[KEY_5] ) {
+				auxip=5;act=1;
+			}	
+
+			if((ivariables -> key)[KEY_6] ) {
+				auxip=6;act=1; 
+			}	
+
+			if((ivariables -> key)[KEY_7] ) {
+				auxip=7;act=1;
+				 
+			}	
+
+			if((ivariables -> key)[KEY_8] ) {
+				auxip=8;act=1;
+			}	
+
+			if((ivariables -> key)[KEY_9] ) {
+				auxip=9;act=1;
+					}	
+
+			if((ivariables -> key)[KEY_0] ) {
+				auxip=0;act=1;
+			}	
+			if(tecla!=1 && act==1){
+					
+					
+					auxip2=auxip2+1;
+					if(auxip3!=1)
+					{	
+						sprintf(ip, "%d",auxip);
+						strcpy(ip2,ip);
+					}
+					else{
+			
+					sprintf(ip, "%d",auxip);
+					strcat(ip2,ip);}
+					auxip3=1;
+				}tecla=1;act=0;
+
+		}
+			else if((ivariables -> ev).type == ALLEGRO_EVENT_KEY_DOWN) {
+			switch((ivariables -> ev).keyboard.keycode) {
+				
+				case ALLEGRO_KEY_1:
+				tecla=0;
+				(ivariables -> key)[KEY_1] = true;
+				break;
+				case ALLEGRO_KEY_2:
+				tecla=0;
+				(ivariables -> key)[KEY_2] = true;
+				break;
+				case ALLEGRO_KEY_3:
+				tecla=0;
+				(ivariables -> key)[KEY_3] = true;
+				break;
+				case ALLEGRO_KEY_4:
+				tecla=0;
+				(ivariables -> key)[KEY_4] = true;
+				break;
+				case ALLEGRO_KEY_5:
+				tecla=0;
+				(ivariables -> key)[KEY_5] = true;
+				break;
+				case ALLEGRO_KEY_6:
+				tecla=0;
+				(ivariables -> key)[KEY_6] = true;
+				break;
+				case ALLEGRO_KEY_7:
+				tecla=0;
+				(ivariables -> key)[KEY_7] = true;
+				break;
+				case ALLEGRO_KEY_8:
+				tecla=0;
+				(ivariables -> key)[KEY_8] = true;
+				break;
+				case ALLEGRO_KEY_9:
+				tecla=0;
+				(ivariables -> key)[KEY_9] = true;
+				break;
+				case ALLEGRO_KEY_0:
+				tecla=0;
+				(ivariables -> key)[KEY_0] = true;
+				break;
+			}
+		}
+		else if((ivariables -> ev).type == ALLEGRO_EVENT_KEY_UP) {
+			
+			switch((ivariables -> ev).keyboard.keycode) {
+				
+				case ALLEGRO_KEY_1:
+				(ivariables -> key)[KEY_1] = false;
+				break;
+				
+				case ALLEGRO_KEY_2:
+				(ivariables -> key)[KEY_2] = false;
+				break;
+				case ALLEGRO_KEY_3:
+				(ivariables -> key)[KEY_3] = false;
+				break;
+				case ALLEGRO_KEY_4:
+				(ivariables -> key)[KEY_4] = false;
+				break;
+				case ALLEGRO_KEY_5:
+				(ivariables -> key)[KEY_5] = false;
+				break;
+				case ALLEGRO_KEY_6:
+				(ivariables -> key)[KEY_6] = false;
+				break;
+				case ALLEGRO_KEY_7:
+				(ivariables -> key)[KEY_7] = false;
+				break;
+				case ALLEGRO_KEY_8:
+				(ivariables -> key)[KEY_8] = false;
+				break;
+				case ALLEGRO_KEY_9:
+				(ivariables -> key)[KEY_9] = false;
+				break;
+				case ALLEGRO_KEY_0:
+				(ivariables -> key)[KEY_0] = false;
+				break;
+			}
+		}
+			
+		else if((ivariables -> ev).type == ALLEGRO_EVENT_DISPLAY_CLOSE) {
+			return -1;
+		}
+
+
+
+
+		if(iredraw && al_is_event_queue_empty(ivariables -> event_queue)) {
+			iredraw = false;
+
+			al_clear_to_color(al_map_rgb(0,0,0));
+			
+			
+//			al_draw_bitmap((ivariables -> fondoipimg),-764,0,0);
+//			al_draw_bitmap((ivariables -> fondoipimg),200,0,0);
+//			al_draw_bitmap((ivariables -> fondoipimg),1224,0,0);
+			al_draw_text((ivariables -> font2), al_map_rgb(0, 0, 255), 280, 100, 0, "Inserte su IP:");
+			al_draw_text((ivariables -> font2), al_map_rgb(0, 0, 255), 300, 250, 0, ip2);
+			//+(auxip2*30),
+
+			al_flip_display();
+		}
+		
+	}
+	
+	strcpy((vcl -> hname),ip2);	
+		
 	(vcl -> cx_stat) = inicializar_cl (vcl);
 	
 	if (vcl -> cx_stat) {

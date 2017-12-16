@@ -19,7 +19,7 @@
 
 enum MYKEYS {
 
-   KEY_UP, KEY_DOWN, KEY_LEFT, KEY_RIGHT, KEY_EXIT, KEY_SPACE
+   KEY_UP, KEY_DOWN, KEY_LEFT, KEY_RIGHT, KEY_EXIT, KEY_SPACE,KEY_0,KEY_1,KEY_2,KEY_3,KEY_4,KEY_5,KEY_6,KEY_7,KEY_8,KEY_9,KEY_0_PAD,KEY_1_PAD,KEY_2_PAD,KEY_3_PAD,KEY_4_PAD,KEY_5_PAD,KEY_6_PAD,KEY_7_PAD,KEY_8_PAD,KEY_9_PAD
 };
 
 typedef struct ini_var {
@@ -55,7 +55,9 @@ typedef struct ini_var {
 	// menu
 	
 	ALLEGRO_BITMAP  *fondomenuimg; // fondo menu
+	ALLEGRO_BITMAP  *fondoipimg; // fondo menu
 	ALLEGRO_BITMAP  *opcionesmenuimg; // opciones menu
+    ALLEGRO_BITMAP  *jugarenlineaimg;
 	ALLEGRO_FONT   *font;
 	ALLEGRO_FONT   *font2;
 	ALLEGRO_SAMPLE *temamenu;
@@ -127,9 +129,8 @@ typedef struct frameMonedita {
 // Variables de Cliente TCP
    
 typedef struct variablescliente {
-    
-    int cantarg;					//	argc del main
-    char **strarg;					//	argv del main
+    					
+    char *hname;					
 		
     int netflag;					//	Indica si esta en modo red
 	int cx_stat;					//	Indica si hay conexion (0 = sin cx; 1 = hay cx) (PROBAR)
