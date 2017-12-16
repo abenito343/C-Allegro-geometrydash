@@ -329,7 +329,7 @@ int ingresarip (ini_var **ivar ) {
 	else{						/* HAY QUE MODIFICAR TODO ESTE ELSE PARA SOCKETS*/
 								/* Sino no funciona */
 	iauxestadojuego=0;
-	strcpy((vcl->strarg)[1],ip2); /* esta linea es ficticia por ahora y no va funcinar */
+	//strcpy((vcl->strarg)[1],ip2); /* esta linea es ficticia por ahora y no va funcinar */
 	}
 	return iauxestadojuego;
 }
@@ -460,10 +460,17 @@ int partida (ini_var **pvar, int *pvida, int *pscore, int *pnivel, posicion *ppo
 		(ppos -> bouncer_x4)+= (ppos -> bouncer_dx)/3;
 						
 			
-		if((ppos -> bouncer_x3) < -256)                
-			(ppos -> bouncer_x3)= (ppos -> bouncer_x3)+1556;
-		(ppos -> bouncer_x3) += (ppos -> bouncer_dx)*20*(*(pnivel)*0.1);
+		if((ppos -> bouncer_x3a) < -256)                
+			(ppos -> bouncer_x3a)= (ppos -> bouncer_x3a)+1556;
+		(ppos -> bouncer_x3a) += (ppos -> bouncer_dx)*20*(*(pnivel)*0.1);
 		
+        if((ppos -> bouncer_x3b) < -256)                
+			(ppos -> bouncer_x3b)= (ppos -> bouncer_x3b)+1556;
+		(ppos -> bouncer_x3b) += (ppos -> bouncer_dx)*10*(*(pnivel)*0.1);
+
+        if((ppos -> bouncer_x3c) < -256)                
+			(ppos -> bouncer_x3c)= (ppos -> bouncer_x3c)+1556;
+		(ppos -> bouncer_x3c) += (ppos -> bouncer_dx)*5*(*(pnivel)*0.1);
 		
 		if((ppos -> bouncer_x5) < -956)                
 			(ppos -> bouncer_x5)= (ppos -> bouncer_x5)+2056;
@@ -619,7 +626,9 @@ int partida (ini_var **pvar, int *pvida, int *pscore, int *pnivel, posicion *ppo
 	
 	//  al_draw_bitmap((pvariables -> enemigoimg), (ppos -> bouncer_x3),350,0);
 	
-	al_draw_bitmap_region((pvariables -> enemigoimg[*(pnivel)]) ,0,0,140,150,(ppos -> bouncer_x3),355,0);
+	al_draw_bitmap_region((pvariables -> enemigoimg[*(pnivel)]) ,0,0,140,150,(ppos -> bouncer_x3a),355,0);
+    al_draw_bitmap_region((pvariables -> enemigoimg[*(pnivel)]) ,0,0,140,150,(ppos -> bouncer_x3b),-10,0);
+    al_draw_bitmap_region((pvariables -> enemigoimg[*(pnivel)]) ,0,0,140,150,(ppos -> bouncer_x3c),150,0);
 	//al_draw_bitmap_region((pvariables -> enemigoimg) ,(pauxpar -> auxspriteenemigo)*140,0,140,150,(ppos -> bouncer_x3),355,0);
 		
 	al_draw_bitmap_region((pvariables -> monedaimg), ((pfM -> curFrameMonedita) * (pfM -> frameWidthMonedita))-13, 0, (pfM -> frameWidthMonedita), (pfM -> frameHeightMonedita)+20,(ppos -> bouncer_x6),(ppos -> bouncer_y6), 0);
@@ -631,8 +640,16 @@ int partida (ini_var **pvar, int *pvida, int *pscore, int *pnivel, posicion *ppo
 	al_draw_bitmap_region((pvariables -> cuboimg),9+(97*(pauxpar -> auxspritecubox))-((pauxpar -> auxspritecubox)/4),55+(96*(pauxpar -> auxspritecuboy)),89,87,(ppos -> bouncer_x2)-200, (ppos -> bouncer_y2)+70,0);
 	//al_draw_bitmap((pvariables -> cuboimg),(ppos -> bouncer_x2)-200, (ppos -> bouncer_y2)+115,0);
 	
-	if((ppos -> bouncer_x3)<(ppos -> bouncer_x2)-125&&(ppos -> bouncer_x3)>(ppos -> bouncer_x2)-330){	   
+	if((ppos -> bouncer_x3a)<(ppos -> bouncer_x2)-125&&(ppos -> bouncer_x3a)>(ppos -> bouncer_x2)-330){	   
 	if((ppos -> bouncer_y2)>150)		      	
+			(pauxpar -> auxcolision)=1;	
+	}
+    if((ppos -> bouncer_x3b)<(ppos -> bouncer_x2)-125&&(ppos -> bouncer_x3b)>(ppos -> bouncer_x2)-330){	   
+	if((ppos -> bouncer_y2)<-50)		      	
+			(pauxpar -> auxcolision)=1;	
+	}
+    if((ppos -> bouncer_x3c)<(ppos -> bouncer_x2)-125&&(ppos -> bouncer_x3c)>(ppos -> bouncer_x2)-330){	   
+	if((ppos -> bouncer_y2)>-10&&(ppos -> bouncer_y2)<190)		      	
 			(pauxpar -> auxcolision)=1;	
 	}
 		
@@ -828,7 +845,9 @@ int	GameLoop (ini_var **var) {
 
 	(pos -> bouncer_x2) = (SCREEN_W) / 2.0 - (BOUNCER_SIZE) / 2.0;
 
-	(pos -> bouncer_x3) = (SCREEN_W) / 2.0 + 900 - (BOUNCER_SIZE) / 2.0;
+	(pos -> bouncer_x3a) = (SCREEN_W) / 2.0 + 900 - (BOUNCER_SIZE) / 2.0;
+    (pos -> bouncer_x3b) = (SCREEN_W) / 2.0 + 900 - (BOUNCER_SIZE) / 2.0;
+    (pos -> bouncer_x3c) = (SCREEN_W) / 2.0 + 900 - (BOUNCER_SIZE) / 2.0;
 
 	(pos -> bouncer_x4) = (SCREEN_W) / 2.0 - (BOUNCER_SIZE) / 2.0;
 
