@@ -670,6 +670,7 @@ int Niveles(niveles** INI1){
 				aux->sig=NULL;
 				aux_comp->sig=aux;
 					}
+					
 				memset(buffer,0,30);
 				printf("%d;%d\n",aux->t_aparicion,aux->clase);
 			}
@@ -744,7 +745,6 @@ int	GameLoop (ini_var **var) {
 	variables = *(var);
 	
 	k=Niveles(&INI1);
-	printf("%d\n",k);
 		
 	while(1) {			// Si alguna etapa devuelve -1 cierra el juego
 		
