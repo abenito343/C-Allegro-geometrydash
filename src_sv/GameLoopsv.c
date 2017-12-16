@@ -514,7 +514,7 @@ int wait_cx (variablesservidor *varsv){
 	
 }
 
-int receive_data (ini_var **rvar, variablesservidor *varsv2) {
+int receive_data (ini_var **rvar, variablesservidor *varsv2, posicion *p) {
 
 	ini_var *rvariables;
 	
@@ -548,6 +548,75 @@ int receive_data (ini_var **rvar, variablesservidor *varsv2) {
 				break;               
 */		}
 	
+	}
+	
+	(varsv2 -> net) = get_network_data2((varsv2 -> newsockfd), (varsv2 -> buffersv2), &(varsv2 -> eje), &(varsv2 -> number), &(varsv2 -> valpos));
+
+	if((varsv2 -> net) == 1) {
+		
+		switch(varsv2 -> eje) {
+			case 'x':
+				switch (varsv2 -> number) {
+					
+					case 0:
+				
+					(p -> bouncer_x) = (varsv2 -> valpos);
+					break;
+					
+					case 2:
+				
+					(p -> bouncer_x2) = (varsv2 -> valpos);	
+					break;				
+
+					case 3:
+				
+					(p -> bouncer_x3) = (varsv2 -> valpos);	
+					break;	
+
+					case 4:
+				
+					(p -> bouncer_x4) = (varsv2 -> valpos);	
+					break;	
+					
+					case 5:
+				
+					(p -> bouncer_x5) = (varsv2 -> valpos);	
+					break;	
+					
+					case 6:
+				
+					(p -> bouncer_x6) = (varsv2 -> valpos);	
+					break;	
+					
+				}
+					
+				break;
+				
+			case 'y':
+			
+				switch (varsv2 -> number) {
+				
+					case 2:
+				
+					(p -> bouncer_y2) = (varsv2 -> valpos);
+					break;	
+					
+					case 6:
+				
+					(p -> bouncer_y6) = (varsv2 -> valpos);	
+					break;		
+				}								
+				
+				break;
+				
+			case 'd':
+				
+				(p -> bouncer_dx) = (varsv2 -> valpos);	
+									
+				break;				
+				
+		}
+
 	}
     return 0;
         
@@ -631,7 +700,7 @@ int	GameLoop (ini_var **var, variablesservidor *varservidor) {
 
 		else if(auxestadojuego == 0){
 			
-			receive_data (&variables, varservidor);
+			receive_data (&variables, varservidor, pos);
 			
 			auxestadojuego = partida (&variables, vida, score, nivel, pos, auxpar, fE, fM);
 		

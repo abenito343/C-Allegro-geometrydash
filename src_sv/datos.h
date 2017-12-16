@@ -148,7 +148,11 @@ typedef struct variablesservidor {
     int sockfd, newsockfd;
     socklen_t clilen;
     char buffersv[256];
+    char buffersv2[256];
     struct sockaddr_in serv_addr, cli_addr;
 	int net, status, sentkey;
+	char eje;
+	int number;
+	float valpos;
 
 } variablesservidor;

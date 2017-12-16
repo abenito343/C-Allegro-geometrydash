@@ -50,6 +50,44 @@ int put_network_data(int sockfd, char *buffer, int k, char s) {
     return n;
 }
 
+int put_network_data2(int sockfd, char *buffer,char e, int num, float v) {		// Para mandar posicion
+    int n;
+    char *buffer2;
+    char *buffer3;
+
+    memset((void *) buffer, '\0', 256);
+    memset((void *) buffer2, '\0', 256);
+    memset((void *) buffer3, '\0', 256);
+    
+    if (e == 'd') {
+		strcpy(buffer,"d;x;");
+	
+	} else {
+			
+		switch(e) {
+			case 'x':
+				strcpy(buffer,"x;");
+				break;          
+						
+			case 'y':
+				strcpy(buffer,"y;");
+				break;       
+		}
+		
+		sprintf(buffer2, "%i;", num);
+		strcat(buffer, buffer2);
+	}
+	
+	sprintf(buffer3, "%f\0", v);
+    strcat(buffer, buffer3);
+
+    //DBG - printf("Buffer: %s",buffer);
+    n = write(sockfd,buffer,strlen(buffer));
+    if (n < 0) error("ERROR writing to socket");
+
+    return n;
+}
+
 int get_network_data(int sockfd, char *buffer, int *s, int *k) {
     int n;
     char *key, *status;
@@ -89,6 +127,50 @@ int get_network_data(int sockfd, char *buffer, int *s, int *k) {
             printf("Error recepción. Buffer: %s",buffer);
             return 0;
         }
+
+        // Data saved (s+k), can return
+        //DBG - printf("key: %d / status: %d\n",*k,*s);
+        return 1;
+    } else {
+        return 0;
+    }
+}
+
+int get_network_data2(int sockfd, char *buffer, char *l, int *num, float *v) {						// Para recibir posicion
+    int n;
+    char *letra, *numero, *pos;
+
+    // Me fijo si llegó via red
+    memset((void *) buffer, '\0', 256);
+    n = recv(sockfd,buffer,255,MSG_DONTWAIT);
+    //DBG - printf("Buffer: %s / n: %d",buffer,n);
+
+    if(n>0) {
+        letra = strtok(buffer,";");
+        numero = strtok(NULL,";");
+        pos = strtok(NULL,";");
+        //DBG - printf("key: %s / status: %s\n",key,status);
+
+        if(!strcmp(letra,"d")) {
+            *l='d';
+        } else if(!strcmp(letra,"x")) {
+            *l='x';
+        } else if(!strcmp(letra,"y")) {
+            *l='y';
+        } else {
+            printf("Error recepción. Buffer: %s",buffer);
+            return 0;
+        }
+		
+		if (pos == NULL) {
+			return 0;
+		}
+		
+		if (*l != 'd') {
+			*num = atoi (numero);
+		}
+		
+		*v = atof (pos);
 
         // Data saved (s+k), can return
         //DBG - printf("key: %d / status: %d\n",*k,*s);
