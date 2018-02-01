@@ -148,7 +148,7 @@ int	Inicializar (ini_var **var) {
 	
 	al_flip_display();
 	
-	al_start_timer((variables -> timer));
+//	al_start_timer((variables -> timer));
 
 // Imagenes
 	//(variables -> fondoimg) = al_load_bitmap("imagenes/fondo5.png");

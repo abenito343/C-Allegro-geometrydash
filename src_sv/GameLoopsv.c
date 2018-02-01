@@ -45,13 +45,27 @@ int partida (ini_var **pvar, int *pvida, int *pscore, int *pnivel, posicion *ppo
 	if(*(pscore) >4000&&*(pscore) <5000)
 	*(pnivel)=5;
 	
-	if(*(pscore) == 1000 || *(pscore) == 2000 || *(pscore) == 3000 || *(pscore) == 4000)
-//	al_play_sample((pvariables -> levelsfx), 1.0, 0.0,1.2,ALLEGRO_PLAYMODE_ONCE,NULL);		//NO ANDA
-			
+/*	if(*(pscore) == 1000 || *(pscore) == 2000 || *(pscore) == 3000 || *(pscore) == 4000)
+	al_play_sample((pvariables -> levelsfx), 1.0, 0.0,1.2,ALLEGRO_PLAYMODE_ONCE,NULL);		//NO ANDA (Probar en distintas computadoras)
+*/			
 	pvariables = *(pvar);
+
+//	if ( !((pvariables -> key)[KEY_P])){
+		
+		al_start_timer((pvariables -> timer));
+		
+//	}
 
 	al_wait_for_event((pvariables -> event_queue), &(pvariables -> ev));
 
+// Pausa - PARA QUE FUNCIONE FALTA MANDAR TECLA P POR RED
+
+/*	if ( (pvariables -> key)[KEY_P]){					
+	
+		al_stop_timer((pvariables -> timer));
+	
+	}
+*/
 	if((pvariables -> ev).type == ALLEGRO_EVENT_TIMER) {
 		
 		
@@ -389,6 +403,12 @@ int partida (ini_var **pvar, int *pvida, int *pscore, int *pnivel, posicion *ppo
 		
 	}
 	
+	if (pauxestadojuego == 2){					// Antes de salir frena el timer
+	
+		al_stop_timer((pvariables -> timer));
+	
+	}
+	
 	return pauxestadojuego;
 
 }
@@ -405,6 +425,8 @@ int fin (ini_var **fvar, auxpartida *pauxpar, variablesservidor *fvarsv) {
 	char faux3[11], faux4[11];
 		
 	fvariables = *(fvar);
+
+	al_start_timer((fvariables -> timer));
 
 	al_wait_for_event((fvariables -> event_queue), &(fvariables -> ev));
 	
@@ -495,6 +517,12 @@ int fin (ini_var **fvar, auxpartida *pauxpar, variablesservidor *fvarsv) {
 	
 	}
 	
+	if (fauxestadojuego == 1){					// Antes de salir frena el timer
+	
+		al_stop_timer((fvariables -> timer));
+	
+	}	
+	
 	return fauxestadojuego;
 	
 }
@@ -519,6 +547,8 @@ int receive_data (ini_var **rvar, variablesservidor *varsv2, posicion *p) {
 	ini_var *rvariables;
 	
 	rvariables = *(rvar);	
+
+// Recibe teclas por red
 	
 	(varsv2 -> net) = get_network_data((varsv2 -> newsockfd), (varsv2 -> buffersv), &(varsv2 -> status), &(varsv2 -> sentkey));
 
@@ -549,6 +579,8 @@ int receive_data (ini_var **rvar, variablesservidor *varsv2, posicion *p) {
 */		}
 	
 	}
+
+// Recibe posicion por red
 	
 	(varsv2 -> net) = get_network_data2((varsv2 -> newsockfd), (varsv2 -> buffersv2), &(varsv2 -> eje), &(varsv2 -> number), &(varsv2 -> valpos));
 
@@ -641,22 +673,6 @@ int	GameLoop (ini_var **var, variablesservidor *varservidor) {
 
 // Inicializacion de variables partidas
 
-	(pos -> bouncer_x)= (SCREEN_W) / 2.0 - (BOUNCER_SIZE) / 2.0;
-	(pos -> bouncer_y2)= (SCREEN_H) / 2.0 - (BOUNCER_SIZE) / 2.0;//piso
-
-	(pos -> bouncer_x2) = (SCREEN_W) / 2.0 - (BOUNCER_SIZE) / 2.0;
-
-	(pos -> bouncer_x3) = (SCREEN_W) / 2.0 + 900 - (BOUNCER_SIZE) / 2.0;
-
-	(pos -> bouncer_x4) = (SCREEN_W) / 2.0 - (BOUNCER_SIZE) / 2.0;
-
-	(pos -> bouncer_x5) = (SCREEN_W) / 2.0 - (BOUNCER_SIZE) / 2.0;
-
-	(pos -> bouncer_x6) = (SCREEN_W) / 2.0 - (BOUNCER_SIZE) / 2.0;
-	(pos -> bouncer_y6) = (SCREEN_H) / 2.0 - (BOUNCER_SIZE) / 2.0;//MONEDA
-
-	(pos -> bouncer_dx) = -4.0;
-	
 	(auxpar -> verifvida) =0;
 	
 	(auxpar -> auxspriteenemigo) = 0;
@@ -680,9 +696,9 @@ int	GameLoop (ini_var **var, variablesservidor *varservidor) {
 	
 	variables = *(var);
 		
-	while(1) {			// Si alguna etapa devuelve -1 cierra el juego
+	while (auxestadojuego != -1) {			// Si alguna etapa devuelve -1 cierra el juego
 		
-		if(auxestadojuego == 1){
+		while (auxestadojuego == 1){
 			
 			auxestadojuego = wait_cx (varservidor);
 
@@ -690,37 +706,41 @@ int	GameLoop (ini_var **var, variablesservidor *varservidor) {
 			*(score) = 0;	
 			*(nivel) = 1;
 		
-			if (auxestadojuego == -1) {
-				
-				break;
-			
-			}
-		
 		}
 
-		else if(auxestadojuego == 0){
+		if (auxestadojuego != -1){
+		
+// Inicializacion de variables de posicion inicial
+
+			(pos -> bouncer_x)= (SCREEN_W) / 2.0 - (BOUNCER_SIZE) / 2.0;
+			(pos -> bouncer_y2)= (SCREEN_H) / 2.0 - (BOUNCER_SIZE) / 2.0;//piso
+		
+			(pos -> bouncer_x2) = (SCREEN_W) / 2.0 - (BOUNCER_SIZE) / 2.0;
+		
+			(pos -> bouncer_x3) = (SCREEN_W) / 2.0 + 900 - (BOUNCER_SIZE) / 2.0;
+		
+			(pos -> bouncer_x4) = (SCREEN_W) / 2.0 - (BOUNCER_SIZE) / 2.0;
+		
+			(pos -> bouncer_x5) = (SCREEN_W) / 2.0 - (BOUNCER_SIZE) / 2.0;
+
+			(pos -> bouncer_x6) = (SCREEN_W) / 2.0 - (BOUNCER_SIZE) / 2.0;
+			(pos -> bouncer_y6) = (SCREEN_H) / 2.0 - (BOUNCER_SIZE) / 2.0;//MONEDA
+		
+			(pos -> bouncer_dx) = -4.0;
+			
+		}
+			
+		while (auxestadojuego == 0){
 			
 			receive_data (&variables, varservidor, pos);
 			
 			auxestadojuego = partida (&variables, vida, score, nivel, pos, auxpar, fE, fM);
 		
-			if (auxestadojuego == -1) {
-			
-				break;
-			
-			}
-		
 		} 
 		
-		else if(auxestadojuego == 2) {
+		while (auxestadojuego == 2){
 			
 			auxestadojuego = fin (&variables, auxpar, varservidor);
-			
-			if (auxestadojuego == -1) {
-			
-				break;
-			
-			}
 
 		}
 		

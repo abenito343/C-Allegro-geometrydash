@@ -10,7 +10,7 @@
 
 enum MYKEYS {
 
-   KEY_UP,KEY_SPACE
+   KEY_UP,KEY_SPACE,KEY_P
 };
 
 typedef struct ini_var {
@@ -51,7 +51,7 @@ typedef struct ini_var {
 	ALLEGRO_FONT   *font2;
 	ALLEGRO_SAMPLE *temamenu;
 	
-	bool key[2];
+	bool key[3];
 	
 } ini_var;
 

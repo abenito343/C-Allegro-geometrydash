@@ -34,6 +34,8 @@ int menu (ini_var **mvar, int *mvida, int *mscore,int *mnivel) {
 	*(mvida) = 3;
 	*(mscore) = 0;
 	*(mnivel) =1;
+
+	al_start_timer((mvariables -> timer));
 		
 	al_wait_for_event((mvariables -> event_queue), &(mvariables -> ev));
 	
@@ -110,6 +112,12 @@ int menu (ini_var **mvar, int *mvida, int *mscore,int *mnivel) {
 		al_flip_display();
 	}
 	
+	if (mauxestadojuego == 0){					// Antes de salir frena el timer
+	
+		al_stop_timer((mvariables -> timer));
+	
+	}
+	
 	return mauxestadojuego;
 }
 
@@ -163,7 +171,19 @@ int partida (ini_var **pvar, int *pvida, int *pscore, int *pnivel, posicion *ppo
 			
 	pvariables = *(pvar);
 
+	if ( !((pvariables -> key)[KEY_P])){
+		
+		al_start_timer((pvariables -> timer));
+		
+	}
+
 	al_wait_for_event((pvariables -> event_queue), &(pvariables -> ev));
+
+	if ( (pvariables -> key)[KEY_P]){					// Pausa
+	
+		al_stop_timer((pvariables -> timer));
+	
+	}
 
 	if((pvariables -> ev).type == ALLEGRO_EVENT_TIMER) {
 		
@@ -333,6 +353,9 @@ int partida (ini_var **pvar, int *pvida, int *pscore, int *pnivel, posicion *ppo
 			case ALLEGRO_KEY_SPACE:
 			(pvariables -> key)[KEY_SPACE] = true;
 			break;
+			case ALLEGRO_KEY_P:
+			(pvariables -> key)[KEY_P] = true;
+			break;
 		}
 	}
 	else if((pvariables -> ev).type == ALLEGRO_EVENT_KEY_UP) {
@@ -345,6 +368,10 @@ int partida (ini_var **pvar, int *pvida, int *pscore, int *pnivel, posicion *ppo
 			case ALLEGRO_KEY_SPACE:
 			(pvariables -> key)[KEY_SPACE] = false;
 			break;
+			
+			case ALLEGRO_KEY_P:
+			(pvariables -> key)[KEY_P] = false;
+			break;	
 		}
 	}
 
@@ -471,6 +498,12 @@ int partida (ini_var **pvar, int *pvida, int *pscore, int *pnivel, posicion *ppo
 		
 	}
 	
+	if (pauxestadojuego == 2){					// Antes de salir frena el timer
+	
+		al_stop_timer((pvariables -> timer));
+	
+	}
+	
 	return pauxestadojuego;
 
 }
@@ -487,6 +520,8 @@ int fin (ini_var **fvar, auxpartida *pauxpar) {
 	char faux3[11], faux4[11];
 		
 	fvariables = *(fvar);
+
+	al_start_timer((fvariables -> timer));
 
 	al_wait_for_event((fvariables -> event_queue), &(fvariables -> ev));
 	
@@ -577,6 +612,12 @@ int fin (ini_var **fvar, auxpartida *pauxpar) {
 		al_flip_display();
 	
 	}
+
+	if (fauxestadojuego == 1){					// Antes de salir frena el timer
+	
+		al_stop_timer((fvariables -> timer));
+	
+	}
 	
 	return fauxestadojuego;
 	
@@ -600,22 +641,6 @@ int	GameLoop (ini_var **var) {
 
 // Inicializacion de variables partidas
 
-	(pos -> bouncer_x)= (SCREEN_W) / 2.0 - (BOUNCER_SIZE) / 2.0;
-	(pos -> bouncer_y2)= (SCREEN_H) / 2.0 - (BOUNCER_SIZE) / 2.0;//piso
-
-	(pos -> bouncer_x2) = (SCREEN_W) / 2.0 - (BOUNCER_SIZE) / 2.0;
-
-	(pos -> bouncer_x3) = (SCREEN_W) / 2.0 + 900 - (BOUNCER_SIZE) / 2.0;
-
-	(pos -> bouncer_x4) = (SCREEN_W) / 2.0 - (BOUNCER_SIZE) / 2.0;
-
-	(pos -> bouncer_x5) = (SCREEN_W) / 2.0 - (BOUNCER_SIZE) / 2.0;
-
-	(pos -> bouncer_x6) = (SCREEN_W) / 2.0 - (BOUNCER_SIZE) / 2.0;
-	(pos -> bouncer_y6) = (SCREEN_H) / 2.0 - (BOUNCER_SIZE) / 2.0;//MONEDA
-
-	(pos -> bouncer_dx) = -4.0;
-	
 	(auxpar -> verifvida) =0;
 	
 	(auxpar -> auxspriteenemigo) = 0;
@@ -639,41 +664,45 @@ int	GameLoop (ini_var **var) {
 	
 	variables = *(var);
 		
-	while(1) {			// Si alguna etapa devuelve -1 cierra el juego
+	while (auxestadojuego != -1) {			// Si alguna etapa devuelve -1 cierra el juego
 		
-		if(auxestadojuego == 1){
+		while (auxestadojuego == 1){
 			
 			auxestadojuego = menu (&variables, vida, score,nivel);
-		
-			if (auxestadojuego == -1) {
-			
-				break;
-			
-			}
 
 		}
 
-		else if(auxestadojuego == 0){
+		if (auxestadojuego != -1){
+		
+// Inicializacion de variables de posicion inicial
+
+			(pos -> bouncer_x)= (SCREEN_W) / 2.0 - (BOUNCER_SIZE) / 2.0;
+			(pos -> bouncer_y2)= (SCREEN_H) / 2.0 - (BOUNCER_SIZE) / 2.0;//piso
+		
+			(pos -> bouncer_x2) = (SCREEN_W) / 2.0 - (BOUNCER_SIZE) / 2.0;
+		
+			(pos -> bouncer_x3) = (SCREEN_W) / 2.0 + 900 - (BOUNCER_SIZE) / 2.0;
+		
+			(pos -> bouncer_x4) = (SCREEN_W) / 2.0 - (BOUNCER_SIZE) / 2.0;
+		
+			(pos -> bouncer_x5) = (SCREEN_W) / 2.0 - (BOUNCER_SIZE) / 2.0;
+		
+			(pos -> bouncer_x6) = (SCREEN_W) / 2.0 - (BOUNCER_SIZE) / 2.0;
+			(pos -> bouncer_y6) = (SCREEN_H) / 2.0 - (BOUNCER_SIZE) / 2.0;//MONEDA
+		
+			(pos -> bouncer_dx) = -4.0;
+			
+		}	
+		
+		while (auxestadojuego == 0){
 			
 			auxestadojuego = partida (&variables, vida, score,nivel, pos, auxpar, fE, fM);
 		
-			if (auxestadojuego == -1) {
-			
-				break;
-			
-			}
-		
 		} 
 		
-		else if(auxestadojuego == 2) {
+		while (auxestadojuego == 2){
 			
 			auxestadojuego = fin (&variables, auxpar);
-			
-			if (auxestadojuego == -1) {
-			
-				break;
-			
-			}
 
 		}
 		
