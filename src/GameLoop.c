@@ -648,16 +648,14 @@ int Niveles(niveles** INI1){
 	 //NIVEL
 		memset(buffer,0,30);
 		while(fgets(buffer,30,fp)!=NULL){ 
-			
+			printf("s\n");
 			if((*INI1)==NULL){
-				
+				 
 				aux= calloc(1,sizeof(niveles));
 				aux->t_aparicion=atoi(strtok(buffer,","));
 				aux->clase=atoi(strtok(NULL,","));
 				aux->sig=NULL;
 				(*INI1)=aux;
-				printf("%d;%d\n",aux->t_aparicion,aux->clase);
-
 			}
 			else{ 
 				aux_comp=(*INI1);
@@ -673,8 +671,9 @@ int Niveles(niveles** INI1){
 					
 				memset(buffer,0,30);
 				printf("%d;%d\n",aux->t_aparicion,aux->clase);
-			}
 				
+			}
+			printf("salio\n");	
 
 	fclose(fp);
 
@@ -762,8 +761,9 @@ int	GameLoop (ini_var **var) {
 		}
 
 		else if(auxestadojuego == 0){
-			
+			printf("s\n");
 			auxestadojuego = partida (&variables,&INI1, vida, score,nivel, pos, auxpar, fE, fM);
+			printf("s\n");
 		
 			if (auxestadojuego == -1) {
 			
