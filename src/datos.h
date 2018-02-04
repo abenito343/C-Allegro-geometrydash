@@ -10,7 +10,8 @@
 
 enum MYKEYS {
 
-   KEY_UP, KEY_DOWN, KEY_LEFT, KEY_RIGHT, KEY_EXIT, KEY_SPACE,KEY_0,KEY_1,KEY_2,KEY_3,KEY_4,KEY_5,KEY_6,KEY_7,KEY_8,KEY_9,KEY_0_PAD,KEY_1_PAD,KEY_2_PAD,KEY_3_PAD,KEY_4_PAD,KEY_5_PAD,KEY_6_PAD,KEY_7_PAD,KEY_8_PAD,KEY_9_PAD
+   KEY_UP, KEY_DOWN, KEY_LEFT, KEY_RIGHT, KEY_EXIT, KEY_SPACE,KEY_0,KEY_1,KEY_2,KEY_3,KEY_4,KEY_5,KEY_6,KEY_7,KEY_8,KEY_9,KEY_0_PAD,KEY_1_PAD,KEY_2_PAD,KEY_3_PAD,KEY_4_PAD,KEY_5_PAD,KEY_6_PAD,KEY_7_PAD,KEY_8_PAD,KEY_9_PAD,KEY_P
+
 };
 
 typedef struct ini_var {
@@ -53,7 +54,8 @@ typedef struct ini_var {
 	ALLEGRO_FONT   *font2;
 	ALLEGRO_SAMPLE *temamenu;
 	
-	bool key[33];
+
+	bool key[34];
 	char ip[22];
 	
 } ini_var;
@@ -65,9 +67,9 @@ typedef struct posicion {
 	float bouncer_x2;
 	float bouncer_y2;
 
-	float bouncer_x3a;
-    float bouncer_x3b;
-    float bouncer_x3c;
+	float bouncer_x31;
+    float bouncer_x32;
+    float bouncer_x33;
 
 	float bouncer_x4;
 

@@ -75,10 +75,10 @@ int main(int argc, char **argv){
 	(variables -> font) = NULL;
 	(variables -> font2) = NULL;
 	(variables -> temamenu) = NULL;
-	
-	Inicializar (&variables);
-	
+
 	inicializar_sv (varservidor);
+		
+	Inicializar (&variables);
 	
 	GameLoop (&variables, varservidor);
 	

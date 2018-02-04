@@ -25,6 +25,9 @@
 	const int SCREEN_H = 720;
 	const int BOUNCER_SIZE = 32;
 
+	const int maxFrameExplosion = 10;	
+	const int maxFrameMonedita= 4;
+
 int partida (ini_var **pvar, int *pvida, int *pscore, int *pnivel, posicion *ppos, auxpartida *pauxpar, frameExplosion *pfE, frameMonedita *pfM) {
 
 	ini_var *pvariables;
@@ -32,10 +35,7 @@ int partida (ini_var **pvar, int *pvida, int *pscore, int *pnivel, posicion *ppo
 	bool predraw = true;	
 
 	int pauxestadojuego = 0;
-	int pauxnivel;
-	
-	int auximagen;
-	
+
 	if(	*(pscore) >1000&&*(pscore) <2000)
 	*(pnivel)=2;
 	if(*(pscore) >2000&&*(pscore) <3000)
@@ -44,38 +44,29 @@ int partida (ini_var **pvar, int *pvida, int *pscore, int *pnivel, posicion *ppo
 	*(pnivel)=4;
 	if(*(pscore) >4000&&*(pscore) <5000)
 	*(pnivel)=5;
-	
-	if(*(pscore) == 1000 || *(pscore) == 2000 || *(pscore) == 3000 || *(pscore) == 4000)
-	al_play_sample((pvariables -> levelsfx), 1.0, 0.0,1.2,ALLEGRO_PLAYMODE_ONCE,NULL);
-	
-			switch(pauxnivel){	
-		case 1:
-			auximagen=0;
-			break;
-		case 2:
-			auximagen=1;
-			break;
-		case 3:
-			auximagen=2;
-			break;
-		case 4:
-			auximagen=3;
-			break;
-		case 5:
-			auximagen=4;
-			break;
-			}
-	
-	 
-
-
-	const int maxFrameExplosion = 10;
-	
-	const int maxFrameMonedita= 4;
-			
+				
 	pvariables = *(pvar);
 
+/*	if(*(pscore) == 1000 || *(pscore) == 2000 || *(pscore) == 3000 || *(pscore) == 4000)
+	al_play_sample((pvariables -> levelsfx), 1.0, 0.0,1.2,ALLEGRO_PLAYMODE_ONCE,NULL);		//NO ANDA (Probar en distintas computadoras)
+*/			
+
+//	if ( !((pvariables -> key)[KEY_P])){
+		
+		al_start_timer((pvariables -> timer));
+		
+//	}
+
 	al_wait_for_event((pvariables -> event_queue), &(pvariables -> ev));
+
+// Pausa - PARA QUE FUNCIONE FALTA MANDAR TECLA P POR RED
+
+/*	if ( (pvariables -> key)[KEY_P]){					
+	
+		al_stop_timer((pvariables -> timer));
+	
+	}
+*/
 
 	if((pvariables -> ev).type == ALLEGRO_EVENT_TIMER) {
 		
@@ -414,6 +405,14 @@ int partida (ini_var **pvar, int *pvida, int *pscore, int *pnivel, posicion *ppo
 		
 	}
 	
+
+	if (pauxestadojuego == 2){					// Antes de salir frena el timer
+	
+		al_stop_timer((pvariables -> timer));
+	
+	}
+	
+
 	return pauxestadojuego;
 
 }
@@ -430,6 +429,10 @@ int fin (ini_var **fvar, auxpartida *pauxpar, variablesservidor *fvarsv) {
 	char faux3[11], faux4[11];
 		
 	fvariables = *(fvar);
+
+
+	al_start_timer((fvariables -> timer));
+
 
 	al_wait_for_event((fvariables -> event_queue), &(fvariables -> ev));
 	
@@ -492,8 +495,9 @@ int fin (ini_var **fvar, auxpartida *pauxpar, variablesservidor *fvarsv) {
 	
 		//al_draw_bitmap_region((fvariables -> opcionesmenuimg),0+fauxopcionesjugar,0,260,95,457,500,0);
 		
-		al_draw_bitmap((fvariables -> fondoimg),-600,0,0);
-		al_draw_bitmap((fvariables -> fondoimg),420,0,0);
+		al_draw_bitmap((fvariables -> fondoimg[6]),-600,0,0);
+		al_draw_bitmap((fvariables -> fondoimg[6]),420,0,0);
+
 		
 			
 		al_draw_bitmap((fvariables -> muertofinimg) ,790,330,0);
@@ -520,6 +524,13 @@ int fin (ini_var **fvar, auxpartida *pauxpar, variablesservidor *fvarsv) {
 	
 	}
 	
+
+	if (fauxestadojuego == 1){					// Antes de salir frena el timer
+	
+		al_stop_timer((fvariables -> timer));
+	
+	}	
+	
 	return fauxestadojuego;
 	
 }
@@ -539,13 +550,15 @@ int wait_cx (variablesservidor *varsv){
 	
 }
 
-int receive_data (ini_var **rvar, variablesservidor *varsv2) {
-fprintf (stderr, "hasta aca anda \n");								// ANDA CON ESTO
+int receive_data (ini_var **rvar, variablesservidor *varsv2, posicion *p) {
+
 	ini_var *rvariables;
 	
 	rvariables = *(rvar);	
+
+// Recibe teclas por red
 	
-	(varsv2 -> net) = get_network_data((varsv2 -> newsockfd), (varsv2 -> buffer), &(varsv2 -> status), &(varsv2 -> sentkey));
+	(varsv2 -> net) = get_network_data((varsv2 -> newsockfd), (varsv2 -> buffersv), &(varsv2 -> status), &(varsv2 -> sentkey));
 
 	if((varsv2 -> net) == 1) {
 		
@@ -574,6 +587,78 @@ fprintf (stderr, "hasta aca anda \n");								// ANDA CON ESTO
 */		}
 	
 	}
+
+// Recibe posicion por red
+	
+	(varsv2 -> net) = get_network_data2((varsv2 -> newsockfd), (varsv2 -> buffersv2), &(varsv2 -> eje), &(varsv2 -> number), &(varsv2 -> valpos));
+
+	if((varsv2 -> net) == 1) {
+		
+		switch(varsv2 -> eje) {
+			case 'x':
+				switch (varsv2 -> number) {
+					
+					case 0:
+				
+					(p -> bouncer_x) = (varsv2 -> valpos);
+					break;
+					
+					case 2:
+				
+					(p -> bouncer_x2) = (varsv2 -> valpos);	
+					break;				
+
+					case 3:
+				
+					(p -> bouncer_x3) = (varsv2 -> valpos);	
+					break;	
+
+					case 4:
+				
+					(p -> bouncer_x4) = (varsv2 -> valpos);	
+					break;	
+					
+					case 5:
+				
+					(p -> bouncer_x5) = (varsv2 -> valpos);	
+					break;	
+					
+					case 6:
+				
+					(p -> bouncer_x6) = (varsv2 -> valpos);	
+					break;	
+					
+				}
+					
+				break;
+				
+			case 'y':
+			
+				switch (varsv2 -> number) {
+				
+					case 2:
+				
+					(p -> bouncer_y2) = (varsv2 -> valpos);
+					break;	
+					
+					case 6:
+				
+					(p -> bouncer_y6) = (varsv2 -> valpos);	
+					break;		
+				}								
+				
+				break;
+				
+			case 'd':
+				
+				(p -> bouncer_dx) = (varsv2 -> valpos);	
+									
+				break;				
+				
+		}
+
+	}
+
     return 0;
         
 }
@@ -597,22 +682,6 @@ int	GameLoop (ini_var **var, variablesservidor *varservidor) {
 
 // Inicializacion de variables partidas
 
-	(pos -> bouncer_x)= (SCREEN_W) / 2.0 - (BOUNCER_SIZE) / 2.0;
-	(pos -> bouncer_y2)= (SCREEN_H) / 2.0 - (BOUNCER_SIZE) / 2.0;//piso
-
-	(pos -> bouncer_x2) = (SCREEN_W) / 2.0 - (BOUNCER_SIZE) / 2.0;
-
-	(pos -> bouncer_x3) = (SCREEN_W) / 2.0 + 900 - (BOUNCER_SIZE) / 2.0;
-
-	(pos -> bouncer_x4) = (SCREEN_W) / 2.0 - (BOUNCER_SIZE) / 2.0;
-
-	(pos -> bouncer_x5) = (SCREEN_W) / 2.0 - (BOUNCER_SIZE) / 2.0;
-
-	(pos -> bouncer_x6) = (SCREEN_W) / 2.0 - (BOUNCER_SIZE) / 2.0;
-	(pos -> bouncer_y6) = (SCREEN_H) / 2.0 - (BOUNCER_SIZE) / 2.0;//MONEDA
-
-	(pos -> bouncer_dx) = -4.0;
-	
 	(auxpar -> verifvida) =0;
 	
 	(auxpar -> auxspriteenemigo) = 0;
@@ -636,9 +705,10 @@ int	GameLoop (ini_var **var, variablesservidor *varservidor) {
 	
 	variables = *(var);
 		
-	while(1) {			// Si alguna etapa devuelve -1 cierra el juego
+	while (auxestadojuego != -1) {			// Si alguna etapa devuelve -1 cierra el juego
 		
-		if(auxestadojuego == 1){
+		while (auxestadojuego == 1){
+
 			
 			auxestadojuego = wait_cx (varservidor);
 
@@ -646,37 +716,41 @@ int	GameLoop (ini_var **var, variablesservidor *varservidor) {
 			*(score) = 0;	
 			*(nivel) = 1;
 		
-			if (auxestadojuego == -1) {
-				
-				break;
-			
-			}
-		
 		}
 
-		else if(auxestadojuego == 0){
+		if (auxestadojuego != -1){
+		
+// Inicializacion de variables de posicion inicial
+
+			(pos -> bouncer_x)= (SCREEN_W) / 2.0 - (BOUNCER_SIZE) / 2.0;
+			(pos -> bouncer_y2)= (SCREEN_H) / 2.0 - (BOUNCER_SIZE) / 2.0;//piso
+		
+			(pos -> bouncer_x2) = (SCREEN_W) / 2.0 - (BOUNCER_SIZE) / 2.0;
+		
+			(pos -> bouncer_x3) = (SCREEN_W) / 2.0 + 900 - (BOUNCER_SIZE) / 2.0;
+		
+			(pos -> bouncer_x4) = (SCREEN_W) / 2.0 - (BOUNCER_SIZE) / 2.0;
+		
+			(pos -> bouncer_x5) = (SCREEN_W) / 2.0 - (BOUNCER_SIZE) / 2.0;
+
+			(pos -> bouncer_x6) = (SCREEN_W) / 2.0 - (BOUNCER_SIZE) / 2.0;
+			(pos -> bouncer_y6) = (SCREEN_H) / 2.0 - (BOUNCER_SIZE) / 2.0;//MONEDA
+		
+			(pos -> bouncer_dx) = -4.0;
 			
-			receive_data (&variables, varservidor);
+		}
+			
+		while (auxestadojuego == 0){
+			
+			receive_data (&variables, varservidor, pos);
 			
 			auxestadojuego = partida (&variables, vida, score, nivel, pos, auxpar, fE, fM);
 		
-			if (auxestadojuego == -1) {
-			
-				break;
-			
-			}
-		
 		} 
 		
-		else if(auxestadojuego == 2) {
+		while (auxestadojuego == 2){
 			
 			auxestadojuego = fin (&variables, auxpar, varservidor);
-			
-			if (auxestadojuego == -1) {
-			
-				break;
-			
-			}
 
 		}
 		

@@ -137,7 +137,8 @@ typedef struct variablescliente {
     int sockfd;
     struct sockaddr_in serv_addr;
     struct hostent *server;
-	char buffer[256];
+
+	char buffercl[256];
 
 } variablescliente;
 
@@ -147,8 +148,13 @@ typedef struct variablesservidor {
 	
     int sockfd, newsockfd;
     socklen_t clilen;
-    char buffer[256];
+
+    char buffersv[256];
+    char buffersv2[256];
     struct sockaddr_in serv_addr, cli_addr;
 	int net, status, sentkey;
+	char eje;
+	int number;
+	float valpos;
 
 } variablesservidor;
