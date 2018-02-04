@@ -140,10 +140,17 @@ int partida (ini_var **pvar, int *pvida, int *pscore, int *pnivel, posicion *ppo
 		(ppos -> bouncer_x4)+= (ppos -> bouncer_dx)/3;
 						
 			
-		if((ppos -> bouncer_x3) < -256)                
-			(ppos -> bouncer_x3)= (ppos -> bouncer_x3)+1556;
-		(ppos -> bouncer_x3) += (ppos -> bouncer_dx)*20*(*(pnivel)*0.1);
+		if((ppos -> bouncer_x31) < -256)                
+			(ppos -> bouncer_x31)= (ppos -> bouncer_x31)+1556;
+		(ppos -> bouncer_x31) += (ppos -> bouncer_dx)*20*(*(pnivel)*0.1);
 		
+        if((ppos -> bouncer_x32) < -256)                
+			(ppos -> bouncer_x32)= (ppos -> bouncer_x32)+1556;
+		(ppos -> bouncer_x32) += (ppos -> bouncer_dx)*10*(*(pnivel)*0.1);
+
+        if((ppos -> bouncer_x33) < -256)                
+			(ppos -> bouncer_x33)= (ppos -> bouncer_x33)+1556;
+		(ppos -> bouncer_x33) += (ppos -> bouncer_dx)*5*(*(pnivel)*0.1);
 		
 		if((ppos -> bouncer_x5) < -956)                
 			(ppos -> bouncer_x5)= (ppos -> bouncer_x5)+2056;
@@ -330,7 +337,9 @@ int partida (ini_var **pvar, int *pvida, int *pscore, int *pnivel, posicion *ppo
 	
 	//  al_draw_bitmap((pvariables -> enemigoimg), (ppos -> bouncer_x3),350,0);
 	
-	al_draw_bitmap_region((pvariables -> enemigoimg[*(pnivel)]) ,0,0,140,150,(ppos -> bouncer_x3),355,0);
+	al_draw_bitmap_region((pvariables -> enemigoimg[*(pnivel)]) ,0,0,140,150,(ppos -> bouncer_x31),355,0);
+    al_draw_bitmap_region((pvariables -> enemigoimg[*(pnivel)]) ,0,0,140,150,(ppos -> bouncer_x32),-10,0);
+    al_draw_bitmap_region((pvariables -> enemigoimg[*(pnivel)]) ,0,0,140,150,(ppos -> bouncer_x33),150,0);
 	//al_draw_bitmap_region((pvariables -> enemigoimg) ,(pauxpar -> auxspriteenemigo)*140,0,140,150,(ppos -> bouncer_x3),355,0);
 		
 	al_draw_bitmap_region((pvariables -> monedaimg), ((pfM -> curFrameMonedita) * (pfM -> frameWidthMonedita))-13, 0, (pfM -> frameWidthMonedita), (pfM -> frameHeightMonedita)+20,(ppos -> bouncer_x6),(ppos -> bouncer_y6), 0);
@@ -342,8 +351,16 @@ int partida (ini_var **pvar, int *pvida, int *pscore, int *pnivel, posicion *ppo
 	al_draw_bitmap_region((pvariables -> cuboimg),9+(97*(pauxpar -> auxspritecubox))-((pauxpar -> auxspritecubox)/4),55+(96*(pauxpar -> auxspritecuboy)),89,87,(ppos -> bouncer_x2)-200, (ppos -> bouncer_y2)+70,0);
 	//al_draw_bitmap((pvariables -> cuboimg),(ppos -> bouncer_x2)-200, (ppos -> bouncer_y2)+115,0);
 	
-	if((ppos -> bouncer_x3)<(ppos -> bouncer_x2)-125&&(ppos -> bouncer_x3)>(ppos -> bouncer_x2)-330){	   
+	if((ppos -> bouncer_x31)<(ppos -> bouncer_x2)-125&&(ppos -> bouncer_x31)>(ppos -> bouncer_x2)-330){	   
 	if((ppos -> bouncer_y2)>150)		      	
+			(pauxpar -> auxcolision)=1;	
+	}
+    if((ppos -> bouncer_x32)<(ppos -> bouncer_x2)-125&&(ppos -> bouncer_x32)>(ppos -> bouncer_x2)-330){	   
+	if((ppos -> bouncer_y2)<-50)		      	
+			(pauxpar -> auxcolision)=1;	
+	}
+    if((ppos -> bouncer_x33)<(ppos -> bouncer_x2)-125&&(ppos -> bouncer_x33)>(ppos -> bouncer_x2)-330){	   
+	if((ppos -> bouncer_y2)>-10&&(ppos -> bouncer_y2)<190)		      	
 			(pauxpar -> auxcolision)=1;	
 	}
 		
@@ -505,10 +522,10 @@ int fin (ini_var **fvar, auxpartida *pauxpar, variablesservidor *fvarsv) {
 		al_draw_bitmap_region((fvariables -> volverimg),0+fauxopcionesvolver,0,400,400,350,390,0);
 		al_draw_bitmap_region((fvariables -> opcionesmenuimg),0+fauxopcionessalir,90,210,90,400,590,0);
 		
-		al_draw_text((fvariables -> font), al_map_rgb(255, 0, 255), 50, 50, 0, faux3);
+		/*al_draw_text((fvariables -> font), al_map_rgb(255, 0, 255), 50, 50, 0, faux3);
 		al_draw_text((fvariables -> font), al_map_rgb(255, 0, 255), 10, 50, 0, "X:");
 		al_draw_text((fvariables -> font), al_map_rgb(255, 0, 255), 50, 100, 0, faux4);
-		al_draw_text((fvariables -> font), al_map_rgb(255, 0, 255), 10, 100, 0, "Y:");
+		al_draw_text((fvariables -> font), al_map_rgb(255, 0, 255), 10, 100, 0, "Y:");*/
 		
 		al_draw_text((fvariables -> font2), al_map_rgb(255, 0, 0), 280, 50, 0, "TE QUEDASTE SIN VIDAS MANCO");
 		
@@ -610,7 +627,13 @@ int receive_data (ini_var **rvar, variablesservidor *varsv2, posicion *p) {
 
 					case 3:
 				
-					(p -> bouncer_x3) = (varsv2 -> valpos);	
+					(p -> bouncer_x31) = (varsv2 -> valpos);	
+					break;	
+
+					(p -> bouncer_x32) = (varsv2 -> valpos);	
+					break;	
+
+					(p -> bouncer_x33) = (varsv2 -> valpos);	
 					break;	
 
 					case 4:
@@ -677,7 +700,7 @@ int	GameLoop (ini_var **var, variablesservidor *varservidor) {
 
 	int *vida = malloc (sizeof (int)); *(vida) = 3;
 	int *score = malloc (sizeof (int)); *(score) =0;	
-//	char *scores[10];	//Sin uso
+//	char *scores[10];	//No se usa mas
 	int *nivel = malloc (sizeof (int)); *(nivel) =1;
 
 // Inicializacion de variables partidas
@@ -727,7 +750,9 @@ int	GameLoop (ini_var **var, variablesservidor *varservidor) {
 		
 			(pos -> bouncer_x2) = (SCREEN_W) / 2.0 - (BOUNCER_SIZE) / 2.0;
 		
-			(pos -> bouncer_x3) = (SCREEN_W) / 2.0 + 900 - (BOUNCER_SIZE) / 2.0;
+			(pos -> bouncer_x31) = (SCREEN_W) / 2.0 + 900 - (BOUNCER_SIZE) / 2.0;
+			(pos -> bouncer_x32) = (SCREEN_W) / 2.0 + 900 - (BOUNCER_SIZE) / 2.0;
+			(pos -> bouncer_x33) = (SCREEN_W) / 2.0 + 900 - (BOUNCER_SIZE) / 2.0;
 		
 			(pos -> bouncer_x4) = (SCREEN_W) / 2.0 - (BOUNCER_SIZE) / 2.0;
 		

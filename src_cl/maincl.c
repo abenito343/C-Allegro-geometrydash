@@ -28,10 +28,10 @@ int main(int argc, char **argv){
 	ini_var *variables = malloc (sizeof (ini_var));
 	
 	variablescliente *varcliente = malloc (sizeof (variablescliente));
-	
+/*	
 	(varcliente -> cantarg) = argc;				// Para probar unicamente
 	(varcliente -> strarg) = argv;		// Carga la ip en la lista de variables del cliente
-		
+*/		
 	(variables -> display) = NULL;
 	(variables -> event_queue) = NULL;
 	(variables -> timer) = NULL;
@@ -76,7 +76,9 @@ int main(int argc, char **argv){
 	// menu
 	
 	(variables -> fondomenuimg)   = NULL; // fondo menu
+	(variables -> fondoipimg)   = NULL; // fondo menu
 	(variables -> opcionesmenuimg)  = NULL; // opciones menu
+	(variables -> jugarenlineaimg)  = NULL; 
 	(variables -> font) = NULL;
 	(variables -> font2) = NULL;
 	(variables -> temamenu) = NULL;

@@ -71,7 +71,9 @@ int main(int argc, char **argv){
 	// menu
 	
 	(variables -> fondomenuimg)   = NULL; // fondo menu
+	(variables -> fondoipimg)   = NULL; // fondo menu
 	(variables -> opcionesmenuimg)  = NULL; // opciones menu
+	(variables -> jugarenlineaimg)  = NULL; 
 	(variables -> font) = NULL;
 	(variables -> font2) = NULL;
 	(variables -> temamenu) = NULL;

@@ -185,11 +185,12 @@ int	Inicializar (ini_var **var) {
 				
 	
 	
-
+	(variables -> fondoipimg) = al_load_bitmap("imagenes/meterip.png");
 	(variables -> explosionimg)= al_load_bitmap("imagenes/sprite_explosiones.png");
 	(variables -> bloqueimg)   = al_load_bitmap("imagenes/pared.png");
 	(variables -> fondomenuimg) = al_load_bitmap("imagenes/menu.jpg");
 	(variables -> opcionesmenuimg) = al_load_bitmap("imagenes/opciones.png");
+	(variables -> jugarenlineaimg) = al_load_bitmap("imagenes/jugarenlinea.png");
 	(variables -> monedaimg) = al_load_bitmap("imagenes/monedita.png");
 	(variables -> volverimg) = al_load_bitmap("imagenes/volveralmenu.png");
 	(variables -> muertofinimg)  = al_load_bitmap("imagenes/muerto.png");

@@ -33,7 +33,7 @@ int menu (ini_var **mvar, int *mvida, int *mscore,int *mnivel) {
 	ini_var *mvariables;
 
 	int mauxestadojuego = 1;
-	int mauxopcionessalir,mauxopcionesjugar,mauxopcionesvolver;	//No se usa volver
+	int mauxopcionessalir,mauxopcionesjugar,mauxopcionesvolver,mauxjugarenlinea;	//No se usa volver
 	int mauxx, mauxy;	//mouse
 	char maux3[11],maux4[11];
 	
@@ -66,9 +66,19 @@ int menu (ini_var **mvar, int *mvida, int *mscore,int *mnivel) {
 	else{
 			mauxopcionesjugar=0;
 	} 	
+	if(mauxx > 354 && mauxx < 970 && mauxy > 610 && mauxy < 680) {
+		
+		mauxjugarenlinea=93;
+		
+	}
+	
+	else{
+			mauxjugarenlinea=0;
+	} 	
+	
 		
 	
-	if(mauxx > 485 && mauxx < 692 && mauxy > 602 && mauxy < 671) {
+		if(mauxx > 1056 && mauxx < 1263 && mauxy > 637 && mauxy < 706) {
 
 		mauxopcionessalir=215;
 	}
@@ -89,11 +99,13 @@ int menu (ini_var **mvar, int *mvida, int *mscore,int *mnivel) {
 		
 	}
 	else if((mvariables -> ev).type == ALLEGRO_EVENT_MOUSE_BUTTON_UP) {
-		if(mauxx > 485 && mauxx < 692 && mauxy > 602 && mauxy < 671)
+		if(mauxx > 1056 && mauxx < 1263 && mauxy > 637 && mauxy < 706)
 			return -1;
 		if(mauxx > 454 && mauxx < 726 && mauxy > 499 && mauxy < 596)
-				mauxestadojuego=3;										// ESTA EN 3 PARA PROBAR
-			
+				mauxestadojuego=0;
+		if(mauxx > 354 && mauxx < 970 && mauxy > 610 && mauxy < 680) {
+			mauxestadojuego=3;
+		}
 	}
 
 
@@ -110,25 +122,260 @@ int menu (ini_var **mvar, int *mvida, int *mscore,int *mnivel) {
 		al_draw_bitmap((mvariables -> fondomenuimg),0,0,0);
 	
 		al_draw_bitmap_region((mvariables -> opcionesmenuimg),0+mauxopcionesjugar,0,260,95,457,500,0);
-		al_draw_bitmap_region((mvariables -> opcionesmenuimg),0+mauxopcionessalir,90,210,90,479,590,0);
+		
+		al_draw_bitmap_region((mvariables -> jugarenlineaimg),0,0+mauxjugarenlinea,650,95,350,590,0);
+		
+		al_draw_bitmap_region((mvariables -> opcionesmenuimg),0+mauxopcionessalir,90,210,90,1050,625,0);//y625 x1050 y+35 x + 71
 
-
+/*
 		al_draw_text((mvariables -> font), al_map_rgb(255, 0, 255), 50, 50, 0, maux3);
 		al_draw_text((mvariables -> font), al_map_rgb(255, 0, 255), 10, 50, 0, "X:");
 		al_draw_text((mvariables -> font), al_map_rgb(255, 0, 255), 50, 100, 0, maux4);
-		al_draw_text((mvariables -> font), al_map_rgb(255, 0, 255), 10, 100, 0, "Y:");
+		al_draw_text((mvariables -> font), al_map_rgb(255, 0, 255), 10, 100, 0, "Y:");*/
 
 
 		al_flip_display();
 	}
 	
-	if (mauxestadojuego == 3){					// Antes de salir frena el timer
+	return mauxestadojuego;
+}
+
+int cargar_ip (ini_var **cvar, variablescliente *vcl) {
+
+	ini_var *cvariables;
 	
-		al_stop_timer((mvariables -> timer));
 	
+	int cauxestadojuego = 3;
+	
+	int tecla; // "tecla": Ind. que impide que hagas letras de mas.
+	char *ip;
+	char ip2[33];
+	
+	char auxip;
+	int auxip2,auxip3,auxip4,act;//numero|cantidad de numeros|indicador prim. vez|?|indicador de tecla|
+	
+	if(auxip3!=1)
+	{	
+		auxip=0;
+		act=0;
+		auxip2=0;
+
+		memset(ip2,0,33);
+		
+	}
+	if(auxip2<9){					// Modificado para cargar localhost
+			
+			
+		bool credraw = true;
+		
+		cvariables = *(cvar);
+
+			
+		al_wait_for_event((cvariables -> event_queue), &(cvariables -> ev));
+		
+		
+		if((cvariables -> ev).type == ALLEGRO_EVENT_TIMER) {
+			credraw = true;
+				
+			
+			if((cvariables -> key)[KEY_1] ) {
+				auxip='1';act=1;
+			}  	  
+			
+			if((cvariables -> key)[KEY_2] ) {
+				auxip='2';act=1;
+			}	
+			
+			if((cvariables -> key)[KEY_3] ) {
+				auxip='3';act=1;
+					}	
+
+			if((cvariables -> key)[KEY_4] ) {
+				auxip='4';act=1;
+					}	
+
+			if((cvariables -> key)[KEY_5] ) {
+				auxip='5';act=1;
+			}	
+
+			if((cvariables -> key)[KEY_6] ) {
+				auxip='6';act=1; 
+			}	
+
+			if((cvariables -> key)[KEY_7] ) {
+				auxip='7';act=1;
+				 
+			}	
+
+			if((cvariables -> key)[KEY_8] ) {
+				auxip='8';act=1;
+			}	
+
+			if((cvariables -> key)[KEY_9] ) {
+				auxip='9';act=1;
+					}	
+
+			if((cvariables -> key)[KEY_0] ) {
+				auxip='0';act=1;
+			}	
+
+			if((cvariables -> key)[KEY_FULLSTOP] ) {
+				auxip='.';act=1;
+			}	
+			
+			if(tecla!=1 && act==1){
+					
+					
+					auxip2=auxip2+1;
+					if(auxip3!=1)
+					{	
+						sprintf(ip, "%c",auxip);
+						strcpy(ip2,ip);
+					}
+					else{
+			
+					sprintf(ip, "%c",auxip);
+					strcat(ip2,ip);}
+					auxip3=1;
+				}tecla=1;act=0;
+
+		}
+			else if((cvariables -> ev).type == ALLEGRO_EVENT_KEY_DOWN) {
+			switch((cvariables -> ev).keyboard.keycode) {
+				
+				case ALLEGRO_KEY_1:
+				tecla=0;
+				(cvariables -> key)[KEY_1] = true;
+				break;
+				case ALLEGRO_KEY_2:
+				tecla=0;
+				(cvariables -> key)[KEY_2] = true;
+				break;
+				case ALLEGRO_KEY_3:
+				tecla=0;
+				(cvariables -> key)[KEY_3] = true;
+				break;
+				case ALLEGRO_KEY_4:
+				tecla=0;
+				(cvariables -> key)[KEY_4] = true;
+				break;
+				case ALLEGRO_KEY_5:
+				tecla=0;
+				(cvariables -> key)[KEY_5] = true;
+				break;
+				case ALLEGRO_KEY_6:
+				tecla=0;
+				(cvariables -> key)[KEY_6] = true;
+				break;
+				case ALLEGRO_KEY_7:
+				tecla=0;
+				(cvariables -> key)[KEY_7] = true;
+				break;
+				case ALLEGRO_KEY_8:
+				tecla=0;
+				(cvariables -> key)[KEY_8] = true;
+				break;
+				case ALLEGRO_KEY_9:
+				tecla=0;
+				(cvariables -> key)[KEY_9] = true;
+				break;
+				case ALLEGRO_KEY_0:
+				tecla=0;
+				(cvariables -> key)[KEY_0] = true;
+				break;
+				case ALLEGRO_KEY_FULLSTOP:
+				tecla=0;
+				(cvariables -> key)[KEY_FULLSTOP] = true;
+				break;
+			}
+		}
+		else if((cvariables -> ev).type == ALLEGRO_EVENT_KEY_UP) {
+			
+			switch((cvariables -> ev).keyboard.keycode) {
+				
+				case ALLEGRO_KEY_1:
+				(cvariables -> key)[KEY_1] = false;
+				break;
+				
+				case ALLEGRO_KEY_2:
+				(cvariables -> key)[KEY_2] = false;
+				break;
+				case ALLEGRO_KEY_3:
+				(cvariables -> key)[KEY_3] = false;
+				break;
+				case ALLEGRO_KEY_4:
+				(cvariables -> key)[KEY_4] = false;
+				break;
+				case ALLEGRO_KEY_5:
+				(cvariables -> key)[KEY_5] = false;
+				break;
+				case ALLEGRO_KEY_6:
+				(cvariables -> key)[KEY_6] = false;
+				break;
+				case ALLEGRO_KEY_7:
+				(cvariables -> key)[KEY_7] = false;
+				break;
+				case ALLEGRO_KEY_8:
+				(cvariables -> key)[KEY_8] = false;
+				break;
+				case ALLEGRO_KEY_9:
+				(cvariables -> key)[KEY_9] = false;
+				break;
+				case ALLEGRO_KEY_0:
+				(cvariables -> key)[KEY_0] = false;
+				break;
+				case ALLEGRO_KEY_FULLSTOP:
+				(cvariables -> key)[KEY_FULLSTOP] = false;
+				break;
+			}
+		}
+			
+		else if((cvariables -> ev).type == ALLEGRO_EVENT_DISPLAY_CLOSE) {
+			return -1;
+		}
+
+
+
+
+		if(credraw && al_is_event_queue_empty(cvariables -> event_queue)) {
+			credraw = false;
+
+			al_clear_to_color(al_map_rgb(0,0,0));
+			
+			
+			al_draw_bitmap((cvariables -> fondoipimg),-764,0,0);
+			al_draw_bitmap((cvariables -> fondoipimg),200,0,0);
+			al_draw_bitmap((cvariables -> fondoipimg),1224,0,0);
+			al_draw_text((cvariables -> font2), al_map_rgb(0, 0, 255), 280, 100, 0, "Inserte su IP:");
+			al_draw_text((cvariables -> font2), al_map_rgb(0, 0, 255), 300, 250, 0, ip2);
+			//+(auxip2*30),
+
+			al_flip_display();
+		}
+
+	} else {
+
+		printf ("%s \n", (ip2));
+		strcpy((vcl -> hostname), ip2);
+				
+		(vcl -> cx_stat) = inicializar_cl (vcl);
+		
+		if (vcl -> cx_stat) {
+			
+			(vcl -> netflag) = 1;				// Activa el flag de modo de red
+			cauxestadojuego = 0;				// Si se conecta arranca la partida
+			
+		}
+		
 	}
 	
-	return mauxestadojuego;
+	if (cauxestadojuego == 0){					// Antes de salir frena el timer
+	
+		al_stop_timer((cvariables -> timer));
+	
+	}	
+	
+	return cauxestadojuego;
 }
 
 int partida (ini_var **pvar, int *pvida, int *pscore, int *pnivel, posicion *ppos, auxpartida *pauxpar, frameExplosion *pfE, frameMonedita *pfM, variablescliente *pvarcl) {
@@ -161,14 +408,11 @@ int partida (ini_var **pvar, int *pvida, int *pscore, int *pnivel, posicion *ppo
 
 	al_wait_for_event((pvariables -> event_queue), &(pvariables -> ev));
 
-// Pausa - PARA QUE FUNCIONE FALTA MANDAR TECLA P POR RED
-
-/*	if ( (pvariables -> key)[KEY_P]){					
+	if ( (pvariables -> key)[KEY_P]){					// Pausa
 	
 		al_stop_timer((pvariables -> timer));
 	
 	}
-*/
 
 	if((pvariables -> ev).type == ALLEGRO_EVENT_TIMER) {
 		
@@ -242,10 +486,17 @@ int partida (ini_var **pvar, int *pvida, int *pscore, int *pnivel, posicion *ppo
 		(ppos -> bouncer_x4)+= (ppos -> bouncer_dx)/3;
 						
 			
-		if((ppos -> bouncer_x3) < -256)                
-			(ppos -> bouncer_x3)= (ppos -> bouncer_x3)+1556;
-		(ppos -> bouncer_x3) += (ppos -> bouncer_dx)*20*(*(pnivel)*0.1);
+		if((ppos -> bouncer_x31) < -256)                
+			(ppos -> bouncer_x31)= (ppos -> bouncer_x31)+1556;
+		(ppos -> bouncer_x31) += (ppos -> bouncer_dx)*20*(*(pnivel)*0.1);
 		
+        if((ppos -> bouncer_x32) < -256)                
+			(ppos -> bouncer_x32)= (ppos -> bouncer_x32)+1556;
+		(ppos -> bouncer_x32) += (ppos -> bouncer_dx)*10*(*(pnivel)*0.1);
+
+        if((ppos -> bouncer_x33) < -256)                
+			(ppos -> bouncer_x33)= (ppos -> bouncer_x33)+1556;
+		(ppos -> bouncer_x33) += (ppos -> bouncer_dx)*5*(*(pnivel)*0.1);
 		
 		if((ppos -> bouncer_x5) < -956)                
 			(ppos -> bouncer_x5)= (ppos -> bouncer_x5)+2056;
@@ -355,6 +606,30 @@ int partida (ini_var **pvar, int *pvida, int *pscore, int *pnivel, posicion *ppo
 			}			
 			
 			break;
+			
+			case ALLEGRO_KEY_P:
+			
+			if (!((pvariables -> key)[KEY_P])){
+				(pvariables -> key)[KEY_P] = true;
+
+				if ((pvarcl -> netflag) == 1){
+				
+					put_network_data((pvarcl -> sockfd), (pvarcl -> buffercl), KEY_SPACE, true);	// Manda por red barra espaciadora
+				
+				}
+			
+			} else if ((pvariables -> key)[KEY_P]) {
+				(pvariables -> key)[KEY_P] = false;
+			
+				if ((pvarcl -> netflag) == 1){
+				
+					put_network_data((pvarcl -> sockfd), (pvarcl -> buffercl), KEY_UP, false);		// Manda por red tecla arriba
+				
+				}
+			
+			}
+			
+			break;
 		}
 	}
 	else if((pvariables -> ev).type == ALLEGRO_EVENT_KEY_UP) {
@@ -433,7 +708,9 @@ int partida (ini_var **pvar, int *pvida, int *pscore, int *pnivel, posicion *ppo
 	
 	//  al_draw_bitmap((pvariables -> enemigoimg), (ppos -> bouncer_x3),350,0);
 	
-	al_draw_bitmap_region((pvariables -> enemigoimg[*(pnivel)]) ,0,0,140,150,(ppos -> bouncer_x3),355,0);
+	al_draw_bitmap_region((pvariables -> enemigoimg[*(pnivel)]) ,0,0,140,150,(ppos -> bouncer_x31),355,0);
+    al_draw_bitmap_region((pvariables -> enemigoimg[*(pnivel)]) ,0,0,140,150,(ppos -> bouncer_x32),-10,0);
+    al_draw_bitmap_region((pvariables -> enemigoimg[*(pnivel)]) ,0,0,140,150,(ppos -> bouncer_x33),150,0);
 	//al_draw_bitmap_region((pvariables -> enemigoimg) ,(pauxpar -> auxspriteenemigo)*140,0,140,150,(ppos -> bouncer_x3),355,0);
 		
 	al_draw_bitmap_region((pvariables -> monedaimg), ((pfM -> curFrameMonedita) * (pfM -> frameWidthMonedita))-13, 0, (pfM -> frameWidthMonedita), (pfM -> frameHeightMonedita)+20,(ppos -> bouncer_x6),(ppos -> bouncer_y6), 0);
@@ -445,8 +722,16 @@ int partida (ini_var **pvar, int *pvida, int *pscore, int *pnivel, posicion *ppo
 	al_draw_bitmap_region((pvariables -> cuboimg),9+(97*(pauxpar -> auxspritecubox))-((pauxpar -> auxspritecubox)/4),55+(96*(pauxpar -> auxspritecuboy)),89,87,(ppos -> bouncer_x2)-200, (ppos -> bouncer_y2)+70,0);
 	//al_draw_bitmap((pvariables -> cuboimg),(ppos -> bouncer_x2)-200, (ppos -> bouncer_y2)+115,0);
 	
-	if((ppos -> bouncer_x3)<(ppos -> bouncer_x2)-125&&(ppos -> bouncer_x3)>(ppos -> bouncer_x2)-330){	   
+	if((ppos -> bouncer_x31)<(ppos -> bouncer_x2)-125&&(ppos -> bouncer_x31)>(ppos -> bouncer_x2)-330){	   
 	if((ppos -> bouncer_y2)>150)		      	
+			(pauxpar -> auxcolision)=1;	
+	}
+    if((ppos -> bouncer_x32)<(ppos -> bouncer_x2)-125&&(ppos -> bouncer_x32)>(ppos -> bouncer_x2)-330){	   
+	if((ppos -> bouncer_y2)<-50)		      	
+			(pauxpar -> auxcolision)=1;	
+	}
+    if((ppos -> bouncer_x33)<(ppos -> bouncer_x2)-125&&(ppos -> bouncer_x33)>(ppos -> bouncer_x2)-330){	   
+	if((ppos -> bouncer_y2)>-10&&(ppos -> bouncer_y2)<190)		      	
 			(pauxpar -> auxcolision)=1;	
 	}
 		
@@ -601,10 +886,10 @@ int fin (ini_var **fvar, auxpartida *pauxpar) {
 		al_draw_bitmap_region((fvariables -> volverimg),0+fauxopcionesvolver,0,400,400,350,390,0);
 		al_draw_bitmap_region((fvariables -> opcionesmenuimg),0+fauxopcionessalir,90,210,90,400,590,0);
 		
-		al_draw_text((fvariables -> font), al_map_rgb(255, 0, 255), 50, 50, 0, faux3);
+		/*al_draw_text((fvariables -> font), al_map_rgb(255, 0, 255), 50, 50, 0, faux3);
 		al_draw_text((fvariables -> font), al_map_rgb(255, 0, 255), 10, 50, 0, "X:");
 		al_draw_text((fvariables -> font), al_map_rgb(255, 0, 255), 50, 100, 0, faux4);
-		al_draw_text((fvariables -> font), al_map_rgb(255, 0, 255), 10, 100, 0, "Y:");
+		al_draw_text((fvariables -> font), al_map_rgb(255, 0, 255), 10, 100, 0, "Y:");*/
 		
 		al_draw_text((fvariables -> font2), al_map_rgb(255, 0, 0), 280, 50, 0, "TE QUEDASTE SIN VIDAS MANCO");
 		
@@ -637,17 +922,17 @@ int inicializar_cl (variablescliente *varcl){
 	(varcl -> netflag) = 0;
 	(varcl -> cx_stat) = 0;
 
-    if ((varcl -> cantarg) < 2) {
+/*    if ((varcl -> cantarg) < 2) {
        fprintf(stderr,"usage %s hostname\n", (varcl -> strarg)[0]);
        exit(0);
     }
-
+*/
     (varcl -> sockfd) = socket(AF_INET, SOCK_STREAM, 0);
 
     if ((varcl -> sockfd) < 0) 
         error("ERROR opening socket");
 
-    (varcl -> server) = gethostbyname((varcl -> strarg)[1]);
+    (varcl -> server) = gethostbyname((varcl -> hostname));
 
     if ((varcl -> server) == NULL) {
         fprintf(stderr,"ERROR, no such host\n");
@@ -676,7 +961,7 @@ int inicializar_cl (variablescliente *varcl){
 	
 }
 
-
+/*
 // Pantalla para ingresar la ip del servidor
 
 int cargar_ip (ini_var **cvar, variablescliente *vcl) {		
@@ -695,7 +980,7 @@ int cargar_ip (ini_var **cvar, variablescliente *vcl) {
 	return cauxestadojuego;
 	
 }
-
+*/
 int	GameLoop (ini_var **var, variablescliente *varcliente) {
 
 	ini_var *variables;
@@ -760,7 +1045,9 @@ int	GameLoop (ini_var **var, variablescliente *varcliente) {
 		
 			(pos -> bouncer_x2) = (SCREEN_W) / 2.0 - (BOUNCER_SIZE) / 2.0;
 		
-			(pos -> bouncer_x3) = (SCREEN_W) / 2.0 + 900 - (BOUNCER_SIZE) / 2.0;
+			(pos -> bouncer_x31) = (SCREEN_W) / 2.0 + 900 - (BOUNCER_SIZE) / 2.0;
+			(pos -> bouncer_x32) = (SCREEN_W) / 2.0 + 900 - (BOUNCER_SIZE) / 2.0;
+			(pos -> bouncer_x33) = (SCREEN_W) / 2.0 + 900 - (BOUNCER_SIZE) / 2.0;
 		
 			(pos -> bouncer_x4) = (SCREEN_W) / 2.0 - (BOUNCER_SIZE) / 2.0;
 		
