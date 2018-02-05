@@ -604,7 +604,7 @@ int receive_data (ini_var **rvar, variablesservidor *varsv2, posicion *p) {
 					(rvariables -> key)[KEY_P] = true;
 				}
 				else {
-					fprintf (stderr, "hasta aca anda \n");
+
 					(rvariables -> key)[KEY_P] = false;
 				}
 				break;
