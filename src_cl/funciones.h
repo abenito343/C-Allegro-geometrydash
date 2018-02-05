@@ -8,3 +8,4 @@ int menu(ini_var **, int *, int *);
 int partida (ini_var **, int *, int *, char **, posicion *, auxpartida *, frameExplosion *, frameMonedita *, bool **, variablescliente *);
 int fin (ini_var **, char **);	
 int cargar_ip (ini_var **, variablescliente *);
+int send_pos (ini_var **, variablescliente *, posicion *);

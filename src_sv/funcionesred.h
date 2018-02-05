@@ -54,10 +54,8 @@ int put_network_data(int sockfd, char *buffer, int k, char s) {
     return n;
 }
 
-int put_network_data2(int sockfd, char *buffer,char e, int num, float v) {		// Para mandar posicion
+int put_network_data2(int sockfd, char *buffer, char *buffer2, char *buffer3, char e, int num, float v) {		// Para mandar posicion
     int n;
-    char *buffer2;
-    char *buffer3;
 
     memset((void *) buffer, '\0', 256);
     memset((void *) buffer2, '\0', 256);
@@ -110,11 +108,11 @@ int get_network_data(int sockfd, char *buffer, int *s, int *k) {
             *s=true;
         } else if(!strcmp(status,"false")) {
             *s=false;
-        } else {
+        } /*else {											// ARREGLAR PARA QUE NO INTERFIERA CUANDO RECIBE POSICIONES
             printf("Error recepción. Buffer: %s",buffer);
             return 0;
         }
-
+*/
         if(!strcmp(key,"KEY_UP")) {
             *k=KEY_UP;
         } else if(!strcmp(key,"KEY_DOWN")) {
@@ -129,11 +127,11 @@ int get_network_data(int sockfd, char *buffer, int *s, int *k) {
 			*k=KEY_SPACE;
         } else if(!strcmp(key,"KEY_P")) {
 			*k=KEY_P;
-        } else {
+        } /*else {											// ARREGLAR PARA QUE NO INTERFIERA CUANDO RECIBE POSICIONES
             printf("Error recepción. Buffer: %s",buffer);
             return 0;
         }
-
+*/
         // Data saved (s+k), can return
         //DBG - printf("key: %d / status: %d\n",*k,*s);
         return 1;
@@ -163,11 +161,11 @@ int get_network_data2(int sockfd, char *buffer, char *l, int *num, float *v) {		
             *l='x';
         } else if(!strcmp(letra,"y")) {
             *l='y';
-        } else {
+        }/* else {											// ARREGLAR PARA QUE NO INTERFIERA CUANDO RECIBE LAS TECLAS
             printf("Error recepción. Buffer: %s",buffer);
             return 0;
         }
-
+*/
 		if (pos == NULL) {
 			return 0;
 		}

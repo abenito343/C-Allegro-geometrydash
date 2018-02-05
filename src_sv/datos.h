@@ -157,6 +157,8 @@ typedef struct variablesservidor {
 
     char buffersv[256];
     char buffersv2[256];
+    char buffersv3[256];
+
     struct sockaddr_in serv_addr, cli_addr;
 	int net, status, sentkey;
 	char eje;

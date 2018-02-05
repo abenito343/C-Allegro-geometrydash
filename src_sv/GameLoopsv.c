@@ -617,8 +617,8 @@ int receive_data (ini_var **rvar, variablesservidor *varsv2, posicion *p) {
 	}
 
 // Recibe posicion por red
-/*	
-	(varsv2 -> net) = get_network_data2((varsv2 -> newsockfd), (varsv2 -> buffersv2), &(varsv2 -> eje), &(varsv2 -> number), &(varsv2 -> valpos));
+	
+	(varsv2 -> net) = get_network_data2((varsv2 -> newsockfd), (varsv2 -> buffersv), &(varsv2 -> eje), &(varsv2 -> number), &(varsv2 -> valpos));
 
 	if((varsv2 -> net) == 1) {
 		
@@ -636,14 +636,18 @@ int receive_data (ini_var **rvar, variablesservidor *varsv2, posicion *p) {
 					(p -> bouncer_x2) = (varsv2 -> valpos);	
 					break;				
 
-					case 3:
+					case 31:
 				
 					(p -> bouncer_x31) = (varsv2 -> valpos);	
 					break;	
 
+					case 32:
+					
 					(p -> bouncer_x32) = (varsv2 -> valpos);	
 					break;	
 
+					case 33:
+					
 					(p -> bouncer_x33) = (varsv2 -> valpos);	
 					break;	
 
@@ -692,7 +696,6 @@ int receive_data (ini_var **rvar, variablesservidor *varsv2, posicion *p) {
 		}
 
 	}
-*/
 
     return 0;
         

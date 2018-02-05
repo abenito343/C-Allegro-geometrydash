@@ -147,7 +147,8 @@ typedef struct variablescliente {
     struct hostent *server;
 
 	char buffercl[256];
-
+	char buffercl2[256];
+	char buffercl3[256];
 
 } variablescliente;
 

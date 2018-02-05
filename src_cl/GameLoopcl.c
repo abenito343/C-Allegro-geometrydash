@@ -377,6 +377,27 @@ int cargar_ip (ini_var **cvar, variablescliente *vcl) {
 	return cauxestadojuego;
 }
 
+int send_pos (ini_var **svar, variablescliente *svarcl, posicion *spos) {
+	
+	ini_var *svariables;	
+	
+	svariables = *(svar);
+	
+	put_network_data2 ((svarcl -> sockfd),(svarcl -> buffercl), (svarcl -> buffercl2), (svarcl -> buffercl3), 'x', 0, (spos -> bouncer_x));
+	put_network_data2 ((svarcl -> sockfd),(svarcl -> buffercl), (svarcl -> buffercl2), (svarcl -> buffercl3), 'x', 2, (spos -> bouncer_x2));
+	put_network_data2 ((svarcl -> sockfd),(svarcl -> buffercl), (svarcl -> buffercl2), (svarcl -> buffercl3), 'y', 2, (spos -> bouncer_y2));
+	put_network_data2 ((svarcl -> sockfd),(svarcl -> buffercl), (svarcl -> buffercl2), (svarcl -> buffercl3), 'x', 31, (spos -> bouncer_x31));
+	put_network_data2 ((svarcl -> sockfd),(svarcl -> buffercl), (svarcl -> buffercl2), (svarcl -> buffercl3), 'x', 32, (spos -> bouncer_x32));
+	put_network_data2 ((svarcl -> sockfd),(svarcl -> buffercl), (svarcl -> buffercl2), (svarcl -> buffercl3), 'x', 33, (spos -> bouncer_x33));
+	put_network_data2 ((svarcl -> sockfd),(svarcl -> buffercl), (svarcl -> buffercl2), (svarcl -> buffercl3), 'x', 4, (spos -> bouncer_x4));
+	put_network_data2 ((svarcl -> sockfd),(svarcl -> buffercl), (svarcl -> buffercl2), (svarcl -> buffercl3), 'x', 5, (spos -> bouncer_x5));
+	put_network_data2 ((svarcl -> sockfd),(svarcl -> buffercl), (svarcl -> buffercl2), (svarcl -> buffercl3), 'x', 6, (spos -> bouncer_x6));
+	put_network_data2 ((svarcl -> sockfd),(svarcl -> buffercl), (svarcl -> buffercl2), (svarcl -> buffercl3), 'y', 6, (spos -> bouncer_y6));
+	put_network_data2 ((svarcl -> sockfd),(svarcl -> buffercl), (svarcl -> buffercl2), (svarcl -> buffercl3), 'd', 0, (spos -> bouncer_dx));		// Velocidad
+	
+	return 0;
+}
+
 int partida (ini_var **pvar, int *pvida, int *pscore, int *pnivel, posicion *ppos, auxpartida *pauxpar, frameExplosion *pfE, frameMonedita *pfM, variablescliente *pvarcl) {
 
 	ini_var *pvariables;
@@ -1064,6 +1085,12 @@ int	GameLoop (ini_var **var, variablescliente *varcliente) {
 		while (auxestadojuego == 0){
 			
 			auxestadojuego = partida (&variables, vida, score, nivel, pos, auxpar, fE, fM, varcliente);
+
+			if ((varcliente -> netflag) == 1){
+							
+				send_pos (&variables, varcliente, pos);
+			
+			}
 			
 		} 
 		

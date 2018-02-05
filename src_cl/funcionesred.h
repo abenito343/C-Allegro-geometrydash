@@ -53,6 +53,42 @@ int put_network_data(int sockfd, char *buffer, int k, char s) {
     return n;
 }
 
+int put_network_data2(int sockfd, char *buffer, char *buffer2, char *buffer3, char e, int num, float v) {		// Para mandar posicion
+    int n;
+
+    memset((void *) buffer, '\0', 256);
+    memset((void *) buffer2, '\0', 256);
+    memset((void *) buffer3, '\0', 256);
+    
+    if (e == 'd') {
+		strcpy(buffer,"d;x;");
+	
+	} else {
+			
+		switch(e) {
+			case 'x':
+				strcpy(buffer,"x;");
+				break;          
+						
+			case 'y':
+				strcpy(buffer,"y;");
+				break;       
+		}
+		
+		sprintf(buffer2, "%i;", num);
+		strcat(buffer, buffer2);
+	}
+	
+	sprintf(buffer3, "%f\0", v);
+    strcat(buffer, buffer3);
+
+    //DBG - printf("Buffer: %s",buffer);
+    n = write(sockfd,buffer,strlen(buffer));
+    if (n < 0) error("ERROR writing to socket");
+
+    return n;
+}
+
 int get_network_data(int sockfd, char *buffer, int *s, int *k) {
     int n;
     char *key, *status;
