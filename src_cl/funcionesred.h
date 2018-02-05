@@ -31,8 +31,10 @@ int put_network_data(int sockfd, char *buffer, int k, char s) {
             break;
         case KEY_SPACE:
             strcpy(buffer,"KEY_SPACE;"); 
-            break;            
-
+            break;    
+        case KEY_P:
+            strcpy(buffer,"KEY_P;"); 
+            break; 
         }
 
     switch(s) {
@@ -86,6 +88,8 @@ int get_network_data(int sockfd, char *buffer, int *s, int *k) {
             *k=KEY_EXIT;
         } else if(!strcmp(key,"KEY_SPACE")) {
 			*k=KEY_SPACE;
+        } else if(!strcmp(key,"KEY_P")) {
+			*k=KEY_P;
         } else {
             printf("Error recepción. Buffer: %s",buffer);
             return 0;

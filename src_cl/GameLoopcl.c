@@ -355,7 +355,6 @@ int cargar_ip (ini_var **cvar, variablescliente *vcl) {
 
 	} else {
 
-		printf ("%s \n", (ip2));
 		strcpy((vcl -> hostname), ip2);
 				
 		(vcl -> cx_stat) = inicializar_cl (vcl);
@@ -399,12 +398,14 @@ int partida (ini_var **pvar, int *pvida, int *pscore, int *pnivel, posicion *ppo
 	
 	if(*(pscore) == 1000 || *(pscore) == 2000 || *(pscore) == 3000 || *(pscore) == 4000)
 	al_play_sample((pvariables -> levelsfx), 1.0, 0.0,1.2,ALLEGRO_PLAYMODE_ONCE,NULL);
+
+
 	
-//	if ( !((pvariables -> key)[KEY_P])){
+	if ( !((pvariables -> key)[KEY_P])){
 		
 		al_start_timer((pvariables -> timer));
 		
-//	}
+	}
 
 	al_wait_for_event((pvariables -> event_queue), &(pvariables -> ev));
 
@@ -614,16 +615,16 @@ int partida (ini_var **pvar, int *pvida, int *pscore, int *pnivel, posicion *ppo
 
 				if ((pvarcl -> netflag) == 1){
 				
-					put_network_data((pvarcl -> sockfd), (pvarcl -> buffercl), KEY_SPACE, true);	// Manda por red barra espaciadora
+					put_network_data((pvarcl -> sockfd), (pvarcl -> buffercl), KEY_P, true);	// Manda por red tecla P
 				
 				}
 			
-			} else if ((pvariables -> key)[KEY_P]) {
+			} else if ((pvariables -> key)[KEY_P]) {					// Si se vuelve a apretar devuelve falso
 				(pvariables -> key)[KEY_P] = false;
 			
 				if ((pvarcl -> netflag) == 1){
 				
-					put_network_data((pvarcl -> sockfd), (pvarcl -> buffercl), KEY_UP, false);		// Manda por red tecla arriba
+					put_network_data((pvarcl -> sockfd), (pvarcl -> buffercl), KEY_P, false);		// Manda por red tecla P
 				
 				}
 			

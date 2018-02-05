@@ -36,6 +36,8 @@ int partida (ini_var **pvar, int *pvida, int *pscore, int *pnivel, posicion *ppo
 
 	int pauxestadojuego = 0;
 
+	pvariables = *(pvar);
+
 	if(	*(pscore) >1000&&*(pscore) <2000)
 	*(pnivel)=2;
 	if(*(pscore) >2000&&*(pscore) <3000)
@@ -45,28 +47,27 @@ int partida (ini_var **pvar, int *pvida, int *pscore, int *pnivel, posicion *ppo
 	if(*(pscore) >4000&&*(pscore) <5000)
 	*(pnivel)=5;
 				
-	pvariables = *(pvar);
 
 /*	if(*(pscore) == 1000 || *(pscore) == 2000 || *(pscore) == 3000 || *(pscore) == 4000)
 	al_play_sample((pvariables -> levelsfx), 1.0, 0.0,1.2,ALLEGRO_PLAYMODE_ONCE,NULL);		//NO ANDA (Probar en distintas computadoras)
 */			
 
-//	if ( !((pvariables -> key)[KEY_P])){
+	if ( !((pvariables -> key)[KEY_P])){
 		
 		al_start_timer((pvariables -> timer));
 		
-//	}
+	}
 
 	al_wait_for_event((pvariables -> event_queue), &(pvariables -> ev));
 
-// Pausa - PARA QUE FUNCIONE FALTA MANDAR TECLA P POR RED
+// Pausa
 
-/*	if ( (pvariables -> key)[KEY_P]){					
+	if ( (pvariables -> key)[KEY_P]){					
 	
 		al_stop_timer((pvariables -> timer));
 	
 	}
-*/
+
 
 	if((pvariables -> ev).type == ALLEGRO_EVENT_TIMER) {
 		
@@ -574,7 +575,7 @@ int receive_data (ini_var **rvar, variablesservidor *varsv2, posicion *p) {
 	rvariables = *(rvar);	
 
 // Recibe teclas por red
-	
+
 	(varsv2 -> net) = get_network_data((varsv2 -> newsockfd), (varsv2 -> buffersv), &(varsv2 -> status), &(varsv2 -> sentkey));
 
 	if((varsv2 -> net) == 1) {
@@ -598,6 +599,16 @@ int receive_data (ini_var **rvar, variablesservidor *varsv2, posicion *p) {
 				}
 				break;
 				
+			case KEY_P:											// El cliente manda verdadero o falso por red
+				if(varsv2 -> status){
+					(rvariables -> key)[KEY_P] = true;
+				}
+				else {
+					fprintf (stderr, "hasta aca anda \n");
+					(rvariables -> key)[KEY_P] = false;
+				}
+				break;
+				
 /*			case KEY_EXIT:
 				doexit = true;
 				break;               
@@ -606,7 +617,7 @@ int receive_data (ini_var **rvar, variablesservidor *varsv2, posicion *p) {
 	}
 
 // Recibe posicion por red
-	
+/*	
 	(varsv2 -> net) = get_network_data2((varsv2 -> newsockfd), (varsv2 -> buffersv2), &(varsv2 -> eje), &(varsv2 -> number), &(varsv2 -> valpos));
 
 	if((varsv2 -> net) == 1) {
@@ -681,6 +692,7 @@ int receive_data (ini_var **rvar, variablesservidor *varsv2, posicion *p) {
 		}
 
 	}
+*/
 
     return 0;
         
