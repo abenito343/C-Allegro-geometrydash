@@ -159,7 +159,7 @@ int	Inicializar (ini_var **var) {
 	
 
 //	al_start_timer((variables -> timer));			//Desactivado, inicia en cada funcion
-
+	al_start_timer((variables -> timer2));
 
 // Imagenes
 	//(variables -> fondoimg) = al_load_bitmap("imagenes/fondo5.png");
