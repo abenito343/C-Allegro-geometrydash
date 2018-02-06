@@ -85,11 +85,11 @@ int	Inicializar (ini_var **var) {
 
 // Sonidos
 	
-	(variables -> temajuego)= al_load_sample( "sonidos/Forever Bound - Stereo Madness.wav" );
-	(variables -> explosionsfx) = al_load_sample( "sonidos/explosion3.wav" );
-	(variables -> monedasfx) = al_load_sample( "sonidos/monedasfx.wav" );
-	(variables -> levelsfx) = al_load_sample( "sonidos/nivel.wav" );
-	(variables -> temamenu)= al_load_sample( "sobidos/DJVI - Back On Track.wav" );
+	(variables -> temajuego)= al_load_sample( "sonidos/DarudeJapishstorm.wav" );		
+	(variables -> explosionsfx) = al_load_sample( "sonidos/Japish3.wav" );
+	(variables -> monedasfx) = al_load_sample( "sonidos/arrrg.wav" );
+	(variables -> levelsfx) = al_load_sample( "sonidos/mandalemecha.wav" );
+	(variables -> temamenu)= al_load_sample( "sonidos/DarudeJapishstorm.wav" );
 	
 	if (!(variables -> temajuego)){
 		printf( "Audio clip sample not loaded!\n" ); 

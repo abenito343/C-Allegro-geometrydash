@@ -41,7 +41,7 @@ int menu (ini_var **mvar, int *mvida, int *mscore,int *mnivel) {
 	
 	mvariables = *(mvar);
 
-	*(mvida) = 3;
+	*(mvida) = 6;
 	*(mscore) = 0;
 	*(mnivel) =1;
 
@@ -101,8 +101,11 @@ int menu (ini_var **mvar, int *mvida, int *mscore,int *mnivel) {
 	else if((mvariables -> ev).type == ALLEGRO_EVENT_MOUSE_BUTTON_UP) {
 		if(mauxx > 1056 && mauxx < 1263 && mauxy > 637 && mauxy < 706)
 			return -1;
-		if(mauxx > 454 && mauxx < 726 && mauxy > 499 && mauxy < 596)
+		if(mauxx > 454 && mauxx < 726 && mauxy > 499 && mauxy < 596){
+				al_stop_samples();
 				mauxestadojuego=0;
+				
+			}
 		if(mauxx > 354 && mauxx < 970 && mauxy > 610 && mauxy < 680) {
 			mauxestadojuego=3;
 		}
@@ -117,7 +120,9 @@ int menu (ini_var **mvar, int *mvida, int *mscore,int *mnivel) {
 		
 				
 		
-		//al_play_sample((mvariables -> temamenu), 1.0, 0.0,1.0,ALLEGRO_PLAYMODE_ONCE,NULL);
+		al_play_sample((mvariables -> temamenu), 1.0, 0.0,1.0,ALLEGRO_PLAYMODE_ONCE,NULL);
+		
+		
 		
 		al_draw_bitmap((mvariables -> fondomenuimg),0,0,0);
 	
@@ -135,6 +140,9 @@ int menu (ini_var **mvar, int *mvida, int *mscore,int *mnivel) {
 
 
 		al_flip_display();
+		
+		
+		
 	}
 	
 	return mauxestadojuego;
@@ -369,7 +377,8 @@ int cargar_ip (ini_var **cvar, variablescliente *vcl) {
 	}
 	
 	if (cauxestadojuego == 0){					// Antes de salir frena el timer
-	
+		
+			
 		al_stop_timer((cvariables -> timer));
 	
 	}	
@@ -387,6 +396,8 @@ int partida (ini_var **pvar, int *pvida, int *pscore, int *pnivel, posicion *ppo
 
 	pvariables = *(pvar);
 	
+	
+	
 	if(	*(pscore) >1000&&*(pscore) <2000)
 	*(pnivel)=2;
 	if(*(pscore) >2000&&*(pscore) <3000)
@@ -396,8 +407,13 @@ int partida (ini_var **pvar, int *pvida, int *pscore, int *pnivel, posicion *ppo
 	if(*(pscore) >4000&&*(pscore) <5000)
 	*(pnivel)=5;
 	
+	
+	
 	if(*(pscore) == 1000 || *(pscore) == 2000 || *(pscore) == 3000 || *(pscore) == 4000)
+	{
+	al_stop_samples();	
 	al_play_sample((pvariables -> levelsfx), 1.0, 0.0,1.2,ALLEGRO_PLAYMODE_ONCE,NULL);
+	}
 
 
 	
@@ -737,7 +753,7 @@ int partida (ini_var **pvar, int *pvida, int *pscore, int *pnivel, posicion *ppo
 	}
 		
 	if((pauxpar -> auxcolision)==1){
-		
+			//al_stop_samples();
 			al_play_sample((pvariables -> explosionsfx), 1.0, 0.0,1.0,ALLEGRO_PLAYMODE_ONCE,NULL);
 			//al_play_sample((pvariables -> monedasfx), 1.0, 0.0,2.0,ALLEGRO_PLAYMODE_ONCE,NULL);
 			al_draw_bitmap_region((pvariables -> explosionimg), ((pfE -> curFrameExplosion) * (pfE -> frameWidthExplosion))-59, 0, (pfE -> frameWidthExplosion), (pfE -> frameHeightExplosion)+20,(ppos -> bouncer_x2)-300, (ppos -> bouncer_y2)+30, 0);
@@ -776,6 +792,7 @@ int partida (ini_var **pvar, int *pvida, int *pscore, int *pnivel, posicion *ppo
 		if((pauxpar -> auxmoneda2)==1){   
 			*(pscore) = *(pscore)+100; 
 			(ppos -> bouncer_x6)= (ppos -> bouncer_x6)+1500;
+			al_stop_samples();
 			al_play_sample((pvariables -> monedasfx), 1.0, 0.0,1.0,ALLEGRO_PLAYMODE_ONCE,NULL);
 			//al_play_sample((pvariables -> explosionsfx), 1.0, 0.0,2.0,ALLEGRO_PLAYMODE_ONCE,NULL);
 			(pauxpar -> auxmoneda2)=0;
@@ -816,7 +833,9 @@ int fin (ini_var **fvar, auxpartida *pauxpar) {
 	char faux3[11], faux4[11];
 		
 	fvariables = *(fvar);
-
+	
+	al_stop_samples();
+	
 	al_start_timer((fvariables -> timer));
 
 	al_wait_for_event((fvariables -> event_queue), &(fvariables -> ev));

@@ -353,8 +353,9 @@ int partida (ini_var **pvar, int *pvida, int *pscore, int *pnivel, posicion *ppo
 
 	ini_var *pvariables;
 
-	bool predraw = true;	
+	bool predraw = true;		
 
+	
 	int pauxestadojuego = 0;
 
 	if(	*(pscore) >1000&&*(pscore) <2000)
