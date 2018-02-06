@@ -51,7 +51,13 @@ int	Inicializar (ini_var **var) {
 	
 	(variables -> timer) = al_create_timer(1.0 / FPS);
 	if(!(variables -> timer)) {
-		fprintf(stderr, "failed to create (variables -> timer)!\n");
+		fprintf(stderr, "failed to create timer!\n");
+		return -1;
+	}
+	
+	(variables -> timer2) = al_create_timer(1.0);
+	if(!(variables -> timer2)) {
+		fprintf(stderr, "failed to create timer 2!\n");
 		return -1;
 	}
 	
@@ -89,7 +95,7 @@ int	Inicializar (ini_var **var) {
 	(variables -> explosionsfx) = al_load_sample( "sonidos/explosion3.wav" );
 	(variables -> monedasfx) = al_load_sample( "sonidos/monedasfx.wav" );
 	(variables -> levelsfx) = al_load_sample( "sonidos/nivel.wav" );
-	(variables -> temamenu)= al_load_sample( "sobidos/DJVI - Back On Track.wav" );
+	(variables -> temamenu)= al_load_sample( "sonidos/DJVI - Back On Track.wav" );
 	
 	if (!(variables -> temajuego)){
 		printf( "Audio clip sample not loaded!\n" ); 
@@ -135,18 +141,28 @@ int	Inicializar (ini_var **var) {
  //  al_set_target_bitmap(al_get_backbuffer((variables -> display)));
  
 	(variables -> event_queue) = al_create_event_queue();
+//	(variables -> event_queue2) = al_create_event_queue();
    
 	if(!(variables -> event_queue)) {
-		fprintf(stderr, "failed to create (variables -> event_queue)!\n");
+		fprintf(stderr, "failed to create event_queue!\n");
 		//al_destroy_bitmap(bouncer);
 		al_destroy_display((variables -> display));
 		al_destroy_timer((variables -> timer));
 		return -1;
 	}
-	
+
+/*	if(!(variables -> event_queue2)) {
+		fprintf(stderr, "failed to create event_queue 2!\n");
+		//al_destroy_bitmap(bouncer);
+		al_destroy_display((variables -> display));
+		al_destroy_timer((variables -> timer));
+		return -1;
+	}
+*/		
 	al_register_event_source((variables -> event_queue), al_get_display_event_source((variables -> display)));
 	
 	al_register_event_source((variables -> event_queue), al_get_timer_event_source((variables -> timer)));
+//	al_register_event_source((variables -> event_queue), al_get_timer_event_source((variables -> timer2)));	// Para red
 	
 	al_register_event_source((variables -> event_queue), al_get_mouse_event_source());
 	
@@ -159,7 +175,7 @@ int	Inicializar (ini_var **var) {
 	
 
 //	al_start_timer((variables -> timer));			//Desactivado, inicia en cada funcion
-	al_start_timer((variables -> timer2));
+//	al_start_timer((variables -> timer2));			// Inicia timer de para red
 
 // Imagenes
 	//(variables -> fondoimg) = al_load_bitmap("imagenes/fondo5.png");

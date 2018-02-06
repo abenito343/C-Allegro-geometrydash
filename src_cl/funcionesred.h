@@ -39,12 +39,14 @@ int put_network_data(int sockfd, char *buffer, int k, char s) {
 
     switch(s) {
         case true:
-            strcat(buffer,"true\0");
+            strcat(buffer,"true;");
             break;
         case false:
-            strcat(buffer,"false\0");
+            strcat(buffer,"false;");
             break;
         }
+
+	strcat(buffer,"\0");
 
     //DBG - printf("Buffer: %s",buffer);
     n = write(sockfd,buffer,strlen(buffer));

@@ -377,23 +377,45 @@ int cargar_ip (ini_var **cvar, variablescliente *vcl) {
 	return cauxestadojuego;
 }
 
+/*	Funcion que manda todas las posiciones y velocidad por red
+*
+*	Manda en funcion del timer2 de un segundo. Entre envios de posiciones se demora para que no se sature el socket.
+*/
 int send_pos (ini_var **svar, variablescliente *svarcl, posicion *spos) {
 	
 	ini_var *svariables;	
 	
 	svariables = *(svar);
+
+//	al_wait_for_event((svariables -> event_queue2), &(svariables -> ev2));
 	
-	put_network_data2 ((svarcl -> sockfd),(svarcl -> buffercl), (svarcl -> buffercl2), (svarcl -> buffercl3), 'x', 0, (spos -> bouncer_x));
-	put_network_data2 ((svarcl -> sockfd),(svarcl -> buffercl), (svarcl -> buffercl2), (svarcl -> buffercl3), 'x', 2, (spos -> bouncer_x2));
-	put_network_data2 ((svarcl -> sockfd),(svarcl -> buffercl), (svarcl -> buffercl2), (svarcl -> buffercl3), 'y', 2, (spos -> bouncer_y2));
-	put_network_data2 ((svarcl -> sockfd),(svarcl -> buffercl), (svarcl -> buffercl2), (svarcl -> buffercl3), 'x', 31, (spos -> bouncer_x31));
-	put_network_data2 ((svarcl -> sockfd),(svarcl -> buffercl), (svarcl -> buffercl2), (svarcl -> buffercl3), 'x', 32, (spos -> bouncer_x32));
-	put_network_data2 ((svarcl -> sockfd),(svarcl -> buffercl), (svarcl -> buffercl2), (svarcl -> buffercl3), 'x', 33, (spos -> bouncer_x33));
-	put_network_data2 ((svarcl -> sockfd),(svarcl -> buffercl), (svarcl -> buffercl2), (svarcl -> buffercl3), 'x', 4, (spos -> bouncer_x4));
-	put_network_data2 ((svarcl -> sockfd),(svarcl -> buffercl), (svarcl -> buffercl2), (svarcl -> buffercl3), 'x', 5, (spos -> bouncer_x5));
-	put_network_data2 ((svarcl -> sockfd),(svarcl -> buffercl), (svarcl -> buffercl2), (svarcl -> buffercl3), 'x', 6, (spos -> bouncer_x6));
-	put_network_data2 ((svarcl -> sockfd),(svarcl -> buffercl), (svarcl -> buffercl2), (svarcl -> buffercl3), 'y', 6, (spos -> bouncer_y6));
-	put_network_data2 ((svarcl -> sockfd),(svarcl -> buffercl), (svarcl -> buffercl2), (svarcl -> buffercl3), 'd', 0, (spos -> bouncer_dx));		// Velocidad
+//	if((svariables -> ev2).type == (svariables -> timer2)) {
+
+	if((svariables -> ev).type == ALLEGRO_EVENT_TIMER) {
+						
+		put_network_data2 ((svarcl -> sockfd),(svarcl -> buffercl), (svarcl -> buffercl2), (svarcl -> buffercl3), 'x', 0, (spos -> bouncer_x));
+		al_rest(0.00001);
+		put_network_data2 ((svarcl -> sockfd),(svarcl -> buffercl), (svarcl -> buffercl2), (svarcl -> buffercl3), 'x', 2, (spos -> bouncer_x2));
+		al_rest(0.00001);
+		put_network_data2 ((svarcl -> sockfd),(svarcl -> buffercl), (svarcl -> buffercl2), (svarcl -> buffercl3), 'y', 2, (spos -> bouncer_y2));
+		al_rest(0.00001);
+		put_network_data2 ((svarcl -> sockfd),(svarcl -> buffercl), (svarcl -> buffercl2), (svarcl -> buffercl3), 'x', 31, (spos -> bouncer_x31));
+		al_rest(0.00001);
+		put_network_data2 ((svarcl -> sockfd),(svarcl -> buffercl), (svarcl -> buffercl2), (svarcl -> buffercl3), 'x', 32, (spos -> bouncer_x32));
+		al_rest(0.00001);
+		put_network_data2 ((svarcl -> sockfd),(svarcl -> buffercl), (svarcl -> buffercl2), (svarcl -> buffercl3), 'x', 33, (spos -> bouncer_x33));
+		al_rest(0.00001);
+		put_network_data2 ((svarcl -> sockfd),(svarcl -> buffercl), (svarcl -> buffercl2), (svarcl -> buffercl3), 'x', 4, (spos -> bouncer_x4));
+		al_rest(0.00001);
+		put_network_data2 ((svarcl -> sockfd),(svarcl -> buffercl), (svarcl -> buffercl2), (svarcl -> buffercl3), 'x', 5, (spos -> bouncer_x5));
+		al_rest(0.00001);
+		put_network_data2 ((svarcl -> sockfd),(svarcl -> buffercl), (svarcl -> buffercl2), (svarcl -> buffercl3), 'x', 6, (spos -> bouncer_x6));
+		al_rest(0.00001);
+		put_network_data2 ((svarcl -> sockfd),(svarcl -> buffercl), (svarcl -> buffercl2), (svarcl -> buffercl3), 'y', 6, (spos -> bouncer_y6));
+		al_rest(0.00001);
+		put_network_data2 ((svarcl -> sockfd),(svarcl -> buffercl), (svarcl -> buffercl2), (svarcl -> buffercl3), 'd', 0, (spos -> bouncer_dx));		// Velocidad
+	
+	}
 	
 	return 0;
 }

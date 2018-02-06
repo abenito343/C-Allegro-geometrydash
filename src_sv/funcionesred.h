@@ -47,6 +47,8 @@ int put_network_data(int sockfd, char *buffer, int k, char s) {
             break;
         }
 
+	strcat(buffer,"\0");
+	
     //DBG - printf("Buffer: %s",buffer);
     n = write(sockfd,buffer,strlen(buffer));
     if (n < 0) error("ERROR writing to socket");
@@ -102,6 +104,7 @@ int get_network_data(int sockfd, char *buffer, int *s, int *k) {
     if(n>0) {
         key = strtok(buffer,";");
         status = strtok(NULL,";");
+        strtok(NULL,";");
         //DBG - printf("key: %s / status: %s\n",key,status);
 
         if(!strcmp(status,"true")) {
@@ -147,13 +150,15 @@ int get_network_data2(int sockfd, char *buffer, char *l, int *num, float *v) {		
     // Me fijo si llegó via red
     memset((void *) buffer, '\0', 256);
     n = recv(sockfd,buffer,255,MSG_DONTWAIT);
-    //DBG - printf("Buffer: %s / n: %d",buffer,n);
+    //DBG - 
+    printf("Buffer: %s / n: %d",buffer,n);
 
     if(n>0) {
         letra = strtok(buffer,";");
         numero = strtok(NULL,";");
         pos = strtok(NULL,";");
-        //DBG - printf("key: %s / status: %s\n",key,status);
+        //DBG - 
+        printf("letra: %s / numero: %s / posicion: %s\n",letra,numero,pos);
 
         if(!strcmp(letra,"d")) {
             *l='d';
