@@ -117,7 +117,7 @@ int menu (ini_var **mvar, int *mvida, int *mscore,int *mnivel) {
 
 
 
-int partida (ini_var **pvar,niveles* aux_niv, int *pvida, int *pscore, int *pnivel, posicion *ppos, auxpartida *pauxpar, frameExplosion *pfE, frameMonedita *pfM) {
+int partida (ini_var **pvar, niveles *aux_niv, int *pvida, int *pscore, int *pnivel, posicion *ppos, auxpartida *pauxpar, frameExplosion *pfE, frameMonedita *pfM) {
 
 	ini_var *pvariables;
 
@@ -148,7 +148,7 @@ int partida (ini_var **pvar,niveles* aux_niv, int *pvida, int *pscore, int *pniv
 				break;
 			case 2:
 				tipo2=1;
-				aux_niv=aux_niv->sig;
+				aux_niv= (aux_niv->sig);
 				break;
 			case 3:
 				tipo3=1;
@@ -668,9 +668,9 @@ int Niveles(niveles** INI1){
 				aux_comp=(*INI1);
 				aux= calloc(1,sizeof(niveles));
 				aux->t_aparicion=atoi(strtok(buffer,","));
-				aux->clase=atoi(strtok(NULL,","));;
+				aux->clase=atoi(strtok(NULL,","));
 				while(aux_comp->sig!=NULL){
-						aux_comp=aux_comp->sig;
+						aux_comp = (aux_comp->sig);
 						}
 				aux->sig=NULL;
 				aux_comp->sig=aux;
