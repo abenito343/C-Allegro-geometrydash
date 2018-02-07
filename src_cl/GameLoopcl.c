@@ -387,34 +387,44 @@ int send_pos (ini_var **svar, variablescliente *svarcl, posicion *spos) {
 	
 	svariables = *(svar);
 
-//	al_wait_for_event((svariables -> event_queue2), &(svariables -> ev2));
-	
-//	if((svariables -> ev2).type == (svariables -> timer2)) {
-
 	if((svariables -> ev).type == ALLEGRO_EVENT_TIMER) {
-						
-		put_network_data2 ((svarcl -> sockfd),(svarcl -> buffercl), (svarcl -> buffercl2), (svarcl -> buffercl3), 'x', 0, (spos -> bouncer_x));
-		al_rest(0.00001);
-		put_network_data2 ((svarcl -> sockfd),(svarcl -> buffercl), (svarcl -> buffercl2), (svarcl -> buffercl3), 'x', 2, (spos -> bouncer_x2));
-		al_rest(0.00001);
-		put_network_data2 ((svarcl -> sockfd),(svarcl -> buffercl), (svarcl -> buffercl2), (svarcl -> buffercl3), 'y', 2, (spos -> bouncer_y2));
-		al_rest(0.00001);
-		put_network_data2 ((svarcl -> sockfd),(svarcl -> buffercl), (svarcl -> buffercl2), (svarcl -> buffercl3), 'x', 31, (spos -> bouncer_x31));
-		al_rest(0.00001);
-		put_network_data2 ((svarcl -> sockfd),(svarcl -> buffercl), (svarcl -> buffercl2), (svarcl -> buffercl3), 'x', 32, (spos -> bouncer_x32));
-		al_rest(0.00001);
-		put_network_data2 ((svarcl -> sockfd),(svarcl -> buffercl), (svarcl -> buffercl2), (svarcl -> buffercl3), 'x', 33, (spos -> bouncer_x33));
-		al_rest(0.00001);
-		put_network_data2 ((svarcl -> sockfd),(svarcl -> buffercl), (svarcl -> buffercl2), (svarcl -> buffercl3), 'x', 4, (spos -> bouncer_x4));
-		al_rest(0.00001);
-		put_network_data2 ((svarcl -> sockfd),(svarcl -> buffercl), (svarcl -> buffercl2), (svarcl -> buffercl3), 'x', 5, (spos -> bouncer_x5));
-		al_rest(0.00001);
-		put_network_data2 ((svarcl -> sockfd),(svarcl -> buffercl), (svarcl -> buffercl2), (svarcl -> buffercl3), 'x', 6, (spos -> bouncer_x6));
-		al_rest(0.00001);
-		put_network_data2 ((svarcl -> sockfd),(svarcl -> buffercl), (svarcl -> buffercl2), (svarcl -> buffercl3), 'y', 6, (spos -> bouncer_y6));
-		al_rest(0.00001);
-		put_network_data2 ((svarcl -> sockfd),(svarcl -> buffercl), (svarcl -> buffercl2), (svarcl -> buffercl3), 'd', 0, (spos -> bouncer_dx));		// Velocidad
+		
+		if((svariables -> ev).timer.source == (svariables -> timer2)) {
+							
+			put_network_data2 ((svarcl -> sockfd),(svarcl -> buffercl), (svarcl -> buffercl2), (svarcl -> buffercl3), 'x', 0, (spos -> bouncer_x));
+			al_rest(0.0001);
+			
+			put_network_data2 ((svarcl -> sockfd),(svarcl -> buffercl), (svarcl -> buffercl2), (svarcl -> buffercl3), 'x', 2, (spos -> bouncer_x2));
+			al_rest(0.0001);
+			
+			put_network_data2 ((svarcl -> sockfd),(svarcl -> buffercl), (svarcl -> buffercl2), (svarcl -> buffercl3), 'y', 2, (spos -> bouncer_y2));
+			al_rest(0.0001);
+			
+			put_network_data2 ((svarcl -> sockfd),(svarcl -> buffercl), (svarcl -> buffercl2), (svarcl -> buffercl3), 'x', 31, (spos -> bouncer_x31));
+			al_rest(0.0001);
+			
+			put_network_data2 ((svarcl -> sockfd),(svarcl -> buffercl), (svarcl -> buffercl2), (svarcl -> buffercl3), 'x', 32, (spos -> bouncer_x32));
+			al_rest(0.0001);
+			
+			put_network_data2 ((svarcl -> sockfd),(svarcl -> buffercl), (svarcl -> buffercl2), (svarcl -> buffercl3), 'x', 33, (spos -> bouncer_x33));
+			al_rest(0.0001);
+			
+			put_network_data2 ((svarcl -> sockfd),(svarcl -> buffercl), (svarcl -> buffercl2), (svarcl -> buffercl3), 'x', 4, (spos -> bouncer_x4));
+			al_rest(0.0001);
+			
+			put_network_data2 ((svarcl -> sockfd),(svarcl -> buffercl), (svarcl -> buffercl2), (svarcl -> buffercl3), 'x', 5, (spos -> bouncer_x5));
+			al_rest(0.0001);
+			
+			put_network_data2 ((svarcl -> sockfd),(svarcl -> buffercl), (svarcl -> buffercl2), (svarcl -> buffercl3), 'x', 6, (spos -> bouncer_x6));
+			al_rest(0.0001);
+			
+			put_network_data2 ((svarcl -> sockfd),(svarcl -> buffercl), (svarcl -> buffercl2), (svarcl -> buffercl3), 'y', 6, (spos -> bouncer_y6));
+			al_rest(0.0001);
+			
+			put_network_data2 ((svarcl -> sockfd),(svarcl -> buffercl), (svarcl -> buffercl2), (svarcl -> buffercl3), 'd', 0, (spos -> bouncer_dx));		// Velocidad
 	
+		}
+		
 	}
 	
 	return 0;
@@ -460,164 +470,169 @@ int partida (ini_var **pvar, int *pvida, int *pscore, int *pnivel, posicion *ppo
 
 	if((pvariables -> ev).type == ALLEGRO_EVENT_TIMER) {
 		
-		
-		//-----------------------------------------------------	
-		
-		
-		
-		if((pvariables -> key)[KEY_UP] ) {
-			(pauxpar -> auxspritecubov)=(pauxpar -> auxspritecubov)+1;
-			if((pauxpar -> auxspritecubov)==3){
-				(pauxpar -> auxspritecubox)=(pauxpar -> auxspritecubox)+1;
-				(pauxpar -> auxspritecubov)=12;	
-				}
-		}  	  
-		else{
-			(pauxpar -> auxspritecubov)=0;
+		if((pvariables -> ev).timer.source == (pvariables -> timer)) {
 			
-		}
-		if((pauxpar -> auxspritecubox)==12)
-		{
-			(pauxpar -> auxspritecubox)=0;
-			(pauxpar -> auxspritecuboy)=(pauxpar -> auxspritecuboy)+1;
-		}
-		if((pauxpar -> auxspritecuboy)==5)
-			(pauxpar -> auxspritecuboy)=0;
-		
-		if((pvariables -> key)[KEY_SPACE] ) {
-			if( (ppos -> bouncer_y2) >= 339.0){
-				(pauxpar -> aux1)=1;
-			}  
+			
+			//-----------------------------------------------------	
+			
+			
+			
+			if((pvariables -> key)[KEY_UP] ) {
+				(pauxpar -> auxspritecubov)=(pauxpar -> auxspritecubov)+1;
+				if((pauxpar -> auxspritecubov)==3){
+					(pauxpar -> auxspritecubox)=(pauxpar -> auxspritecubox)+1;
+					(pauxpar -> auxspritecubov)=12;	
+					}
+			}  	  
+			else{
+				(pauxpar -> auxspritecubov)=0;
 				
-		}
-		else{
-			(pauxpar -> aux1)=0;
 			}
-		if((pauxpar -> aux1)==0){
-			if( (ppos -> bouncer_y2) <= 339.0)
-				{
-					(ppos -> bouncer_y2) += 8.0*10*(*(pnivel)*0.1);
-				}
-		}
-		if((pauxpar -> aux1)==1){
-			
-		if( (ppos -> bouncer_y2) >= -110.0)
-		{
-			(ppos -> bouncer_y2) -= 8.0*10*(*(pnivel)*0.1);
-			}
-			else
+			if((pauxpar -> auxspritecubox)==12)
 			{
+				(pauxpar -> auxspritecubox)=0;
+				(pauxpar -> auxspritecuboy)=(pauxpar -> auxspritecuboy)+1;
+			}
+			if((pauxpar -> auxspritecuboy)==5)
+				(pauxpar -> auxspritecuboy)=0;
+			
+			if((pvariables -> key)[KEY_SPACE] ) {
+				if( (ppos -> bouncer_y2) >= 339.0){
+					(pauxpar -> aux1)=1;
+				}  
+					
+			}
+			else{
 				(pauxpar -> aux1)=0;
-			}   
-		}
-		//-------------------------------------------------
-		
-		
-		
-		
-		
-		
-		//---------------------------------------------------
-		
-			
-		if((ppos -> bouncer_x) < -256)              
-			(ppos -> bouncer_x)= (ppos -> bouncer_x)+256; 
-		(ppos -> bouncer_x) += (ppos -> bouncer_dx);
-				
-			
-		if((ppos -> bouncer_x4) < -256)           
-			(ppos -> bouncer_x4)= (ppos -> bouncer_x4)+1024; 
-		(ppos -> bouncer_x4)+= (ppos -> bouncer_dx)/3;
-						
-			
-		if((ppos -> bouncer_x31) < -256)                
-			(ppos -> bouncer_x31)= (ppos -> bouncer_x31)+1556;
-		(ppos -> bouncer_x31) += (ppos -> bouncer_dx)*20*(*(pnivel)*0.1);
-		
-        if((ppos -> bouncer_x32) < -256)                
-			(ppos -> bouncer_x32)= (ppos -> bouncer_x32)+1556;
-		(ppos -> bouncer_x32) += (ppos -> bouncer_dx)*10*(*(pnivel)*0.1);
-
-        if((ppos -> bouncer_x33) < -256)                
-			(ppos -> bouncer_x33)= (ppos -> bouncer_x33)+1556;
-		(ppos -> bouncer_x33) += (ppos -> bouncer_dx)*5*(*(pnivel)*0.1);
-		
-		if((ppos -> bouncer_x5) < -956)                
-			(ppos -> bouncer_x5)= (ppos -> bouncer_x5)+2056;
-		(ppos -> bouncer_x5) += (ppos -> bouncer_dx);
-		
-		
-		if((ppos -> bouncer_x6) < 0)                
-			(ppos -> bouncer_x6)= (ppos -> bouncer_x6)+1500;
-		(ppos -> bouncer_x6) += (ppos -> bouncer_dx);
-		
-		
-			
-		if( (ppos -> bouncer_y6) >= 339.0){
-			(pauxpar -> auxmoneda1)=1;
-		}  
-		else{
-			// (pauxpar -> auxmoneda1)=0;
+				}
+			if((pauxpar -> aux1)==0){
+				if( (ppos -> bouncer_y2) <= 339.0)
+					{
+						(ppos -> bouncer_y2) += 8.0*10*(*(pnivel)*0.1);
+					}
 			}
-			
-		if((pauxpar -> auxmoneda1)==0){
-			if( (ppos -> bouncer_y6) <= 339.0)
+			if((pauxpar -> aux1)==1){
+				
+			if( (ppos -> bouncer_y2) >= -110.0)
+			{
+				(ppos -> bouncer_y2) -= 8.0*10*(*(pnivel)*0.1);
+				}
+				else
 				{
-					(ppos -> bouncer_y6) += 8.0;
+					(pauxpar -> aux1)=0;
+				}   
+			}
+			//-------------------------------------------------
+			
+			
+			
+			
+			
+			
+			//---------------------------------------------------
+			
+				
+			if((ppos -> bouncer_x) < -256)              
+				(ppos -> bouncer_x)= (ppos -> bouncer_x)+256; 
+			(ppos -> bouncer_x) += (ppos -> bouncer_dx);
+					
+				
+			if((ppos -> bouncer_x4) < -256)           
+				(ppos -> bouncer_x4)= (ppos -> bouncer_x4)+1024; 
+			(ppos -> bouncer_x4)+= (ppos -> bouncer_dx)/3;
+							
+				
+			if((ppos -> bouncer_x31) < -256)                
+				(ppos -> bouncer_x31)= (ppos -> bouncer_x31)+1556;
+			(ppos -> bouncer_x31) += (ppos -> bouncer_dx)*20*(*(pnivel)*0.1);
+			
+			if((ppos -> bouncer_x32) < -256)                
+				(ppos -> bouncer_x32)= (ppos -> bouncer_x32)+1556;
+			(ppos -> bouncer_x32) += (ppos -> bouncer_dx)*10*(*(pnivel)*0.1);
+	
+			if((ppos -> bouncer_x33) < -256)                
+				(ppos -> bouncer_x33)= (ppos -> bouncer_x33)+1556;
+			(ppos -> bouncer_x33) += (ppos -> bouncer_dx)*5*(*(pnivel)*0.1);
+			
+			if((ppos -> bouncer_x5) < -956)                
+				(ppos -> bouncer_x5)= (ppos -> bouncer_x5)+2056;
+			(ppos -> bouncer_x5) += (ppos -> bouncer_dx);
+			
+			
+			if((ppos -> bouncer_x6) < 0)                
+				(ppos -> bouncer_x6)= (ppos -> bouncer_x6)+1500;
+			(ppos -> bouncer_x6) += (ppos -> bouncer_dx);
+			
+			
+				
+			if( (ppos -> bouncer_y6) >= 339.0){
+				(pauxpar -> auxmoneda1)=1;
+			}  
+			else{
+				// (pauxpar -> auxmoneda1)=0;
 				}
-		}
-		if((pauxpar -> auxmoneda1)==1){
-			
-		if( (ppos -> bouncer_y6) >= 0.0)
-		{
-			(ppos -> bouncer_y6) -= 8.0;
-			}
-			else
-			{
-				(pauxpar -> auxmoneda1)=0;
-			}   
-		}
-			
-		//---------------------------------------------------- 
-			
-			if(++(pfE -> frameCountExplosion) >= (pfE -> frameDelayExplosion))
-			{
-				if(++(pfE -> curFrameExplosion) >= maxFrameExplosion)
-					(pfE -> curFrameExplosion) = 0;
-
-				(pfE -> frameCountExplosion) = 0;
-			}
-
-
-			if(++(pfM -> frameCountMonedita) >= (pfM -> frameDelayMonedita) )
-			{
-				if(++(pfM -> curFrameMonedita)  >= maxFrameMonedita )
-					(pfM -> curFrameMonedita)  = 0;
-
-				(pfM -> frameCountMonedita)  = 0;
-			}
-
-
-
-			if(*(pvida)==0)
-			{
-				pauxestadojuego=2;
 				
+			if((pauxpar -> auxmoneda1)==0){
+				if( (ppos -> bouncer_y6) <= 339.0)
+					{
+						(ppos -> bouncer_y6) += 8.0;
+					}
+			}
+			if((pauxpar -> auxmoneda1)==1){
 				
-				
+			if( (ppos -> bouncer_y6) >= 0.0)
+			{
+				(ppos -> bouncer_y6) -= 8.0;
 				}
-
-
-			*(pscore) = *(pscore) + 1;
-		//	(ppos -> bouncer_x2) -= 5;
-
-		/*	if((ppos -> bouncer_x2) <= 0 - (pfE -> frameWidthExplosion))
-				(ppos -> bouncer_x2) = (SCREEN_W);*/
+				else
+				{
+					(pauxpar -> auxmoneda1)=0;
+				}   
+			}
+				
+			//---------------------------------------------------- 
+				
+				if(++(pfE -> frameCountExplosion) >= (pfE -> frameDelayExplosion))
+				{
+					if(++(pfE -> curFrameExplosion) >= maxFrameExplosion)
+						(pfE -> curFrameExplosion) = 0;
+	
+					(pfE -> frameCountExplosion) = 0;
+				}
+	
+	
+				if(++(pfM -> frameCountMonedita) >= (pfM -> frameDelayMonedita) )
+				{
+					if(++(pfM -> curFrameMonedita)  >= maxFrameMonedita )
+						(pfM -> curFrameMonedita)  = 0;
+	
+					(pfM -> frameCountMonedita)  = 0;
+				}
+	
+	
+	
+				if(*(pvida)==0)
+				{
+					pauxestadojuego=2;
+					
+					
+					
+					}
+	
+	
+				*(pscore) = *(pscore) + 1;
+			//	(ppos -> bouncer_x2) -= 5;
+	
+			/*	if((ppos -> bouncer_x2) <= 0 - (pfE -> frameWidthExplosion))
+					(ppos -> bouncer_x2) = (SCREEN_W);*/
+				
+				//-----------------------------------------------------------
 			
-			//-----------------------------------------------------------
+	
+			predraw = true;
+			
+		}
 		
-
-		predraw = true;
 	}
 	else if((pvariables -> ev).type == ALLEGRO_EVENT_DISPLAY_CLOSE) {
 		return -1;

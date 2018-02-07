@@ -40,10 +40,10 @@ int put_network_data(int sockfd, char *buffer, int k, char s) {
 
     switch(s) {
         case true:
-            strcat(buffer,"true\0");
+            strcat(buffer,"true;");
             break;
         case false:
-            strcat(buffer,"false\0");
+            strcat(buffer,"false;");
             break;
         }
 
@@ -150,8 +150,7 @@ int get_network_data2(int sockfd, char *buffer, char *l, int *num, float *v) {		
     // Me fijo si llegó via red
     memset((void *) buffer, '\0', 256);
     n = recv(sockfd,buffer,255,MSG_DONTWAIT);
-    //DBG - 
-    printf("Buffer: %s / n: %d",buffer,n);
+    //DBG - printf("Buffer: %s / n: %d",buffer,n);
 
     if(n>0) {
         letra = strtok(buffer,";");

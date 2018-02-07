@@ -26,13 +26,11 @@ typedef struct ini_var {
 		
 	ALLEGRO_DISPLAY *display;
 	ALLEGRO_EVENT_QUEUE *event_queue;
-	ALLEGRO_EVENT_QUEUE *event_queue2;		// Cola de eventos para red
 	
 	ALLEGRO_TIMER *timer;	
 	ALLEGRO_TIMER *timer2;				// Timer para red
 	
 	ALLEGRO_EVENT ev;
-	ALLEGRO_EVENT ev2;					// Para timer de red
 	
 	ALLEGRO_BITMAP  *fondoimg[7];
 
