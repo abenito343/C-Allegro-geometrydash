@@ -105,17 +105,19 @@ int get_network_data(int sockfd, char *buffer, int *s, int *k) {
         key = strtok(buffer,";");
         status = strtok(NULL,";");
         strtok(NULL,";");
+        strtok(NULL,";");        
+        strtok(NULL,";");
         //DBG - printf("key: %s / status: %s\n",key,status);
 
         if(!strcmp(status,"true")) {
             *s=true;
         } else if(!strcmp(status,"false")) {
             *s=false;
-        } /*else {											// ARREGLAR PARA QUE NO INTERFIERA CUANDO RECIBE POSICIONES
-            printf("Error recepción. Buffer: %s",buffer);
+        } else {											
+//            printf("Error recepción. Buffer: %s",buffer);		// ARREGLAR PARA QUE NO DIGA ERROR CUANDO SOLO SE RECIBE POSICIONES
             return 0;
         }
-*/
+
         if(!strcmp(key,"KEY_UP")) {
             *k=KEY_UP;
         } else if(!strcmp(key,"KEY_DOWN")) {
@@ -153,11 +155,13 @@ int get_network_data2(int sockfd, char *buffer, char *l, int *num, float *v) {		
     //DBG - printf("Buffer: %s / n: %d",buffer,n);
 
     if(n>0) {
-        letra = strtok(buffer,";");
+	    strtok(buffer,";");
+        strtok(NULL,";");
+        letra = strtok(NULL,";");
         numero = strtok(NULL,";");
         pos = strtok(NULL,";");
         //DBG - 
-        printf("letra: %s / numero: %s / posicion: %s\n",letra,numero,pos);
+        printf("Eje: %s / numero: %s / posicion: %s\n",letra,numero,pos);
 
         if(!strcmp(letra,"d")) {
             *l='d';
@@ -165,11 +169,11 @@ int get_network_data2(int sockfd, char *buffer, char *l, int *num, float *v) {		
             *l='x';
         } else if(!strcmp(letra,"y")) {
             *l='y';
-        }/* else {											// ARREGLAR PARA QUE NO INTERFIERA CUANDO RECIBE LAS TECLAS
-            printf("Error recepción. Buffer: %s",buffer);
+        } else {											
+            //printf("Error recepción. Buffer: %s",buffer);		// ARREGLAR PARA QUE NO DIGA ERROR CUANDO SOLO SE RECIBE LAS TECLAS
             return 0;
         }
-*/
+
 		if (pos == NULL) {
 			return 0;
 		}

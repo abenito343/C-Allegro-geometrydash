@@ -8,81 +8,87 @@ void error(const char *msg)
     exit(0);
 }
 
-int put_network_data(int sockfd, char *buffer, int k, char s) {
-    int n;
-
-    memset((void *) buffer, '\0', 256);
-
-    switch(k) {
-        case KEY_UP:
-            strcpy(buffer,"KEY_UP;");
-            break;
-        case KEY_DOWN:
-            strcpy(buffer,"KEY_DOWN;"); 
-            break;
-        case KEY_LEFT:
-            strcpy(buffer,"KEY_LEFT;");
-            break;
-        case KEY_RIGHT:
-            strcpy(buffer,"KEY_RIGHT;");
-            break;
-        case KEY_EXIT:
-            strcpy(buffer,"KEY_EXIT;");
-            break;
-        case KEY_SPACE:
-            strcpy(buffer,"KEY_SPACE;"); 
-            break;    
-        case KEY_P:
-            strcpy(buffer,"KEY_P;"); 
-            break; 
-        }
-
-    switch(s) {
-        case true:
-            strcat(buffer,"true;");
-            break;
-        case false:
-            strcat(buffer,"false;");
-            break;
-        }
-
-	strcat(buffer,"\0");
-
-    //DBG - printf("Buffer: %s",buffer);
-    n = write(sockfd,buffer,strlen(buffer));
-    if (n < 0) error("ERROR writing to socket");
-
-    return n;
-}
-
-int put_network_data2(int sockfd, char *buffer, char *buffer2, char *buffer3, char e, int num, float v) {		// Para mandar posicion
+int put_network_data(int sockfd, char *buffer, char *buffer2, char *buffer3, int k, char s, char e, int num, float v) {
     int n;
 
     memset((void *) buffer, '\0', 256);
     memset((void *) buffer2, '\0', 256);
     memset((void *) buffer3, '\0', 256);
-    
-    if (e == 'd') {
-		strcpy(buffer,"d;x;");
-	
-	} else {
+
+	if (k != VACIO) {
 			
-		switch(e) {
-			case 'x':
-				strcpy(buffer,"x;");
-				break;          
+		switch(k) {
+			case KEY_UP:
+				strcpy(buffer,"KEY_UP;");
+				break;
+			case KEY_DOWN:
+				strcpy(buffer,"KEY_DOWN;"); 
+				break;
+			case KEY_LEFT:
+				strcpy(buffer,"KEY_LEFT;");
+				break;
+			case KEY_RIGHT:
+				strcpy(buffer,"KEY_RIGHT;");
+				break;
+			case KEY_EXIT:
+				strcpy(buffer,"KEY_EXIT;");
+				break;
+			case KEY_SPACE:
+				strcpy(buffer,"KEY_SPACE;"); 
+				break;    
+			case KEY_P:
+				strcpy(buffer,"KEY_P;"); 
+				break; 
+			}
+	
+		switch(s) {
+			case true:
+				strcat(buffer,"true;");
+				break;
+			case false:
+				strcat(buffer,"false;");
+				break;           
+			}
+			
+		} else {
+			
+			strcpy(buffer, "VACIO;");
+			strcat(buffer, "VACIO;");
+			
+		}
+
+	if (num != VACIO) {
+
+		if (e == 'd') {
+			strcat(buffer,"d;x;");
+		
+		} else {
+				
+			switch(e) {
+				case 'x':
+					strcat(buffer,"x;");
+					break;          
+							
+				case 'y':
+					strcat(buffer,"y;");
+					break;      
 						
-			case 'y':
-				strcpy(buffer,"y;");
-				break;       
+			}
+			
+			sprintf(buffer2, "%i;", num);
+			strcat(buffer, buffer2);
 		}
 		
-		sprintf(buffer2, "%i;", num);
-		strcat(buffer, buffer2);
+		sprintf(buffer3, "%f;\0", v);
+		strcat(buffer, buffer3);
+		
+	} else {
+		
+		strcat(buffer, "VACIO;");
+		strcat(buffer, "VACIO;");
+		strcat(buffer, "VACIO;\0");
+		
 	}
-	
-	sprintf(buffer3, "%f\0", v);
-    strcat(buffer, buffer3);
 
     //DBG - printf("Buffer: %s",buffer);
     n = write(sockfd,buffer,strlen(buffer));
@@ -90,6 +96,7 @@ int put_network_data2(int sockfd, char *buffer, char *buffer2, char *buffer3, ch
 
     return n;
 }
+
 
 int get_network_data(int sockfd, char *buffer, int *s, int *k) {
     int n;

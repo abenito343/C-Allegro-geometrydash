@@ -391,38 +391,39 @@ int send_pos (ini_var **svar, variablescliente *svarcl, posicion *spos) {
 		
 		if((svariables -> ev).timer.source == (svariables -> timer2)) {
 							
-			put_network_data2 ((svarcl -> sockfd),(svarcl -> buffercl), (svarcl -> buffercl2), (svarcl -> buffercl3), 'x', 0, (spos -> bouncer_x));
-			al_rest(0.0001);
-			
-			put_network_data2 ((svarcl -> sockfd),(svarcl -> buffercl), (svarcl -> buffercl2), (svarcl -> buffercl3), 'x', 2, (spos -> bouncer_x2));
-			al_rest(0.0001);
-			
-			put_network_data2 ((svarcl -> sockfd),(svarcl -> buffercl), (svarcl -> buffercl2), (svarcl -> buffercl3), 'y', 2, (spos -> bouncer_y2));
-			al_rest(0.0001);
-			
-			put_network_data2 ((svarcl -> sockfd),(svarcl -> buffercl), (svarcl -> buffercl2), (svarcl -> buffercl3), 'x', 31, (spos -> bouncer_x31));
-			al_rest(0.0001);
-			
-			put_network_data2 ((svarcl -> sockfd),(svarcl -> buffercl), (svarcl -> buffercl2), (svarcl -> buffercl3), 'x', 32, (spos -> bouncer_x32));
-			al_rest(0.0001);
-			
-			put_network_data2 ((svarcl -> sockfd),(svarcl -> buffercl), (svarcl -> buffercl2), (svarcl -> buffercl3), 'x', 33, (spos -> bouncer_x33));
-			al_rest(0.0001);
-			
-			put_network_data2 ((svarcl -> sockfd),(svarcl -> buffercl), (svarcl -> buffercl2), (svarcl -> buffercl3), 'x', 4, (spos -> bouncer_x4));
-			al_rest(0.0001);
-			
-			put_network_data2 ((svarcl -> sockfd),(svarcl -> buffercl), (svarcl -> buffercl2), (svarcl -> buffercl3), 'x', 5, (spos -> bouncer_x5));
-			al_rest(0.0001);
-			
-			put_network_data2 ((svarcl -> sockfd),(svarcl -> buffercl), (svarcl -> buffercl2), (svarcl -> buffercl3), 'x', 6, (spos -> bouncer_x6));
-			al_rest(0.0001);
-			
-			put_network_data2 ((svarcl -> sockfd),(svarcl -> buffercl), (svarcl -> buffercl2), (svarcl -> buffercl3), 'y', 6, (spos -> bouncer_y6));
-			al_rest(0.0001);
-			
-			put_network_data2 ((svarcl -> sockfd),(svarcl -> buffercl), (svarcl -> buffercl2), (svarcl -> buffercl3), 'd', 0, (spos -> bouncer_dx));		// Velocidad
-	
+/*			put_network_data ((svarcl -> sockfd),(svarcl -> buffercl), (svarcl -> buffercl2), (svarcl -> buffercl3), VACIO, VACIO, 'x', 0, (spos -> bouncer_x));
+			al_rest(0.01);                                                                                         
+			                                                                                                         
+			put_network_data ((svarcl -> sockfd),(svarcl -> buffercl), (svarcl -> buffercl2), (svarcl -> buffercl3), VACIO, VACIO, 'x', 2, (spos -> bouncer_x2));
+			al_rest(0.01);                                                                                         
+			                                                                                                         
+			put_network_data ((svarcl -> sockfd),(svarcl -> buffercl), (svarcl -> buffercl2), (svarcl -> buffercl3), VACIO, VACIO, 'y', 2, (spos -> bouncer_y2));
+			al_rest(0.01);                                                                                         
+			                                                                                                         
+*/			put_network_data ((svarcl -> sockfd),(svarcl -> buffercl), (svarcl -> buffercl2), (svarcl -> buffercl3), VACIO, VACIO, 'x', 31, (spos -> bouncer_x31));
+//			al_rest(0.01);                                                                                         
+			                                                                                                         
+			put_network_data ((svarcl -> sockfd),(svarcl -> buffercl), (svarcl -> buffercl2), (svarcl -> buffercl3), VACIO, VACIO, 'x', 32, (spos -> bouncer_x32));
+//			al_rest(0.01);                                                                                         
+			                                                                                                         
+			put_network_data ((svarcl -> sockfd),(svarcl -> buffercl), (svarcl -> buffercl2), (svarcl -> buffercl3), VACIO, VACIO, 'x', 33, (spos -> bouncer_x33));
+/*			al_rest(0.01);                                                                                         
+			                                                                                                         
+			put_network_data ((svarcl -> sockfd),(svarcl -> buffercl), (svarcl -> buffercl2), (svarcl -> buffercl3), VACIO, VACIO, 'x', 4, (spos -> bouncer_x4));
+			al_rest(0.01);                                                                                         
+			                                                                                                         
+			put_network_data ((svarcl -> sockfd),(svarcl -> buffercl), (svarcl -> buffercl2), (svarcl -> buffercl3), VACIO, VACIO, 'x', 5, (spos -> bouncer_x5));
+			al_rest(0.01);                                                                                         
+			                                                                                                         
+			put_network_data ((svarcl -> sockfd),(svarcl -> buffercl), (svarcl -> buffercl2), (svarcl -> buffercl3), VACIO, VACIO, 'x', 6, (spos -> bouncer_x6));
+			al_rest(0.01);                                                                                         
+			                                                                                                         
+			put_network_data ((svarcl -> sockfd),(svarcl -> buffercl), (svarcl -> buffercl2), (svarcl -> buffercl3), VACIO, VACIO, 'y', 6, (spos -> bouncer_y6));
+			al_rest(0.01);                                                                                         
+			                                                                                                         
+			put_network_data ((svarcl -> sockfd),(svarcl -> buffercl), (svarcl -> buffercl2), (svarcl -> buffercl3), VACIO, VACIO, 'd', 0, (spos -> bouncer_dx));		// Velocidad
+			al_rest(0.01);                                                                                         
+*/				
 		}
 		
 	}
@@ -649,7 +650,7 @@ int partida (ini_var **pvar, int *pvida, int *pscore, int *pnivel, posicion *ppo
 			
 			if ((pvarcl -> netflag) == 1){
 				
-				put_network_data((pvarcl -> sockfd), (pvarcl -> buffercl), KEY_UP, true);		// Manda por red tecla arriba
+				put_network_data((pvarcl -> sockfd), (pvarcl -> buffercl), (pvarcl -> buffercl2), (pvarcl -> buffercl3), KEY_UP, true, VACIO, VACIO, VACIO);		// Manda por red tecla arriba
 				
 			}
 			
@@ -660,7 +661,7 @@ int partida (ini_var **pvar, int *pvida, int *pscore, int *pnivel, posicion *ppo
 			
 			if ((pvarcl -> netflag) == 1){
 				
-				put_network_data((pvarcl -> sockfd), (pvarcl -> buffercl), KEY_SPACE, true);	// Manda por red barra espaciadora
+				put_network_data((pvarcl -> sockfd), (pvarcl -> buffercl), (pvarcl -> buffercl2), (pvarcl -> buffercl3), KEY_SPACE, true, VACIO, VACIO, VACIO);	// Manda por red barra espaciadora
 				
 			}			
 			
@@ -673,7 +674,7 @@ int partida (ini_var **pvar, int *pvida, int *pscore, int *pnivel, posicion *ppo
 
 				if ((pvarcl -> netflag) == 1){
 				
-					put_network_data((pvarcl -> sockfd), (pvarcl -> buffercl), KEY_P, true);	// Manda por red tecla P
+					put_network_data((pvarcl -> sockfd), (pvarcl -> buffercl), (pvarcl -> buffercl2), (pvarcl -> buffercl3), KEY_P, true, VACIO, VACIO, VACIO);	// Manda por red tecla P
 				
 				}
 			
@@ -682,7 +683,7 @@ int partida (ini_var **pvar, int *pvida, int *pscore, int *pnivel, posicion *ppo
 			
 				if ((pvarcl -> netflag) == 1){
 				
-					put_network_data((pvarcl -> sockfd), (pvarcl -> buffercl), KEY_P, false);		// Manda por red tecla P
+					put_network_data((pvarcl -> sockfd), (pvarcl -> buffercl), (pvarcl -> buffercl2), (pvarcl -> buffercl3), KEY_P, false, VACIO, VACIO, VACIO);		// Manda por red tecla P
 				
 				}
 			
@@ -699,7 +700,7 @@ int partida (ini_var **pvar, int *pvida, int *pscore, int *pnivel, posicion *ppo
 
 			if ((pvarcl -> netflag) == 1){
 				
-				put_network_data((pvarcl -> sockfd), (pvarcl -> buffercl), KEY_UP, false);		// Manda por red tecla arriba
+				put_network_data((pvarcl -> sockfd), (pvarcl -> buffercl), (pvarcl -> buffercl2), (pvarcl -> buffercl3), KEY_UP, false, VACIO, VACIO, VACIO);		// Manda por red tecla arriba
 				
 			}
 			
@@ -711,7 +712,7 @@ int partida (ini_var **pvar, int *pvida, int *pscore, int *pnivel, posicion *ppo
 
 			if ((pvarcl -> netflag) == 1){
 				
-				put_network_data((pvarcl -> sockfd), (pvarcl -> buffercl), KEY_SPACE, false);	// Manda por red barra espaciadora
+				put_network_data((pvarcl -> sockfd), (pvarcl -> buffercl), (pvarcl -> buffercl2), (pvarcl -> buffercl3), KEY_SPACE, false, VACIO, VACIO, VACIO);	// Manda por red barra espaciadora
 				
 			}			
 
@@ -1122,6 +1123,18 @@ int	GameLoop (ini_var **var, variablescliente *varcliente) {
 		while (auxestadojuego == 0){
 			
 			auxestadojuego = partida (&variables, vida, score, nivel, pos, auxpar, fE, fM, varcliente);
+
+			fprintf (stderr, "Pos bouncer_x: %f \n", (pos -> bouncer_x));
+			fprintf (stderr, "Pos bouncer_x2: %f \n", (pos -> bouncer_x2));
+			fprintf (stderr, "Pos bouncer_y2: %f \n", (pos -> bouncer_y2));
+			fprintf (stderr, "Pos bouncer_x31: %f \n", (pos -> bouncer_x31));
+			fprintf (stderr, "Pos bouncer_x32: %f \n", (pos -> bouncer_x32));
+			fprintf (stderr, "Pos bouncer_x33: %f \n", (pos -> bouncer_x33));
+			fprintf (stderr, "Pos bouncer_x4: %f \n", (pos -> bouncer_x4));
+			fprintf (stderr, "Pos bouncer_x5: %f \n", (pos -> bouncer_x5));
+			fprintf (stderr, "Pos bouncer_x6: %f \n", (pos -> bouncer_x6));
+			fprintf (stderr, "Pos bouncer_y6: %f \n", (pos -> bouncer_y6));
+			fprintf (stderr, "Pos bouncer_dx: %f \n", (pos -> bouncer_dx));
 
 			if ((varcliente -> netflag) == 1){
 							
