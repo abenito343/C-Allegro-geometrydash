@@ -397,29 +397,29 @@ int send_pos (ini_var **svar, variablescliente *svarcl, posicion *spos) {
 			put_network_data ((svarcl -> sockfd),(svarcl -> buffercl), (svarcl -> buffercl2), (svarcl -> buffercl3), VACIO, VACIO, 'x', 2, (spos -> bouncer_x2));
 			al_rest(0.01);                                                                                         
 			                                                                                                         
-			put_network_data ((svarcl -> sockfd),(svarcl -> buffercl), (svarcl -> buffercl2), (svarcl -> buffercl3), VACIO, VACIO, 'y', 2, (spos -> bouncer_y2));
+*/			put_network_data ((svarcl -> sockfd),(svarcl -> buffercl), (svarcl -> buffercl2), (svarcl -> buffercl3), VACIO, VACIO, 'y', 2, (spos -> bouncer_y2));
 			al_rest(0.01);                                                                                         
 			                                                                                                         
-*/			put_network_data ((svarcl -> sockfd),(svarcl -> buffercl), (svarcl -> buffercl2), (svarcl -> buffercl3), VACIO, VACIO, 'x', 31, (spos -> bouncer_x31));
-//			al_rest(0.01);                                                                                         
+			put_network_data ((svarcl -> sockfd),(svarcl -> buffercl), (svarcl -> buffercl2), (svarcl -> buffercl3), VACIO, VACIO, 'x', 31, (spos -> bouncer_x31));
+			al_rest(0.01);                                                                                         
 			                                                                                                         
 			put_network_data ((svarcl -> sockfd),(svarcl -> buffercl), (svarcl -> buffercl2), (svarcl -> buffercl3), VACIO, VACIO, 'x', 32, (spos -> bouncer_x32));
-//			al_rest(0.01);                                                                                         
+			al_rest(0.01);                                                                                         
 			                                                                                                         
 			put_network_data ((svarcl -> sockfd),(svarcl -> buffercl), (svarcl -> buffercl2), (svarcl -> buffercl3), VACIO, VACIO, 'x', 33, (spos -> bouncer_x33));
-/*			al_rest(0.01);                                                                                         
+			al_rest(0.01);                                                                                         
 			                                                                                                         
-			put_network_data ((svarcl -> sockfd),(svarcl -> buffercl), (svarcl -> buffercl2), (svarcl -> buffercl3), VACIO, VACIO, 'x', 4, (spos -> bouncer_x4));
+/*			put_network_data ((svarcl -> sockfd),(svarcl -> buffercl), (svarcl -> buffercl2), (svarcl -> buffercl3), VACIO, VACIO, 'x', 4, (spos -> bouncer_x4));
 			al_rest(0.01);                                                                                         
 			                                                                                                         
 			put_network_data ((svarcl -> sockfd),(svarcl -> buffercl), (svarcl -> buffercl2), (svarcl -> buffercl3), VACIO, VACIO, 'x', 5, (spos -> bouncer_x5));
 			al_rest(0.01);                                                                                         
 			                                                                                                         
-			put_network_data ((svarcl -> sockfd),(svarcl -> buffercl), (svarcl -> buffercl2), (svarcl -> buffercl3), VACIO, VACIO, 'x', 6, (spos -> bouncer_x6));
+*/			put_network_data ((svarcl -> sockfd),(svarcl -> buffercl), (svarcl -> buffercl2), (svarcl -> buffercl3), VACIO, VACIO, 'x', 6, (spos -> bouncer_x6));
 			al_rest(0.01);                                                                                         
 			                                                                                                         
 			put_network_data ((svarcl -> sockfd),(svarcl -> buffercl), (svarcl -> buffercl2), (svarcl -> buffercl3), VACIO, VACIO, 'y', 6, (spos -> bouncer_y6));
-			al_rest(0.01);                                                                                         
+/*			al_rest(0.01);                                                                                         
 			                                                                                                         
 			put_network_data ((svarcl -> sockfd),(svarcl -> buffercl), (svarcl -> buffercl2), (svarcl -> buffercl3), VACIO, VACIO, 'd', 0, (spos -> bouncer_dx));		// Velocidad
 			al_rest(0.01);                                                                                         

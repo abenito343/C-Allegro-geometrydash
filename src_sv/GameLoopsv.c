@@ -574,11 +574,11 @@ int receive_data (ini_var **rvar, variablesservidor *varsv2, posicion *p) {
 	
 	rvariables = *(rvar);	
 
-// Recibe teclas por red
-
-	(varsv2 -> net) = get_network_data((varsv2 -> newsockfd), (varsv2 -> buffersv), &(varsv2 -> status), &(varsv2 -> sentkey));
+	(varsv2 -> net) = get_network_data((varsv2 -> newsockfd), (varsv2 -> buffersv), &(varsv2 -> status), &(varsv2 -> sentkey) , &(varsv2 -> eje), &(varsv2 -> number), &(varsv2 -> valpos));
 
 	if((varsv2 -> net) == 1) {
+
+// Recibe teclas por red
 		
 		switch(varsv2 -> sentkey) {
 			case KEY_UP:
@@ -613,15 +613,9 @@ int receive_data (ini_var **rvar, variablesservidor *varsv2, posicion *p) {
 				doexit = true;
 				break;               
 */		}
-	
-	}
 
 // Recibe posicion por red
-	
-	(varsv2 -> net) = get_network_data2((varsv2 -> newsockfd), (varsv2 -> buffersv), &(varsv2 -> eje), &(varsv2 -> number), &(varsv2 -> valpos));
 
-	if((varsv2 -> net) == 1) {
-		
 		switch(varsv2 -> eje) {
 			case 'x':
 				switch (varsv2 -> number) {
@@ -694,7 +688,7 @@ int receive_data (ini_var **rvar, variablesservidor *varsv2, posicion *p) {
 				break;				
 				
 		}
-
+			
 	}
 
     return 0;

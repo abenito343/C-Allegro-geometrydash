@@ -55,7 +55,7 @@ int	Inicializar (ini_var **var) {
 		return -1;
 	}
 	
-	(variables -> timer2) = al_create_timer(2.0 / FPS);
+	(variables -> timer2) = al_create_timer(1.0);
 	if(!(variables -> timer2)) {
 		fprintf(stderr, "failed to create timer 2!\n");
 		return -1;
