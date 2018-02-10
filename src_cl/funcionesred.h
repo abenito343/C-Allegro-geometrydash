@@ -8,7 +8,7 @@ void error(const char *msg)
     exit(0);
 }
 
-int put_network_data(int sockfd, char *buffer, char *buffer2, char *buffer3, int k, char s, char e, int num, float v) {
+int put_network_data(int sockfd, char *buffer, char *buffer2, char *buffer3, char *buffer4, char *buffer5, int k, char s, char e, int num, float v, int puntos, int life) {
     int n;
 
     memset((void *) buffer, '\0', 256);
@@ -79,16 +79,21 @@ int put_network_data(int sockfd, char *buffer, char *buffer2, char *buffer3, int
 			strcat(buffer, buffer2);
 		}
 		
-		sprintf(buffer3, "%f;\0", v);
+		sprintf(buffer3, "%f;", v);
 		strcat(buffer, buffer3);
 		
 	} else {
 		
 		strcat(buffer, "VACIO;");
 		strcat(buffer, "VACIO;");
-		strcat(buffer, "VACIO;\0");
+		strcat(buffer, "VACIO;");
 		
 	}
+	
+	sprintf(buffer4, "%i;", puntos);
+	strcat(buffer, buffer4);
+	sprintf(buffer5, "%i;\0", life);
+	strcat(buffer, buffer5);
 
     //DBG - printf("Buffer: %s",buffer);
     n = write(sockfd,buffer,strlen(buffer));

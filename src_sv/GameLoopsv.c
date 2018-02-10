@@ -28,7 +28,7 @@
 	const int maxFrameExplosion = 10;	
 	const int maxFrameMonedita= 4;
 
-int partida (ini_var **pvar, int *pvida, int *pscore, int *pnivel, posicion *ppos, auxpartida *pauxpar, frameExplosion *pfE, frameMonedita *pfM) {
+int partida (ini_var **pvar, posicion *ppos, auxpartida *pauxpar, frameExplosion *pfE, frameMonedita *pfM) {
 
 	ini_var *pvariables;
 
@@ -38,17 +38,17 @@ int partida (ini_var **pvar, int *pvida, int *pscore, int *pnivel, posicion *ppo
 
 	pvariables = *(pvar);
 
-	if(	*(pscore) >1000&&*(pscore) <2000)
-	*(pnivel)=2;
-	if(*(pscore) >2000&&*(pscore) <3000)
-	*(pnivel)=3;
-	if(*(pscore) >3000&&*(pscore) <4000)
-	*(pnivel)=4;
-	if(*(pscore) >4000&&*(pscore) <5000)
-	*(pnivel)=5;
+	if(	(pauxpar -> score) >1000&&(pauxpar -> score) <2000)
+	(pauxpar -> nivel)=2;
+	if((pauxpar -> score) >2000&&(pauxpar -> score) <3000)
+	(pauxpar -> nivel)=3;
+	if((pauxpar -> score) >3000&&(pauxpar -> score) <4000)
+	(pauxpar -> nivel)=4;
+	if((pauxpar -> score) >4000&&(pauxpar -> score) <5000)
+	(pauxpar -> nivel)=5;
 				
 
-/*	if(*(pscore) == 1000 || *(pscore) == 2000 || *(pscore) == 3000 || *(pscore) == 4000)
+/*	if((pauxpar -> score) == 1000 || (pauxpar -> score) == 2000 || (pauxpar -> score) == 3000 || (pauxpar -> score) == 4000)
 	al_play_sample((pvariables -> levelsfx), 1.0, 0.0,1.2,ALLEGRO_PLAYMODE_ONCE,NULL);		//NO ANDA (Probar en distintas computadoras)
 */			
 
@@ -107,14 +107,14 @@ int partida (ini_var **pvar, int *pvida, int *pscore, int *pnivel, posicion *ppo
 		if((pauxpar -> aux1)==0){
 			if( (ppos -> bouncer_y2) <= 339.0)
 				{
-					(ppos -> bouncer_y2) += 8.0*10*(*(pnivel)*0.1);
+					(ppos -> bouncer_y2) += 8.0*10*((pauxpar -> nivel)*0.1);
 				}
 		}
 		if((pauxpar -> aux1)==1){
 			
 		if( (ppos -> bouncer_y2) >= -110.0)
 		{
-			(ppos -> bouncer_y2) -= 8.0*10*(*(pnivel)*0.1);
+			(ppos -> bouncer_y2) -= 8.0*10*((pauxpar -> nivel)*0.1);
 			}
 			else
 			{
@@ -143,15 +143,15 @@ int partida (ini_var **pvar, int *pvida, int *pscore, int *pnivel, posicion *ppo
 			
 		if((ppos -> bouncer_x31) < -256)                
 			(ppos -> bouncer_x31)= (ppos -> bouncer_x31)+1556;
-		(ppos -> bouncer_x31) += (ppos -> bouncer_dx)*20*(*(pnivel)*0.1);
+		(ppos -> bouncer_x31) += (ppos -> bouncer_dx)*20*((pauxpar -> nivel)*0.1);
 		
         if((ppos -> bouncer_x32) < -256)                
 			(ppos -> bouncer_x32)= (ppos -> bouncer_x32)+1556;
-		(ppos -> bouncer_x32) += (ppos -> bouncer_dx)*10*(*(pnivel)*0.1);
+		(ppos -> bouncer_x32) += (ppos -> bouncer_dx)*10*((pauxpar -> nivel)*0.1);
 
         if((ppos -> bouncer_x33) < -256)                
 			(ppos -> bouncer_x33)= (ppos -> bouncer_x33)+1556;
-		(ppos -> bouncer_x33) += (ppos -> bouncer_dx)*5*(*(pnivel)*0.1);
+		(ppos -> bouncer_x33) += (ppos -> bouncer_dx)*5*((pauxpar -> nivel)*0.1);
 		
 		if((ppos -> bouncer_x5) < -956)                
 			(ppos -> bouncer_x5)= (ppos -> bouncer_x5)+2056;
@@ -210,7 +210,7 @@ int partida (ini_var **pvar, int *pvida, int *pscore, int *pnivel, posicion *ppo
 
 
 
-			if(*(pvida)==0)
+			if((pauxpar -> vida)==0)
 			{
 				pauxestadojuego=2;
 				
@@ -219,7 +219,7 @@ int partida (ini_var **pvar, int *pvida, int *pscore, int *pnivel, posicion *ppo
 				}
 
 
-			*(pscore) = *(pscore) + 1;
+			(pauxpar -> score) = (pauxpar -> score) + 1;
 		//	(ppos -> bouncer_x2) -= 5;
 
 		/*	if((ppos -> bouncer_x2) <= 0 - (pfE -> frameWidthExplosion))
@@ -296,14 +296,14 @@ int partida (ini_var **pvar, int *pvida, int *pscore, int *pnivel, posicion *ppo
 		(pauxpar -> auxpisox)=(ppos -> bouncer_x);
 		(pauxpar -> auxfondox)=(ppos -> bouncer_x4);
 			
-		sprintf((pauxpar -> vidac), "%d", *(pvida));
+		sprintf((pauxpar -> vidac), "%d", (pauxpar -> vida));
 			
 		
 		//fprintf (stderr, "hasta aca anda \n");
 		
-		sprintf((pauxpar -> scorec), "%d", *(pscore)); //esto
+		sprintf((pauxpar -> scorec), "%d", (pauxpar -> score)); //esto
 		
-			sprintf((pauxpar -> nivelc), "%d", *(pnivel)); //esto
+			sprintf((pauxpar -> nivelc), "%d", (pauxpar -> nivel)); //esto
 		
 		
 	
@@ -314,16 +314,16 @@ int partida (ini_var **pvar, int *pvida, int *pscore, int *pnivel, posicion *ppo
 		//al_play_sample((pvariables -> temajuego), 1.0, 0.0,1.0,ALLEGRO_PLAYMODE_LOOP,NULL);
 
 	//al_draw_bitmap(bouncer, (ppos -> bouncer_x), bouncer_y, 0);
-	al_draw_bitmap(	pvariables -> fondoimg[*(pnivel)],(pauxpar -> auxfondox)-800,0,0);
-	al_draw_bitmap(	pvariables -> fondoimg[*(pnivel)],(pauxpar -> auxfondox)+220,0,0);
-	al_draw_bitmap(	pvariables -> fondoimg[*(pnivel)],(pauxpar -> auxfondox)+1240,0,0);
+	al_draw_bitmap(	pvariables -> fondoimg[(pauxpar -> nivel)],(pauxpar -> auxfondox)-800,0,0);
+	al_draw_bitmap(	pvariables -> fondoimg[(pauxpar -> nivel)],(pauxpar -> auxfondox)+220,0,0);
+	al_draw_bitmap(	pvariables -> fondoimg[(pauxpar -> nivel)],(pauxpar -> auxfondox)+1240,0,0);
 	
-	al_draw_bitmap(pvariables -> pisoimg[*(pnivel)],(pauxpar -> auxpisox),500,0);
-	al_draw_bitmap(pvariables -> pisoimg[*(pnivel)],(pauxpar -> auxpisox)+256,500,0);
-	al_draw_bitmap(pvariables -> pisoimg[*(pnivel)],(pauxpar -> auxpisox)+256*2,500,0);
-	al_draw_bitmap(pvariables -> pisoimg[*(pnivel)],(pauxpar -> auxpisox)+256*3,500,0);
-	al_draw_bitmap(pvariables -> pisoimg[*(pnivel)],(pauxpar -> auxpisox)+256*4,500,0);
-	al_draw_bitmap(pvariables -> pisoimg[*(pnivel)],(pauxpar -> auxpisox)+256*5,500,0);
+	al_draw_bitmap(pvariables -> pisoimg[(pauxpar -> nivel)],(pauxpar -> auxpisox),500,0);
+	al_draw_bitmap(pvariables -> pisoimg[(pauxpar -> nivel)],(pauxpar -> auxpisox)+256,500,0);
+	al_draw_bitmap(pvariables -> pisoimg[(pauxpar -> nivel)],(pauxpar -> auxpisox)+256*2,500,0);
+	al_draw_bitmap(pvariables -> pisoimg[(pauxpar -> nivel)],(pauxpar -> auxpisox)+256*3,500,0);
+	al_draw_bitmap(pvariables -> pisoimg[(pauxpar -> nivel)],(pauxpar -> auxpisox)+256*4,500,0);
+	al_draw_bitmap(pvariables -> pisoimg[(pauxpar -> nivel)],(pauxpar -> auxpisox)+256*5,500,0);
 	
 /*	   al_draw_bitmap((pvariables -> bloqueimg)  ,(ppos -> bouncer_x5)+400,440,100);
 	al_draw_bitmap((pvariables -> bloqueimg)  ,(ppos -> bouncer_x5)+400+(62*1),440,100);
@@ -338,9 +338,9 @@ int partida (ini_var **pvar, int *pvida, int *pscore, int *pnivel, posicion *ppo
 	
 	//  al_draw_bitmap((pvariables -> enemigoimg), (ppos -> bouncer_x3),350,0);
 	
-	al_draw_bitmap_region((pvariables -> enemigoimg[*(pnivel)]) ,0,0,140,150,(ppos -> bouncer_x31),355,0);
-    al_draw_bitmap_region((pvariables -> enemigoimg[*(pnivel)]) ,0,0,140,150,(ppos -> bouncer_x32),-10,0);
-    al_draw_bitmap_region((pvariables -> enemigoimg[*(pnivel)]) ,0,0,140,150,(ppos -> bouncer_x33),150,0);
+	al_draw_bitmap_region((pvariables -> enemigoimg[(pauxpar -> nivel)]) ,0,0,140,150,(ppos -> bouncer_x31),355,0);
+    al_draw_bitmap_region((pvariables -> enemigoimg[(pauxpar -> nivel)]) ,0,0,140,150,(ppos -> bouncer_x32),-10,0);
+    al_draw_bitmap_region((pvariables -> enemigoimg[(pauxpar -> nivel)]) ,0,0,140,150,(ppos -> bouncer_x33),150,0);
 	//al_draw_bitmap_region((pvariables -> enemigoimg) ,(pauxpar -> auxspriteenemigo)*140,0,140,150,(ppos -> bouncer_x3),355,0);
 		
 	al_draw_bitmap_region((pvariables -> monedaimg), ((pfM -> curFrameMonedita) * (pfM -> frameWidthMonedita))-13, 0, (pfM -> frameWidthMonedita), (pfM -> frameHeightMonedita)+20,(ppos -> bouncer_x6),(ppos -> bouncer_y6), 0);
@@ -376,7 +376,7 @@ int partida (ini_var **pvar, int *pvida, int *pscore, int *pnivel, posicion *ppo
 			
 			if((pauxpar -> verifvida)==0)
 				{
-				*(pvida) = *(pvida) - 1;
+				(pauxpar -> vida) = (pauxpar -> vida) - 1;
 				(pauxpar -> verifvida)=1;	
 				}
 				(pauxpar -> verifvida)=1;
@@ -403,7 +403,7 @@ int partida (ini_var **pvar, int *pvida, int *pscore, int *pnivel, posicion *ppo
 			}
 		}
 		if((pauxpar -> auxmoneda2)==1){   
-			*(pscore) = *(pscore)+100; 
+			(pauxpar -> score) = (pauxpar -> score)+100; 
 			(ppos -> bouncer_x6)= (ppos -> bouncer_x6)+1500;
 			al_play_sample((pvariables -> monedasfx), 1.0, 0.0,1.0,ALLEGRO_PLAYMODE_ONCE,NULL);
 			//al_play_sample((pvariables -> explosionsfx), 1.0, 0.0,2.0,ALLEGRO_PLAYMODE_ONCE,NULL);
@@ -495,8 +495,7 @@ int fin (ini_var **fvar, auxpartida *pauxpar, variablesservidor *fvarsv) {
 		if(fauxx>406 && fauxx<613&&fauxy>602 && fauxy<671)
 				return -1;
 		if(fauxx>355 && fauxx<750&&fauxy>400 && fauxy<560)		// Cambia el estado para volver al menu
-				fauxestadojuego = 1;
-				close (fvarsv -> sockfd);						// Cierra el socket
+				fauxestadojuego = 1;				
 			
 	}
 	
@@ -543,10 +542,10 @@ int fin (ini_var **fvar, auxpartida *pauxpar, variablesservidor *fvarsv) {
 	}
 	
 
-	if (fauxestadojuego == 1){					// Antes de salir frena el timer
+	if (fauxestadojuego == 1){							// Antes de salir: 
 	
-		al_stop_timer((fvariables -> timer));
-	
+		al_stop_timer((fvariables -> timer));			// Frena el timer
+		close (fvarsv -> sockfd);						// Cierra el socket	
 	}	
 	
 	return fauxestadojuego;
@@ -568,14 +567,15 @@ int wait_cx (variablesservidor *varsv){
 	
 }
 
-int receive_data (ini_var **rvar, variablesservidor *varsv2, posicion *p) {
+int receive_data (ini_var **rvar, variablesservidor *varsv2, posicion *p, auxpartida *rauxpar) {
 
 	ini_var *rvariables;
 	
 	rvariables = *(rvar);	
 
-	(varsv2 -> net) = get_network_data((varsv2 -> newsockfd), (varsv2 -> buffersv), &(varsv2 -> status), &(varsv2 -> sentkey) , &(varsv2 -> eje), &(varsv2 -> number), &(varsv2 -> valpos));
-
+	(varsv2 -> net) = get_network_data((varsv2 -> newsockfd), (varsv2 -> buffersv), &(varsv2 -> status), &(varsv2 -> sentkey) , &(varsv2 -> eje), &(varsv2 -> number), &(varsv2 -> valpos) , &(varsv2 -> puntos) , &(varsv2 -> life));
+																																													
+																																													
 	if((varsv2 -> net) == 1) {
 
 // Recibe teclas por red
@@ -688,6 +688,11 @@ int receive_data (ini_var **rvar, variablesservidor *varsv2, posicion *p) {
 				break;				
 				
 		}
+		
+// Recibe los puntos y vida
+
+		(rauxpar -> vida) = (varsv2 -> life);
+		(rauxpar -> score) = (varsv2 -> puntos);		
 			
 	}
 
@@ -706,11 +711,6 @@ int	GameLoop (ini_var **var, variablesservidor *varservidor) {
 	frameMonedita *fM = malloc (sizeof (frameMonedita));
 		
 	int auxestadojuego = 1;		// Arranca esperando la cx
-
-	int *vida = malloc (sizeof (int)); *(vida) = 3;
-	int *score = malloc (sizeof (int)); *(score) =0;	
-//	char *scores[10];	//No se usa mas
-	int *nivel = malloc (sizeof (int)); *(nivel) =1;
 
 // Inicializacion de variables partidas
 
@@ -743,10 +743,6 @@ int	GameLoop (ini_var **var, variablesservidor *varservidor) {
 
 			
 			auxestadojuego = wait_cx (varservidor);
-
-			*(vida) = 3;
-			*(score) = 0;	
-			*(nivel) = 1;
 		
 		}
 
@@ -772,14 +768,20 @@ int	GameLoop (ini_var **var, variablesservidor *varservidor) {
 		
 			(pos -> bouncer_dx) = -4.0;
 			
+// 	Inicializacion de vida y puntaje		
+			
+			(auxpar -> vida) = 3;
+			(auxpar -> score) = 0;	
+			(auxpar -> nivel) = 1;
+			
 		}
 			
 		while (auxestadojuego == 0){
 			
-			receive_data (&variables, varservidor, pos);
+			auxestadojuego = partida (&variables, pos, auxpar, fE, fM);
 			
-			auxestadojuego = partida (&variables, vida, score, nivel, pos, auxpar, fE, fM);
-		
+			receive_data (&variables, varservidor, pos, auxpar);
+					
 		} 
 		
 		while (auxestadojuego == 2){
@@ -789,8 +791,6 @@ int	GameLoop (ini_var **var, variablesservidor *varservidor) {
 		}
 		
 	}
-	
-	close (varservidor -> sockfd);						// Cierra el socket
 	
 	al_destroy_timer(variables -> timer);
 	al_destroy_display(variables -> display);
@@ -814,6 +814,8 @@ int	GameLoop (ini_var **var, variablesservidor *varservidor) {
 	al_destroy_bitmap(variables -> enemigoimg );
 	al_destroy_bitmap(variables -> explosionimg);
 	al_destroy_bitmap(variables -> bloqueimg);
+	
+	close (varservidor -> sockfd);						// Cierra el socket
 	
 	return 0;
 	

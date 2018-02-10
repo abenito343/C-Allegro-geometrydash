@@ -35,6 +35,31 @@ int	Inicializar (ini_var **var) {
 	
 	(variables -> key)[0] = false;
 	(variables -> key)[1] = false;
+	(variables -> key)[2] = false;
+	(variables -> key)[3] = false;
+	(variables -> key)[4] = false;
+	(variables -> key)[5] = false;
+	(variables -> key)[6] = false;
+	(variables -> key)[7] = false;
+	(variables -> key)[8] = false;
+	(variables -> key)[9] = false;
+	(variables -> key)[10] = false;
+	(variables -> key)[11] = false;
+	(variables -> key)[12] = false;
+	(variables -> key)[13] = false;
+	(variables -> key)[14] = false;
+	(variables -> key)[15] = false;
+	(variables -> key)[16] = false;
+	(variables -> key)[17] = false;
+	(variables -> key)[18] = false;
+	(variables -> key)[19] = false;
+	(variables -> key)[20] = false;
+	(variables -> key)[21] = false;
+	(variables -> key)[22] = false;
+	(variables -> key)[23] = false;
+	(variables -> key)[24] = false;
+	(variables -> key)[25] = false;
+	(variables -> key)[26] = false;
 
 // Inicializacion Allegro
 

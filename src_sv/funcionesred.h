@@ -92,9 +92,9 @@ int put_network_data2(int sockfd, char *buffer, char *buffer2, char *buffer3, ch
     return n;
 }
 
-int get_network_data(int sockfd, char *buffer, int *s, int *k, char *l, int *num, float *v) {
+int get_network_data(int sockfd, char *buffer, int *s, int *k, char *l, int *num, float *p, int *pt, int *v) {
     int n;
-    char *key, *status, *letra, *numero, *pos;
+    char *key, *status, *letra, *numero, *pos, *ptos, *liv;
     bool recv_tecla = true;
     bool recv_pos = true;    
 
@@ -109,12 +109,19 @@ int get_network_data(int sockfd, char *buffer, int *s, int *k, char *l, int *num
         letra = strtok(NULL,";");
         numero = strtok(NULL,";");
         pos = strtok(NULL,";");
-        //DBG - 
-        printf("key: %s / status: %s\n",key,status);
-        //DBG - 
-        printf("Eje: %s / numero: %s / posicion: %s\n",letra,numero,pos);
+        ptos = strtok(NULL,";");
+        liv = strtok(NULL,";");
+        
+        //DBG - printf("key: %s / status: %s\n",key,status);
+        //DBG - printf("Eje: %s / numero: %s / posicion: %s\n",letra,numero,pos);
+        //DBG - printf("Puntos: %s / Vida: %s\n",ptos,liv);
 
- // Si recibe teclas:
+// Recibe los puntos y vida
+
+		*pt = atoi (ptos);
+		*v = atoi (liv);
+
+// Si recibe teclas:
 
         if(!strcmp(status,"true")) {
             *s=true;
@@ -149,7 +156,7 @@ int get_network_data(int sockfd, char *buffer, int *s, int *k, char *l, int *num
         }
 
  
- // Si recibe posiciones:
+// Si recibe posiciones:
  
         if(!strcmp(letra,"d")) {
             *l='d';
@@ -175,7 +182,7 @@ int get_network_data(int sockfd, char *buffer, int *s, int *k, char *l, int *num
 		} else	if (pos == NULL) {
 			return 0;	
 		} else {
-			*v = atof (pos);
+			*p = atof (pos);
 		}
 
         // Data saved (s+k), can return
