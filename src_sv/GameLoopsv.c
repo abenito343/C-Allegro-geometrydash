@@ -435,7 +435,7 @@ int partida (ini_var **pvar, posicion *ppos, auxpartida *pauxpar, frameExplosion
 
 }
 
-int fin (ini_var **fvar, auxpartida *pauxpar, variablesservidor *fvarsv) {
+int fin (ini_var **fvar, auxpartida *fauxpar, variablesservidor *fvarsv) {
 
 	ini_var *fvariables;
 
@@ -448,7 +448,14 @@ int fin (ini_var **fvar, auxpartida *pauxpar, variablesservidor *fvarsv) {
 		
 	fvariables = *(fvar);
 
+	if ((fvarsv -> flag) == true) {
+		
+		sprintf((fauxpar -> scorec), "%d", (fauxpar -> score)); 	// Actualiza el puntaje mostrado con lo ultimo recibido por red
+		
+		(fvarsv -> flag) = false;
 
+	}
+	
 	al_start_timer((fvariables -> timer));
 
 
@@ -529,11 +536,11 @@ int fin (ini_var **fvar, auxpartida *pauxpar, variablesservidor *fvarsv) {
 		
 		al_draw_text((fvariables -> font2), al_map_rgb(255, 0, 0), 280, 50, 0, "TE QUEDASTE SIN VIDAS MANCO");
 		
-		al_draw_text((fvariables -> font2), al_map_rgb(0, 255, 144), 750, 300, 0, (pauxpar -> scorec));
+		al_draw_text((fvariables -> font2), al_map_rgb(0, 255, 144), 750, 300, 0, (fauxpar -> scorec));
 		
 		al_draw_text((fvariables -> font2), al_map_rgb(0, 255, 144), 380, 300, 0, "TU SCORE FINAL:");
 		
-		al_draw_text((fvariables -> font2), al_map_rgb(0, 255, 255), 900, 150, 0, (pauxpar -> nivelc));
+		al_draw_text((fvariables -> font2), al_map_rgb(0, 255, 255), 900, 150, 0, (fauxpar -> nivelc));
 		
 		al_draw_text((fvariables -> font2), al_map_rgb(0, 255, 255), 280, 150, 0, "LLEGASTE HASTA EL NIVEL:");
 		
@@ -544,6 +551,7 @@ int fin (ini_var **fvar, auxpartida *pauxpar, variablesservidor *fvarsv) {
 
 	if (fauxestadojuego == 1){							// Antes de salir: 
 	
+		(fvarsv -> flag) = true;
 		al_stop_timer((fvariables -> timer));			// Frena el timer
 		close (fvarsv -> sockfd);						// Cierra el socket	
 	}	
@@ -732,6 +740,8 @@ int	GameLoop (ini_var **var, variablesservidor *varservidor) {
 	(fM -> frameDelayMonedita) = 10;
 	(fM -> frameWidthMonedita) = 46;
 	(fM -> frameHeightMonedita) = 46;
+
+	(varservidor -> flag) = true;
 	
 	bool doexit = false;	//AL PEDO
 	

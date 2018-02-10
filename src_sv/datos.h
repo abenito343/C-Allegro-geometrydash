@@ -174,5 +174,7 @@ typedef struct variablesservidor {
 	int number;
 	float valpos;
 	int puntos, life;
+	
+	bool flag;				// Flag de la primera ejecucion de la funcion fin
 
 } variablesservidor;
