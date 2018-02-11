@@ -57,6 +57,7 @@ int	Inicializar (ini_var **var) {
 		return -1;
 	}
 
+
 // Audio
 	
 	if(!al_install_audio()){

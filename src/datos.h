@@ -82,6 +82,15 @@ typedef struct posicion {
 
 } posicion;
 
+typedef struct niveles{
+	
+	int t_aparicion;
+	int clase;
+	
+	struct niveles *sig;
+	
+	} niveles;
+
 typedef struct auxpartida {
 	
 	char vidac[2];

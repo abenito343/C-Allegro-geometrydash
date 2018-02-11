@@ -30,11 +30,12 @@ int menu (ini_var **mvar, int *mvida, int *mscore,int *mnivel) {
 	int mauxx, mauxy;	//mouse
 	char maux3[11],maux4[11];
 	
+	
 	bool mredraw = true;
 	
 	mvariables = *(mvar);
 
-	*(mvida) = 3;
+	*(mvida) = 9;
 	*(mscore) = 0;
 	*(mnivel) =1;
 
@@ -349,25 +350,50 @@ int ingresarip (ini_var **ivar ) {
 
 
 
-int partida (ini_var **pvar, int *pvida, int *pscore, int *pnivel, posicion *ppos, auxpartida *pauxpar, frameExplosion *pfE, frameMonedita *pfM) {
+int partida (ini_var **pvar, niveles **aux_niv2, int *pvida, int *pscore, int *pnivel, posicion *ppos, auxpartida *pauxpar, frameExplosion *pfE, frameMonedita *pfM) {
 
 	ini_var *pvariables;
 
 	bool predraw = true;		
 
-	
 	int pauxestadojuego = 0;
-
-	if(	*(pscore) >1000&&*(pscore) <2000)
-	*(pnivel)=2;
-	if(*(pscore) >2000&&*(pscore) <3000)
-	*(pnivel)=3;
-	if(*(pscore) >3000&&*(pscore) <4000)
-	*(pnivel)=4;
-	if(*(pscore) >4000&&*(pscore) <5000)
-	*(pnivel)=5;
+	int pauxnivel;
+	int tipo1, tipo2, tipo3;
 	
-	if(*(pscore) == 1000 || *(pscore) == 2000 || *(pscore) == 3000 || *(pscore) == 4000)
+	
+	if(	*(pscore) >2000&&*(pscore) <4000)
+	*(pnivel)=2;
+	if(*(pscore) >4000&&*(pscore)<6000)
+	*(pnivel)=3;
+	if(*(pscore) >6000&&*(pscore) <8000)
+	*(pnivel)=4;
+	if(*(pscore) >8000&&*(pscore) <10000)
+	*(pnivel)=5;
+		
+	//fprintf(stderr, "No failed to create (tipo)!\n");
+	if((*(aux_niv2))->t_aparicion==(*pscore)){
+		switch((*(aux_niv2))->clase){
+			case 1:
+				tipo1=1;
+				(*(aux_niv2))=(*(aux_niv2))->sig;
+				break;
+			case 2:
+				tipo2=1;
+				(*(aux_niv2))= ((*(aux_niv2))->sig);
+				break;
+			case 3:
+				tipo3=1;
+				(*(aux_niv2))=(*(aux_niv2))->sig;
+				break;
+			}
+			
+		if((*(aux_niv2))->sig==NULL){
+			pauxestadojuego = 2;
+		}
+		fprintf(stderr, "No failed to create %d!\n", (*(aux_niv2))->t_aparicion);
+	}			
+	
+	if(*(pscore) == 2000 || *(pscore) == 4000 || *(pscore) == 6000 || *(pscore) == 8000)
 	al_play_sample((pvariables -> levelsfx), 1.0, 0.0,1.2,ALLEGRO_PLAYMODE_ONCE,NULL);
 
 			
@@ -458,18 +484,27 @@ int partida (ini_var **pvar, int *pvida, int *pscore, int *pnivel, posicion *ppo
 			(ppos -> bouncer_x4)= (ppos -> bouncer_x4)+1024; 
 		(ppos -> bouncer_x4)+= (ppos -> bouncer_dx)/3;
 						
-			
-		if((ppos -> bouncer_x31) < -256)                
+		if(tipo1==1){	
+		if((ppos -> bouncer_x31) < -256){              
 			(ppos -> bouncer_x31)= (ppos -> bouncer_x31)+1556;
+			tipo1=0;
+			}
 		(ppos -> bouncer_x31) += (ppos -> bouncer_dx)*20*(*(pnivel)*0.1);
-		
-        if((ppos -> bouncer_x32) < -256)                
+		}
+		if(tipo2==1){
+		if((ppos -> bouncer_x32) < -256){               
 			(ppos -> bouncer_x32)= (ppos -> bouncer_x32)+1556;
-		(ppos -> bouncer_x32) += (ppos -> bouncer_dx)*10*(*(pnivel)*0.1);
-
-        if((ppos -> bouncer_x33) < -256)                
+			tipo2=0;
+			}
+		(ppos -> bouncer_x32) += (ppos -> bouncer_dx)*20*(*(pnivel)*0.1);
+		}
+		if(tipo3==1){
+		if((ppos -> bouncer_x33) < -256){               
 			(ppos -> bouncer_x33)= (ppos -> bouncer_x33)+1556;
-		(ppos -> bouncer_x33) += (ppos -> bouncer_dx)*5*(*(pnivel)*0.1);
+			tipo3=0;
+			}
+		(ppos -> bouncer_x33) += (ppos -> bouncer_dx)*20*(*(pnivel)*0.1);
+		}
 		
 		if((ppos -> bouncer_x5) < -956)                
 			(ppos -> bouncer_x5)= (ppos -> bouncer_x5)+2056;
@@ -635,14 +670,21 @@ int partida (ini_var **pvar, int *pvida, int *pscore, int *pnivel, posicion *ppo
 	*/
 	
 	//  al_draw_bitmap((pvariables -> enemigoimg), (ppos -> bouncer_x3),350,0);
-	
+
+	if(tipo1==1){
 	al_draw_bitmap_region((pvariables -> enemigoimg[*(pnivel)]) ,0,0,140,150,(ppos -> bouncer_x31),355,0);
-    al_draw_bitmap_region((pvariables -> enemigoimg[*(pnivel)]) ,0,0,140,150,(ppos -> bouncer_x32),-10,0);
-    al_draw_bitmap_region((pvariables -> enemigoimg[*(pnivel)]) ,0,0,140,150,(ppos -> bouncer_x33),150,0);
+	}
+	if(tipo2==1){
+	al_draw_bitmap_region((pvariables -> enemigoimg[*(pnivel)]) ,0,0,140,150,(ppos -> bouncer_x32),-50,0);
+	}
+	if(tipo3==1){
+	al_draw_bitmap_region((pvariables -> enemigoimg[*(pnivel)]) ,0,0,140,150,(ppos -> bouncer_x33),150,0);
+	}
+
 	//al_draw_bitmap_region((pvariables -> enemigoimg) ,(pauxpar -> auxspriteenemigo)*140,0,140,150,(ppos -> bouncer_x3),355,0);
 		
 	al_draw_bitmap_region((pvariables -> monedaimg), ((pfM -> curFrameMonedita) * (pfM -> frameWidthMonedita))-13, 0, (pfM -> frameWidthMonedita), (pfM -> frameHeightMonedita)+20,(ppos -> bouncer_x6),(ppos -> bouncer_y6), 0);
-	
+		
 	al_draw_text((pvariables -> font), al_map_rgb(0, 255, 144), 580, 50, 0, (pauxpar -> scorec));
 	
 	al_draw_text((pvariables -> font), al_map_rgb(0, 255, 144), 880, 50, 0, (pauxpar -> nivelc));
@@ -651,15 +693,15 @@ int partida (ini_var **pvar, int *pvida, int *pscore, int *pnivel, posicion *ppo
 	//al_draw_bitmap((pvariables -> cuboimg),(ppos -> bouncer_x2)-200, (ppos -> bouncer_y2)+115,0);
 	
 	if((ppos -> bouncer_x31)<(ppos -> bouncer_x2)-125&&(ppos -> bouncer_x31)>(ppos -> bouncer_x2)-330){	   
-	if((ppos -> bouncer_y2)>150)		      	
+	if((ppos -> bouncer_y2)>355)		      	
 			(pauxpar -> auxcolision)=1;	
 	}
-    if((ppos -> bouncer_x32)<(ppos -> bouncer_x2)-125&&(ppos -> bouncer_x32)>(ppos -> bouncer_x2)-330){	   
-	if((ppos -> bouncer_y2)<-50)		      	
+	if((ppos -> bouncer_x32)<(ppos -> bouncer_x2)-125&&(ppos -> bouncer_x32)>(ppos -> bouncer_x2)-330){	   
+	if((ppos -> bouncer_y2)<-75)		      	
 			(pauxpar -> auxcolision)=1;	
 	}
-    if((ppos -> bouncer_x33)<(ppos -> bouncer_x2)-125&&(ppos -> bouncer_x33)>(ppos -> bouncer_x2)-330){	   
-	if((ppos -> bouncer_y2)>-10&&(ppos -> bouncer_y2)<190)		      	
+	if((ppos -> bouncer_x33)<(ppos -> bouncer_x2)-125&&(ppos -> bouncer_x33)>(ppos -> bouncer_x2)-330){	   
+	if((ppos -> bouncer_y2)<175||(ppos -> bouncer_y2)>95)		      	
 			(pauxpar -> auxcolision)=1;	
 	}
 		
@@ -730,6 +772,7 @@ int partida (ini_var **pvar, int *pvida, int *pscore, int *pnivel, posicion *ppo
 	return pauxestadojuego;
 
 }
+
 
 int fin (ini_var **fvar, auxpartida *pauxpar) {
 
@@ -845,6 +888,53 @@ int fin (ini_var **fvar, auxpartida *pauxpar) {
 	return fauxestadojuego;
 	
 }
+int Niveles(niveles** INI1){
+	
+	FILE *fp;
+	niveles *aux, *aux_comp;
+	char buffer[30];
+	int i;
+	
+	printf("s\n");
+	fp = fopen("N","r");
+	if(!fp) return -1;
+	
+	 //NIVEL
+		memset(buffer,0,30);
+		while(fgets(buffer,30,fp)!=NULL){ 
+			printf("s\n");
+			if((*INI1)==NULL){
+				 
+				aux= calloc(1,sizeof(niveles));
+				aux->t_aparicion=atoi(strtok(buffer,","));
+				aux->clase=atoi(strtok(NULL,","));
+				aux->sig=NULL;
+				(*INI1)=aux;
+			}
+			else{ 
+				aux_comp=(*INI1);
+				aux= calloc(1,sizeof(niveles));
+				aux->t_aparicion=atoi(strtok(buffer,","));
+				aux->clase=atoi(strtok(NULL,","));
+				while(aux_comp->sig!=NULL){
+						aux_comp = (aux_comp->sig);
+						}
+				aux->sig=NULL;
+				aux_comp->sig=aux;
+					}
+					
+				memset(buffer,0,30);
+				printf("%d;%d\n",aux->t_aparicion,aux->clase);
+				
+			}
+			printf("salio\n");	
+
+	fclose(fp);
+
+	return 0;
+				
+	}
+
 
 int	GameLoop (ini_var **var) {
 
@@ -861,8 +951,13 @@ int	GameLoop (ini_var **var) {
 	int *score = malloc (sizeof (int)); *(score) =0;	
 	char *scores[10];	
 	int *nivel = malloc (sizeof (int)); *(nivel) =1;
+	niveles *p=NULL,*aux_comp=NULL,*INI1=NULL, *aux_niv=NULL;
+	int i;
 
 // Inicializacion de variables partidas
+
+	Niveles(&INI1);
+	aux_niv=INI1;
 
 	(auxpar -> verifvida) =0;
 	
@@ -928,7 +1023,7 @@ int	GameLoop (ini_var **var) {
 		
 		while (auxestadojuego == 0){
 			
-			auxestadojuego = partida (&variables, vida, score,nivel, pos, auxpar, fE, fM);
+			auxestadojuego = partida (&variables, &aux_niv, vida, score,nivel, pos, auxpar, fE, fM);
 		
 		} 
 		
@@ -938,6 +1033,15 @@ int	GameLoop (ini_var **var) {
 
 		}
 		
+	}
+	
+	aux_comp=INI1;
+	
+	for(i=1;aux_comp!=NULL;i++){
+		
+		p=aux_comp;
+		aux_comp=p->sig;
+		free(p);
 	}
 	
 	al_destroy_timer(variables -> timer);
