@@ -91,10 +91,19 @@ typedef struct posicion {
 } posicion;
 
 typedef struct auxpartida {
+
+// Variables para el calculo del juego
 	
+	int vida;
+	int score;	
+	int nivel;
+
+// Variables mostradas en pantalla
+
 	char vidac[2];
 	char scorec[22];
 	char nivelc[5];
+
 	int verifvida;
 	
 	int aux1;
@@ -157,10 +166,15 @@ typedef struct variablesservidor {
 
     char buffersv[256];
     char buffersv2[256];
+    char buffersv3[256];
+
     struct sockaddr_in serv_addr, cli_addr;
 	int net, status, sentkey;
 	char eje;
 	int number;
 	float valpos;
+	int puntos, life;
+	
+	bool flag;				// Flag de la primera ejecucion de la funcion fin
 
 } variablesservidor;

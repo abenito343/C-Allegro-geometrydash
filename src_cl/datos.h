@@ -16,6 +16,7 @@
 
 #define PUERTO 9123
 #define MY_EVENT_TYPE ALLEGRO_GET_EVENT_TYPE('S','O','C','K')
+#define VACIO 99												//Este valor es para que no interfiera con bool ni con las enum
 
 enum MYKEYS {
 
@@ -26,7 +27,9 @@ typedef struct ini_var {
 		
 	ALLEGRO_DISPLAY *display;
 	ALLEGRO_EVENT_QUEUE *event_queue;
+	
 	ALLEGRO_TIMER *timer;	
+	ALLEGRO_TIMER *timer2;				// Timer para red
 	
 	ALLEGRO_EVENT ev;
 	
@@ -91,10 +94,19 @@ typedef struct posicion {
 } posicion;
 
 typedef struct auxpartida {
+
+// Variables para el calculo del juego
+	
+	int vida;
+	int score;	
+	int nivel;
+
+// Variables mostradas en pantalla
 	
 	char vidac[2];
 	char scorec[22];
 	char nivelc[5];
+	
 	int verifvida;
 	
 	int aux1;
@@ -147,7 +159,10 @@ typedef struct variablescliente {
     struct hostent *server;
 
 	char buffercl[256];
-
+	char buffercl2[256];
+	char buffercl3[256];
+	char buffercl4[256];
+	char buffercl5[256];
 
 } variablescliente;
 
