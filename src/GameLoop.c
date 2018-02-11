@@ -32,7 +32,7 @@ int menu (ini_var **mvar, int *mvida, int *mscore,int *mnivel) {
 	
 	mvariables = *(mvar);
 
-	*(mvida) = 3;
+	*(mvida) = 9;
 	*(mscore) = 0;
 	*(mnivel) =1;
 		
@@ -117,7 +117,7 @@ int menu (ini_var **mvar, int *mvida, int *mscore,int *mnivel) {
 
 
 
-int partida (ini_var **pvar, niveles *aux_niv, int *pvida, int *pscore, int *pnivel, posicion *ppos, auxpartida *pauxpar, frameExplosion *pfE, frameMonedita *pfM) {
+int partida (ini_var **pvar, niveles **aux_niv2, int *pvida, int *pscore, int *pnivel, posicion *ppos, auxpartida *pauxpar, frameExplosion *pfE, frameMonedita *pfM) {
 
 	ini_var *pvariables;
 
@@ -140,31 +140,31 @@ int partida (ini_var **pvar, niveles *aux_niv, int *pvida, int *pscore, int *pni
 	
 	
 	//fprintf(stderr, "No failed to create (tipo)!\n");
-	if(aux_niv->t_aparicion==(*pscore)){
-		switch(aux_niv->clase){
+	if((*(aux_niv2))->t_aparicion==(*pscore)){
+		switch((*(aux_niv2))->clase){
 			case 1:
 				tipo1=1;
-				aux_niv=aux_niv->sig;
+				(*(aux_niv2))=(*(aux_niv2))->sig;
 				break;
 			case 2:
 				tipo2=1;
-				aux_niv= (aux_niv->sig);
+				(*(aux_niv2))= ((*(aux_niv2))->sig);
 				break;
 			case 3:
 				tipo3=1;
-				aux_niv=aux_niv->sig;
+				(*(aux_niv2))=(*(aux_niv2))->sig;
 				break;
 			}
 			
-		if(aux_niv->sig==NULL){
+		if((*(aux_niv2))->sig==NULL){
 			pauxestadojuego = 2;
 		}
-		fprintf(stderr, "No failed to create (tipo+)!\n");
+		fprintf(stderr, "No failed to create %d!\n", (*(aux_niv2))->t_aparicion);
 	}			
 	
 	if(*(pscore) == 2000 || *(pscore) == 4000 || *(pscore) == 6000 || *(pscore) == 8000)
 	al_play_sample((pvariables -> levelsfx), 1.0, 0.0,1.2,ALLEGRO_PLAYMODE_ONCE,NULL);
-	
+/*	
 			switch(pauxnivel){	
 		case 1:
 			auximagen=0;
@@ -183,7 +183,7 @@ int partida (ini_var **pvar, niveles *aux_niv, int *pvida, int *pscore, int *pni
 			break;
 			}
 	
-	 
+*/	 
 	
 
 	const int maxFrameExplosion = 10;
@@ -530,6 +530,7 @@ int partida (ini_var **pvar, niveles *aux_niv, int *pvida, int *pscore, int *pni
 		al_flip_display();
 		
 	}
+	
 	return pauxestadojuego;
 
 }
@@ -644,7 +645,7 @@ int fin (ini_var **fvar, auxpartida *pauxpar) {
 int Niveles(niveles** INI1){
 	
 	FILE *fp;
-	niveles *aux, *aux_comp,*aux_comp2;
+	niveles *aux, *aux_comp;
 	char buffer[30];
 	int i;
 	
@@ -772,8 +773,7 @@ int	GameLoop (ini_var **var) {
 
 		else if(auxestadojuego == 0){
 			
-			auxestadojuego = partida (&variables,aux_niv, vida, score,nivel, pos, auxpar, fE, fM);
-			
+			auxestadojuego = partida (&variables, &aux_niv, vida, score,nivel, pos, auxpar, fE, fM);
 		
 			if (auxestadojuego == -1) {
 			
