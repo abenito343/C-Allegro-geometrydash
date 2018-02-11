@@ -71,6 +71,16 @@ typedef struct ini_var {
 	
 } ini_var;
 
+typedef struct niveles{
+	
+	int t_aparicion;
+	int clase;
+	
+	struct niveles *sig;
+	
+} niveles;
+
+
 typedef struct posicion {
 	
 	float bouncer_x;
@@ -118,6 +128,9 @@ typedef struct auxpartida {
 	float auxspritecubox;
 	float auxspritecubov;
 	float auxspritecuboy;
+	
+	niveles *INI_niv;
+	niveles *aux_niv;
 
 
 } auxpartida;

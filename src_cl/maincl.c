@@ -21,71 +21,24 @@
 
 #include "funciones.h"
 
-int main(int argc, char **argv){
-
-	
+int main(int argc, char **argv){	
  
-	ini_var *variables = malloc (sizeof (ini_var));
-	
-	variablescliente *varcliente = malloc (sizeof (variablescliente));
-/*	
-	(varcliente -> cantarg) = argc;				// Para probar unicamente
-	(varcliente -> strarg) = argv;		// Carga la ip en la lista de variables del cliente
-*/		
-	(variables -> display) = NULL;
-	(variables -> event_queue) = NULL;
-	(variables -> timer) = NULL;
-	//ALLEGRO_BITMAP *bouncer = NULL;
-	
-	(variables -> fondoimg[0]) = NULL;
-	(variables -> fondoimg[1]) = NULL;
-	(variables -> fondoimg[2]) = NULL;
-	(variables -> fondoimg[3]) = NULL;
-	(variables -> fondoimg[4]) = NULL;
-	(variables -> fondoimg[5]) = NULL;
-	
-	
-	(variables -> pisoimg[0]) = NULL;
-	(variables -> pisoimg[1]) = NULL;
-	(variables -> pisoimg[2]) = NULL;
-	(variables -> pisoimg[3]) = NULL;
-	(variables -> pisoimg[4]) = NULL;
-	
-    (variables -> enemigoimg[0])   = NULL;
-    (variables -> enemigoimg[1])   = NULL;
-    (variables -> enemigoimg[2])   = NULL;
-    (variables -> enemigoimg[3])   = NULL;
-    (variables -> enemigoimg[4])   = NULL;
-    (variables -> enemigoimg[5])   = NULL;
-	
-				
-	(variables -> cuboimg)  = NULL;//cubo
+	ini_var *variables = malloc (sizeof (ini_var));	
 
-	(variables -> explosionimg)   = NULL;//explosion
-	(variables -> bloqueimg)   = NULL;//bloque
-	(variables -> muertofinimg)   = NULL; // muerto
-	(variables -> monedaimg)   = NULL; // moneda
-	(variables -> volverimg)  = NULL; // volver al menu
+	variablescliente *varcliente = malloc (sizeof (variablescliente));
+
+	auxpartida *auxpar = malloc (sizeof (auxpartida));
+
+	frameExplosion *fE = malloc (sizeof (frameExplosion));
+
+	frameMonedita *fM = malloc (sizeof (frameMonedita));
 	
+		
+	Inicializar (&variables, &auxpar, &fE, &fM);
+
+	Niveles (&auxpar);
 	
-	(variables -> temajuego) = NULL;  
-	(variables -> explosionsfx) = NULL;  
-	(variables -> monedasfx) = NULL;
-	(variables -> levelsfx) = NULL;
-	
-	// menu
-	
-	(variables -> fondomenuimg)   = NULL; // fondo menu
-	(variables -> fondoipimg)   = NULL; // fondo menu
-	(variables -> opcionesmenuimg)  = NULL; // opciones menu
-	(variables -> jugarenlineaimg)  = NULL; 
-	(variables -> font) = NULL;
-	(variables -> font2) = NULL;
-	(variables -> temamenu) = NULL;
-	
-	Inicializar (&variables);
-	
-	GameLoop (&variables, varcliente);
+	GameLoop (&variables, varcliente, &auxpar, &fE, &fM);
 	
 	return 0;
 }
