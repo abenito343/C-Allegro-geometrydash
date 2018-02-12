@@ -450,8 +450,6 @@ int partida (ini_var **pvar, posicion *ppos, auxpartida *pauxpar, frameExplosion
 
 	int pauxestadojuego = 0;
 	
-	int tipo1, tipo2, tipo3;	// Tipos de enemigos
-	
 	int i;						// Contador para el for de envio de tecla 
 
 	pvariables = *(pvar);	
@@ -472,15 +470,15 @@ int partida (ini_var **pvar, posicion *ppos, auxpartida *pauxpar, frameExplosion
 	if(((pauxpar -> aux_niv) -> t_aparicion) == (pauxpar -> score)){
 		switch((pauxpar -> aux_niv) -> clase){
 			case 1:
-				tipo1=1;
+				(pauxpar -> tipo1) = 1;
 				(pauxpar -> aux_niv) = ((pauxpar -> aux_niv) -> sig);
 				break;
 			case 2:
-				tipo2=1;
+				(pauxpar -> tipo2) = 1;
 				(pauxpar -> aux_niv) = ((pauxpar -> aux_niv) -> sig);
 				break;
 			case 3:
-				tipo3=1;
+				(pauxpar -> tipo3) = 1;
 				(pauxpar -> aux_niv) = ((pauxpar -> aux_niv) -> sig);
 				break;
 			}
@@ -587,26 +585,26 @@ int partida (ini_var **pvar, posicion *ppos, auxpartida *pauxpar, frameExplosion
 				(ppos -> bouncer_x4)= (ppos -> bouncer_x4)+1024; 
 			(ppos -> bouncer_x4)+= (ppos -> bouncer_dx)/3;
 							
-			if(tipo1 == 1){					
+			if((pauxpar -> tipo1) == 1){					
 				if((ppos -> bouncer_x31) < -256) {                
 					(ppos -> bouncer_x31)= (ppos -> bouncer_x31)+1556;
-					tipo1 = 0;
+					(pauxpar -> tipo1) = 0;
 				}
 				(ppos -> bouncer_x31) += (ppos -> bouncer_dx)*20*((pauxpar -> nivel)*0.1);				
 			}
 			
-			if(tipo2 == 1){
+			if((pauxpar -> tipo2) == 1){
 				if((ppos -> bouncer_x32) < -256) {
 					(ppos -> bouncer_x32)= (ppos -> bouncer_x32)+1556;
-					tipo2 = 0;
+					(pauxpar -> tipo2) = 0;
 				}
 				(ppos -> bouncer_x32) += (ppos -> bouncer_dx)*10*((pauxpar -> nivel)*0.1);				
 			}
 	
-			if(tipo3 == 1){
+			if((pauxpar -> tipo3) == 1){
 				if((ppos -> bouncer_x33) < -256) {               
 					(ppos -> bouncer_x33)= (ppos -> bouncer_x33)+1556;
-					tipo3 = 0;
+					(pauxpar -> tipo3) = 0;
 				}
 				(ppos -> bouncer_x33) += (ppos -> bouncer_dx)*5*((pauxpar -> nivel)*0.1);
 			}
@@ -832,15 +830,15 @@ int partida (ini_var **pvar, posicion *ppos, auxpartida *pauxpar, frameExplosion
 	
 	//  al_draw_bitmap((pvariables -> enemigoimg), (ppos -> bouncer_x3),350,0);
 	
-	if(tipo1 == 1){
+	if((pauxpar -> tipo1) == 1){
 		al_draw_bitmap_region((pvariables -> enemigoimg[(pauxpar -> nivel)]) ,0,0,140,150,(ppos -> bouncer_x31),355,0);
 	}
     
-    if(tipo2 == 1){
+    if((pauxpar -> tipo2) == 1){
 		al_draw_bitmap_region((pvariables -> enemigoimg[(pauxpar -> nivel)]) ,0,0,140,150,(ppos -> bouncer_x32),-10,0);
 	}
     
-    if(tipo3 == 1){
+    if((pauxpar -> tipo3) == 1){
 		al_draw_bitmap_region((pvariables -> enemigoimg[(pauxpar -> nivel)]) ,0,0,140,150,(ppos -> bouncer_x33),150,0);
 	}
 	
@@ -1224,7 +1222,13 @@ int	GameLoop (ini_var **var, variablescliente *varcliente, auxpartida **axpartid
 			(auxpar -> score) = 0;		// Puntaje comienza en 0
 			(auxpar -> nivel) = 1;		// Dificultad inicial
 			
-			(auxpar -> aux_niv) = (auxpar -> INI_niv);		// Inicializa los enemigos
+// Inicializacion de enemigos
+
+			(auxpar -> aux_niv) = (auxpar -> INI_niv);			
+			
+			(auxpar -> tipo1) = 0;
+			(auxpar -> tipo2) = 0;
+			(auxpar -> tipo3) = 0;
 		
 		}
 			

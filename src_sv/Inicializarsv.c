@@ -25,13 +25,72 @@
 //	const int INI_SCREEN_W = 1280;
 //	const int INI_SCREEN_H = 720;
 
-int	Inicializar (ini_var **var) {
+int	Inicializar (ini_var **var, auxpartida **axpartida, frameExplosion **fEx, frameMonedita **fMo) {
 
 	ini_var *variables;
+	auxpartida *auxpar;
+	frameExplosion *fE;
+	frameMonedita *fM;
 	
 //	bool tecla[2] = { false , false };
 	
 	variables = *(var);
+	auxpar = *(axpartida);
+	fE = *(fEx);
+	fM = *(fMo);
+
+
+	(variables -> display) = NULL;
+	(variables -> event_queue) = NULL;
+	(variables -> timer) = NULL;
+	
+	(variables -> fondoimg[0]) = NULL;
+	(variables -> fondoimg[1]) = NULL;
+	(variables -> fondoimg[2]) = NULL;
+	(variables -> fondoimg[3]) = NULL;
+	(variables -> fondoimg[4]) = NULL;
+	(variables -> fondoimg[5]) = NULL;
+	
+	
+	(variables -> pisoimg[0]) = NULL;
+	(variables -> pisoimg[1]) = NULL;
+	(variables -> pisoimg[2]) = NULL;
+	(variables -> pisoimg[3]) = NULL;
+	(variables -> pisoimg[4]) = NULL;
+	
+    (variables -> enemigoimg[0])   = NULL;
+    (variables -> enemigoimg[1])   = NULL;
+    (variables -> enemigoimg[2])   = NULL;
+    (variables -> enemigoimg[3])   = NULL;
+    (variables -> enemigoimg[4])   = NULL;
+    (variables -> enemigoimg[5])   = NULL;
+	
+				
+	(variables -> cuboimg)  = NULL;//cubo
+
+	(variables -> explosionimg)   = NULL;//explosion
+	(variables -> bloqueimg)   = NULL;//bloque
+	(variables -> muertofinimg)   = NULL; // muerto
+	(variables -> monedaimg)   = NULL; // moneda
+	(variables -> volverimg)  = NULL; // volver al menu
+	
+	
+	(variables -> temajuego) = NULL;  
+	(variables -> explosionsfx) = NULL;  
+	(variables -> monedasfx) = NULL;
+	(variables -> levelsfx) = NULL;
+	
+	// menu
+	
+	(variables -> fondomenuimg)   = NULL; // fondo menu
+	(variables -> fondoipimg)   = NULL; // fondo menu
+	(variables -> opcionesmenuimg)  = NULL; // opciones menu
+	(variables -> jugarenlineaimg)  = NULL; 
+	(variables -> font) = NULL;
+	(variables -> font2) = NULL;
+	(variables -> temamenu) = NULL;
+
+// Inicializacion Teclas
 	
 	(variables -> key)[0] = false;
 	(variables -> key)[1] = false;
@@ -60,6 +119,30 @@ int	Inicializar (ini_var **var) {
 	(variables -> key)[24] = false;
 	(variables -> key)[25] = false;
 	(variables -> key)[26] = false;
+
+// Inicializacion de variables partidas
+
+	(auxpar -> verifvida) = 0;
+	
+	(auxpar -> auxspriteenemigo) = 0;
+	(auxpar -> auxspritecubox) = 0;
+	(auxpar -> auxspritecubov) = 0;
+	(auxpar -> auxspritecuboy) = 0;
+	
+	(auxpar -> INI_niv) = NULL;
+	(auxpar -> aux_niv) = NULL;
+	
+	(fE -> curFrameExplosion) = 0;
+	(fE -> frameCountExplosion) = 0;
+	(fE -> frameDelayExplosion) = 5;
+	(fE -> frameWidthExplosion) = 283;
+	(fE -> frameHeightExplosion) = 300;
+	
+	(fM -> curFrameMonedita) = 0;
+	(fM -> frameCountMonedita) = 0;
+	(fM -> frameDelayMonedita) = 10;
+	(fM -> frameWidthMonedita) = 46;
+	(fM -> frameHeightMonedita) = 46;
 
 // Inicializacion Allegro
 
@@ -110,11 +193,11 @@ int	Inicializar (ini_var **var) {
 
 // Sonidos
 	
-	(variables -> temajuego)= al_load_sample( "sonidos/Forever Bound - Stereo Madness.wav" );
-	(variables -> explosionsfx) = al_load_sample( "sonidos/explosion3.wav" );
-	(variables -> monedasfx) = al_load_sample( "sonidos/monedasfx.wav" );
-	(variables -> levelsfx) = al_load_sample( "sonidos/nivel.wav" );
-	(variables -> temamenu)= al_load_sample( "sonidos/DJVI - Back On Track.wav" );
+	(variables -> temajuego)= al_load_sample( "sonidos/DarudeJapishstorm.wav" );		
+	(variables -> explosionsfx) = al_load_sample( "sonidos/Japish3.wav" );
+	(variables -> monedasfx) = al_load_sample( "sonidos/arrrg.wav" );
+	(variables -> levelsfx) = al_load_sample( "sonidos/mandalemecha.wav" );
+	(variables -> temamenu)= al_load_sample( "sonidos/DarudeJapishstorm.wav" );
 	
 	if (!(variables -> temajuego)){
 		printf( "Audio clip sample not loaded!\n" ); 

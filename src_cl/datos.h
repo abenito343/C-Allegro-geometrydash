@@ -129,9 +129,14 @@ typedef struct auxpartida {
 	float auxspritecubov;
 	float auxspritecuboy;
 	
+// Tipos de enemigos
+
+	int tipo1;
+	int tipo2;
+	int tipo3;	
+	
 	niveles *INI_niv;
 	niveles *aux_niv;
-
 
 } auxpartida;
 
