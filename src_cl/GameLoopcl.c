@@ -161,7 +161,8 @@ int cargar_ip (ini_var **cvar, variablescliente *vcl) {
 	char ip2[33];
 	
 	char auxip;
-	int auxip2,auxip3,auxip4,act;//numero|cantidad de numeros|indicador prim. vez|?|indicador de tecla|
+	int auxip2,auxip3,act;//numero|cantidad de numeros|indicador prim. vez|?|indicador de tecla|
+	int auxip4=0;
 	
 	if(auxip3!=1)
 	{	
@@ -172,7 +173,8 @@ int cargar_ip (ini_var **cvar, variablescliente *vcl) {
 		memset(ip2,0,33);
 		
 	}
-	if(auxip2<9){					// Modificado para cargar localhost
+	
+	if(auxip2<10){					// Modificado para cargar localhost
 			
 			
 		bool credraw = true;
@@ -230,6 +232,24 @@ int cargar_ip (ini_var **cvar, variablescliente *vcl) {
 
 			if((cvariables -> key)[KEY_FULLSTOP] ) {
 				auxip='.';act=1;
+			}	
+			if((cvariables -> key)[KEY_ENTER] ) {
+				auxip2=10;
+			}
+			
+			if((cvariables -> key)[KEY_BACKSPACE] ) {
+				
+				auxip=' ';
+				
+				act=0;
+				
+				auxip2=0;
+				
+				sprintf(ip, "%c",auxip);
+				strcpy(ip2,ip);
+				
+			
+				
 			}	
 			
 			if(tecla!=1 && act==1){
@@ -296,6 +316,14 @@ int cargar_ip (ini_var **cvar, variablescliente *vcl) {
 				tecla=0;
 				(cvariables -> key)[KEY_FULLSTOP] = true;
 				break;
+				case ALLEGRO_KEY_ENTER:
+				tecla=0;
+				(cvariables -> key)[KEY_ENTER] = true;
+				break;
+				case ALLEGRO_KEY_BACKSPACE:
+				tecla=0;
+				(cvariables -> key)[KEY_BACKSPACE] = true;
+				break;
 			}
 		}
 		else if((cvariables -> ev).type == ALLEGRO_EVENT_KEY_UP) {
@@ -335,6 +363,12 @@ int cargar_ip (ini_var **cvar, variablescliente *vcl) {
 				break;
 				case ALLEGRO_KEY_FULLSTOP:
 				(cvariables -> key)[KEY_FULLSTOP] = false;
+				break;
+				case ALLEGRO_KEY_ENTER:
+				(cvariables -> key)[KEY_ENTER] = false;
+				break;
+				case ALLEGRO_KEY_BACKSPACE:
+				(cvariables -> key)[KEY_BACKSPACE] = false;
 				break;
 			}
 		}
