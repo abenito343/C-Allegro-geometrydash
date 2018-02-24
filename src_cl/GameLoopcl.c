@@ -456,18 +456,18 @@ int partida (ini_var **pvar, posicion *ppos, auxpartida *pauxpar, frameExplosion
 
 // Niveles 
 
-	if((pauxpar -> score) >1000&&(pauxpar -> score) <2000)
+	if((pauxpar ->t_nivel ) >1000&&(pauxpar -> t_nivel) <2000)
 	(pauxpar -> nivel)=2;
-	if((pauxpar -> score) >2000&&(pauxpar -> score) <3000)
+	if((pauxpar -> t_nivel) >2000&&(pauxpar -> t_nivel) <3000)
 	(pauxpar -> nivel)=3;
-	if((pauxpar -> score) >3000&&(pauxpar -> score) <4000)
+	if((pauxpar -> t_nivel) >3000&&(pauxpar -> t_nivel) <4000)
 	(pauxpar -> nivel)=4;
-	if((pauxpar -> score) >4000&&(pauxpar -> score) <5000)
+	if((pauxpar -> t_nivel) >4000&&(pauxpar -> t_nivel) <5000)
 	(pauxpar -> nivel)=5;
 
 // Deteccion de aparicion y altura de enemigos
 
-	if(((pauxpar -> aux_niv) -> t_aparicion) == (pauxpar -> score)){
+	if(((pauxpar -> aux_niv) -> t_aparicion) == (pauxpar -> t_nivel)){
 		switch((pauxpar -> aux_niv) -> clase){
 			case 1:
 				(pauxpar -> tipo1) = 1;
@@ -676,6 +676,7 @@ int partida (ini_var **pvar, posicion *ppos, auxpartida *pauxpar, frameExplosion
 	
 	
 				(pauxpar -> score) = (pauxpar -> score) + 1;
+				(pauxpar -> t_nivel) = (pauxpar -> t_nivel) + 1;
 			//	(ppos -> bouncer_x2) -= 5;
 	
 			/*	if((ppos -> bouncer_x2) <= 0 - (pfE -> frameWidthExplosion))
@@ -1221,6 +1222,7 @@ int	GameLoop (ini_var **var, variablescliente *varcliente, auxpartida **axpartid
 			(auxpar -> vida) = 3;		// Vida inicial
 			(auxpar -> score) = 0;		// Puntaje comienza en 0
 			(auxpar -> nivel) = 1;		// Dificultad inicial
+			(auxpar -> t_nivel) = 0;	// Tiempo del nivel comienza en 0
 			
 // Inicializacion de enemigos
 

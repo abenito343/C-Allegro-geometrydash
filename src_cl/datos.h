@@ -110,6 +110,7 @@ typedef struct auxpartida {
 	int vida;
 	int score;	
 	int nivel;
+	int t_nivel;
 
 // Variables mostradas en pantalla
 	
