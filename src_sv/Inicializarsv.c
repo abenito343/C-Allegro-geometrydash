@@ -302,6 +302,8 @@ int	Inicializar (ini_var **var, auxpartida **axpartida, frameExplosion **fEx, fr
 	(variables -> monedaimg) = al_load_bitmap("imagenes/monedita.png");
 	(variables -> volverimg) = al_load_bitmap("imagenes/volveralmenu.png");
 	(variables -> muertofinimg)  = al_load_bitmap("imagenes/muerto.png");
+	
+	(variables -> esperandoimg) = al_load_bitmap("imagenes/esperando2.png");
 
 	al_convert_mask_to_alpha((variables -> explosionimg), al_map_rgb(106, 76, 48));		//DA CORE DUMP NETBOOK MAX
 	

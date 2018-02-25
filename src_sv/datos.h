@@ -61,6 +61,7 @@ typedef struct ini_var {
 	ALLEGRO_FONT   *font;
 	ALLEGRO_FONT   *font2;
 	ALLEGRO_SAMPLE *temamenu;
+	ALLEGRO_BITMAP  *esperandoimg;
 	
 
 	bool key[35];

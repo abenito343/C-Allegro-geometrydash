@@ -608,9 +608,22 @@ int fin (ini_var **fvar, auxpartida *fauxpar, variablesservidor *fvarsv) {
 
 // Funcion de inicializacion Cliente
 
-int wait_cx (variablesservidor *varsv){
+int wait_cx (variablesservidor *varsv,ini_var **wvar){
 
-    printf("Esperando jugador en red...\n");	
+
+	ini_var *wvariables;
+	
+	wvariables = *(wvar);
+	/*ini_var **pvar, posicion *ppos, auxpartida *pauxpar, frameExplosion *pfE, frameMonedita *pfM) {
+
+	ini_var *pvariables;*/
+
+    printf("Esperando jugador en red...\n");
+    
+    al_clear_to_color(al_map_rgb(0,0,0));
+    al_draw_bitmap((wvariables -> fondomenuimg),0,0,0);	
+    al_draw_bitmap_region((wvariables -> esperandoimg),0,0,930,95,150,550,0);
+    al_flip_display();
 	
     // Llamado bloqueante a accept()
     (varsv -> newsockfd) = accept(varsv -> sockfd, (struct sockaddr *) &(varsv -> cli_addr), &(varsv -> clilen));
@@ -830,7 +843,7 @@ int	GameLoop (ini_var **var, variablesservidor *varservidor, auxpartida **axpart
 		while (auxestadojuego == 1){
 
 			
-			auxestadojuego = wait_cx (varservidor);
+			auxestadojuego = wait_cx (varservidor,&variables);
 		
 		}
 

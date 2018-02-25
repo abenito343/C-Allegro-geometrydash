@@ -174,7 +174,7 @@ int cargar_ip (ini_var **cvar, variablescliente *vcl) {
 		
 	}
 	
-	if(auxip2<10){					// Modificado para cargar localhost
+	if(auxip2<16){					// Modificado para cargar localhost
 			
 			
 		bool credraw = true;
@@ -188,68 +188,67 @@ int cargar_ip (ini_var **cvar, variablescliente *vcl) {
 		if((cvariables -> ev).type == ALLEGRO_EVENT_TIMER) {
 			credraw = true;
 				
-			
-			if((cvariables -> key)[KEY_1] ) {
-				auxip='1';act=1;
-			}  	  
-			
-			if((cvariables -> key)[KEY_2] ) {
-				auxip='2';act=1;
-			}	
-			
-			if((cvariables -> key)[KEY_3] ) {
-				auxip='3';act=1;
-					}	
+			if(auxip2<15){
+				if((cvariables -> key)[KEY_1] ) {
+					auxip='1';act=1;
+				}  	  
+				
+				if((cvariables -> key)[KEY_2] ) {
+					auxip='2';act=1;
+				}	
+				
+				if((cvariables -> key)[KEY_3] ) {
+					auxip='3';act=1;
+						}	
 
-			if((cvariables -> key)[KEY_4] ) {
-				auxip='4';act=1;
-					}	
+				if((cvariables -> key)[KEY_4] ) {
+					auxip='4';act=1;
+						}	
 
-			if((cvariables -> key)[KEY_5] ) {
-				auxip='5';act=1;
-			}	
+				if((cvariables -> key)[KEY_5] ) {
+					auxip='5';act=1;
+				}	
 
-			if((cvariables -> key)[KEY_6] ) {
-				auxip='6';act=1; 
-			}	
+				if((cvariables -> key)[KEY_6] ) {
+					auxip='6';act=1; 
+				}	
 
-			if((cvariables -> key)[KEY_7] ) {
-				auxip='7';act=1;
-				 
-			}	
+				if((cvariables -> key)[KEY_7] ) {
+					auxip='7';act=1;
+					 
+				}	
 
-			if((cvariables -> key)[KEY_8] ) {
-				auxip='8';act=1;
-			}	
+				if((cvariables -> key)[KEY_8] ) {
+					auxip='8';act=1;
+				}	
 
-			if((cvariables -> key)[KEY_9] ) {
-				auxip='9';act=1;
-					}	
+				if((cvariables -> key)[KEY_9] ) {
+					auxip='9';act=1;
+						}	
 
-			if((cvariables -> key)[KEY_0] ) {
-				auxip='0';act=1;
-			}	
+				if((cvariables -> key)[KEY_0] ) {
+					auxip='0';act=1;
+				}	
 
-			if((cvariables -> key)[KEY_FULLSTOP] ) {
-				auxip='.';act=1;
-			}	
+				if((cvariables -> key)[KEY_FULLSTOP] ) {
+					auxip='.';act=1;
+				}	
+			}
 			if((cvariables -> key)[KEY_ENTER] ) {
-				auxip2=10;
+				auxip2=16;
 			}
 			
 			if((cvariables -> key)[KEY_BACKSPACE] ) {
 				
-				auxip=' ';
+				auxip=0;
 				
 				act=0;
 				
 				auxip2=0;
 				
-				sprintf(ip, "%c",auxip);
-				strcpy(ip2,ip);
+				memset(ip,0, sizeof(ip));
 				
-			
-				
+				memset(ip2,0,33);
 			}	
 			
 			if(tecla!=1 && act==1){
@@ -266,7 +265,8 @@ int cargar_ip (ini_var **cvar, variablescliente *vcl) {
 					sprintf(ip, "%c",auxip);
 					strcat(ip2,ip);}
 					auxip3=1;
-				}tecla=1;act=0;
+				}
+				tecla=1;act=0;
 
 		}
 			else if((cvariables -> ev).type == ALLEGRO_EVENT_KEY_DOWN) {
