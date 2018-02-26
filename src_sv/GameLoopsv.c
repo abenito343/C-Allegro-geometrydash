@@ -63,6 +63,30 @@ int partida (ini_var **pvar, posicion *ppos, auxpartida *pauxpar, frameExplosion
 				(pauxpar -> tipo3) = 1;
 				(pauxpar -> aux_niv) = ((pauxpar -> aux_niv) -> sig);
 				break;
+			case 4:
+				(pauxpar -> tipo4) = 1;
+				(pauxpar -> aux_niv) = ((pauxpar -> aux_niv) -> sig);
+				break;
+			case 5:
+				(pauxpar -> tipo5) = 1;
+				(pauxpar -> aux_niv) = ((pauxpar -> aux_niv) -> sig);
+				break;
+			case 6:
+				(pauxpar -> tipo6) = 1;
+				(pauxpar -> aux_niv) = ((pauxpar -> aux_niv) -> sig);
+				break;
+			case 7:
+				(pauxpar -> tipo7) = 1;
+				(pauxpar -> aux_niv) = ((pauxpar -> aux_niv) -> sig);
+				break;
+			case 8:
+				(pauxpar -> tipo8) = 1;
+				(pauxpar -> aux_niv) = ((pauxpar -> aux_niv) -> sig);
+				break;
+			case 9:
+				(pauxpar -> tipo9) = 1;
+				(pauxpar -> aux_niv) = ((pauxpar -> aux_niv) -> sig);
+				break;
 			}
 			
 		if((pauxpar -> aux_niv) -> sig == NULL){
@@ -171,7 +195,7 @@ int partida (ini_var **pvar, posicion *ppos, auxpartida *pauxpar, frameExplosion
 				(ppos -> bouncer_x31)= (ppos -> bouncer_x31)+1556;
 				(pauxpar -> tipo1) = 0;
 			}
-			(ppos -> bouncer_x31) += (ppos -> bouncer_dx)*20*((pauxpar -> nivel)*0.1);				
+			(ppos -> bouncer_x31) += (ppos -> bouncer_dx)*10*((pauxpar -> nivel)*0.1);				
 		}
 		
 		if((pauxpar -> tipo2) == 1){
@@ -187,7 +211,49 @@ int partida (ini_var **pvar, posicion *ppos, auxpartida *pauxpar, frameExplosion
 				(ppos -> bouncer_x33)= (ppos -> bouncer_x33)+1556;
 				(pauxpar -> tipo3) = 0;
 			}
-			(ppos -> bouncer_x33) += (ppos -> bouncer_dx)*5*((pauxpar -> nivel)*0.1);
+			(ppos -> bouncer_x33) += (ppos -> bouncer_dx)*10*((pauxpar -> nivel)*0.1);
+		}
+		if((pauxpar -> tipo4) == 1){
+			if((ppos -> bouncer_x34) < -256) {               
+				(ppos -> bouncer_x34)= (ppos -> bouncer_x34)+1556;
+				(pauxpar -> tipo4) = 0;
+			}
+			(ppos -> bouncer_x34) += (ppos -> bouncer_dx)*10*((pauxpar -> nivel)*0.1);
+		}
+		if((pauxpar -> tipo5) == 1){
+			if((ppos -> bouncer_x35) < -256) {               
+				(ppos -> bouncer_x35)= (ppos -> bouncer_x35)+1556;
+				(pauxpar -> tipo5) = 0;
+			}
+			(ppos -> bouncer_x35) += (ppos -> bouncer_dx)*10*((pauxpar -> nivel)*0.1);
+		}
+		if((pauxpar -> tipo6) == 1){
+			if((ppos -> bouncer_x36) < -256) {               
+				(ppos -> bouncer_x36)= (ppos -> bouncer_x36)+1556;
+				(pauxpar -> tipo6) = 0;
+			}
+			(ppos -> bouncer_x36) += (ppos -> bouncer_dx)*10*((pauxpar -> nivel)*0.1);
+		}
+		if((pauxpar -> tipo7) == 1){
+			if((ppos -> bouncer_x37) < -256) {               
+				(ppos -> bouncer_x37)= (ppos -> bouncer_x37)+1556;
+				(pauxpar -> tipo7) = 0;
+			}
+			(ppos -> bouncer_x37) += (ppos -> bouncer_dx)*10*((pauxpar -> nivel)*0.1);
+		}
+		if((pauxpar -> tipo8) == 1){
+			if((ppos -> bouncer_x38) < -256) {               
+				(ppos -> bouncer_x38)= (ppos -> bouncer_x38)+1556;
+				(pauxpar -> tipo8) = 0;
+			}
+			(ppos -> bouncer_x38) += (ppos -> bouncer_dx)*10*((pauxpar -> nivel)*0.1);
+		}
+		if((pauxpar -> tipo9) == 1){
+			if((ppos -> bouncer_x39) < -256) {               
+				(ppos -> bouncer_x39)= (ppos -> bouncer_x33)+1556;
+				(pauxpar -> tipo9) = 0;
+			}
+			(ppos -> bouncer_x39) += (ppos -> bouncer_dx)*10*((pauxpar -> nivel)*0.1);
 		}
 	
 		if((ppos -> bouncer_x5) < -956)                
@@ -381,11 +447,29 @@ int partida (ini_var **pvar, posicion *ppos, auxpartida *pauxpar, frameExplosion
 	}
     
     if((pauxpar -> tipo2) == 1){
-		al_draw_bitmap_region((pvariables -> enemigoimg[(pauxpar -> nivel)]) ,0,0,140,150,(ppos -> bouncer_x32),-10,0);
+		al_draw_bitmap_region((pvariables -> enemigoimg[(pauxpar -> nivel)]) ,0,0,140,150,(ppos -> bouncer_x32),355,0);
 	}
     
     if((pauxpar -> tipo3) == 1){
-		al_draw_bitmap_region((pvariables -> enemigoimg[(pauxpar -> nivel)]) ,0,0,140,150,(ppos -> bouncer_x33),150,0);
+		al_draw_bitmap_region((pvariables -> enemigoimg[(pauxpar -> nivel)]) ,0,0,140,150,(ppos -> bouncer_x33),355,0);
+	}
+	if((pauxpar -> tipo4) == 1){
+		al_draw_bitmap_region((pvariables -> enemigoimg[(pauxpar -> nivel)]) ,0,0,140,150,(ppos -> bouncer_x34),-15,0);
+	}
+	if((pauxpar -> tipo5) == 1){
+		al_draw_bitmap_region((pvariables -> enemigoimg[(pauxpar -> nivel)]) ,0,0,140,150,(ppos -> bouncer_x35),-15,0);
+	}
+	if((pauxpar -> tipo6) == 1){
+		al_draw_bitmap_region((pvariables -> enemigoimg[(pauxpar -> nivel)]) ,0,0,140,150,(ppos -> bouncer_x36),-15,0);
+	}
+	if((pauxpar -> tipo7) == 1){
+		al_draw_bitmap_region((pvariables -> enemigoimg[(pauxpar -> nivel)]) ,0,0,140,150,(ppos -> bouncer_x37),-50,0);
+	}
+	if((pauxpar -> tipo8) == 1){
+		al_draw_bitmap_region((pvariables -> enemigoimg[(pauxpar -> nivel)]) ,0,0,140,150,(ppos -> bouncer_x38),150,0);
+	}
+	if((pauxpar -> tipo9) == 1){
+		al_draw_bitmap_region((pvariables -> enemigoimg[(pauxpar -> nivel)]) ,0,0,140,150,(ppos -> bouncer_x39),150,0);
 	}
 	
 	//al_draw_bitmap_region((pvariables -> enemigoimg) ,(pauxpar -> auxspriteenemigo)*140,0,140,150,(ppos -> bouncer_x3),355,0);
@@ -403,11 +487,35 @@ int partida (ini_var **pvar, posicion *ppos, auxpartida *pauxpar, frameExplosion
 	if((ppos -> bouncer_y2)>150)		      	
 			(pauxpar -> auxcolision)=1;	
 	}
-    if((ppos -> bouncer_x32)<(ppos -> bouncer_x2)-125&&(ppos -> bouncer_x32)>(ppos -> bouncer_x2)-330){	   
+	if((ppos -> bouncer_x32)<(ppos -> bouncer_x2)-125&&(ppos -> bouncer_x32)>(ppos -> bouncer_x2)-330){	   
+	if((ppos -> bouncer_y2)>150)		      	
+			(pauxpar -> auxcolision)=1;	
+	}
+	if((ppos -> bouncer_x33)<(ppos -> bouncer_x2)-125&&(ppos -> bouncer_x33)>(ppos -> bouncer_x2)-330){	   
+	if((ppos -> bouncer_y2)>150)		      	
+			(pauxpar -> auxcolision)=1;	
+	}
+    if((ppos -> bouncer_x34)<(ppos -> bouncer_x2)-125&&(ppos -> bouncer_x34)>(ppos -> bouncer_x2)-330){	   
 	if((ppos -> bouncer_y2)<-50)		      	
 			(pauxpar -> auxcolision)=1;	
 	}
-    if((ppos -> bouncer_x33)<(ppos -> bouncer_x2)-125&&(ppos -> bouncer_x33)>(ppos -> bouncer_x2)-330){	   
+	if((ppos -> bouncer_x35)<(ppos -> bouncer_x2)-125&&(ppos -> bouncer_x35)>(ppos -> bouncer_x2)-330){	   
+	if((ppos -> bouncer_y2)<-50)		      	
+			(pauxpar -> auxcolision)=1;	
+	}
+	if((ppos -> bouncer_x36)<(ppos -> bouncer_x2)-125&&(ppos -> bouncer_x36)>(ppos -> bouncer_x2)-330){	   
+	if((ppos -> bouncer_y2)<-50)		      	
+			(pauxpar -> auxcolision)=1;	
+	}
+    if((ppos -> bouncer_x37)<(ppos -> bouncer_x2)-125&&(ppos -> bouncer_x37)>(ppos -> bouncer_x2)-330){	   
+	if((ppos -> bouncer_y2)>-10&&(ppos -> bouncer_y2)<190)		      	
+			(pauxpar -> auxcolision)=1;	
+	}
+	if((ppos -> bouncer_x38)<(ppos -> bouncer_x2)-125&&(ppos -> bouncer_x38)>(ppos -> bouncer_x2)-330){	   
+	if((ppos -> bouncer_y2)>-10&&(ppos -> bouncer_y2)<190)		      	
+			(pauxpar -> auxcolision)=1;	
+	}
+	if((ppos -> bouncer_x39)<(ppos -> bouncer_x2)-125&&(ppos -> bouncer_x39)>(ppos -> bouncer_x2)-330){	   
 	if((ppos -> bouncer_y2)>-10&&(ppos -> bouncer_y2)<190)		      	
 			(pauxpar -> auxcolision)=1;	
 	}
@@ -698,6 +806,31 @@ int receive_data (ini_var **rvar, variablesservidor *varsv2, posicion *p, auxpar
 					case 33:
 					
 					(p -> bouncer_x33) = (varsv2 -> valpos);	
+					break;
+					case 34:
+					
+					(p -> bouncer_x34) = (varsv2 -> valpos);	
+					break;
+					case 35:
+					
+					(p -> bouncer_x35) = (varsv2 -> valpos);	
+					break;
+					case 36:
+					
+					(p -> bouncer_x36) = (varsv2 -> valpos);	
+					break;
+					case 37:
+					
+					(p -> bouncer_x37) = (varsv2 -> valpos);	
+					break;
+					case 38:
+					
+					(p -> bouncer_x38) = (varsv2 -> valpos);	
+					break;
+					
+					case 39:
+					
+					(p -> bouncer_x39) = (varsv2 -> valpos);	
 					break;	
 
 					case 4:
@@ -847,6 +980,12 @@ int	GameLoop (ini_var **var, variablesservidor *varservidor, auxpartida **axpart
 			(pos -> bouncer_x31) = (SCREEN_W) / 2.0 + 900 - (BOUNCER_SIZE) / 2.0;
 			(pos -> bouncer_x32) = (SCREEN_W) / 2.0 + 900 - (BOUNCER_SIZE) / 2.0;
 			(pos -> bouncer_x33) = (SCREEN_W) / 2.0 + 900 - (BOUNCER_SIZE) / 2.0;
+			(pos -> bouncer_x34) = (SCREEN_W) / 2.0 + 900 - (BOUNCER_SIZE) / 2.0;
+			(pos -> bouncer_x35) = (SCREEN_W) / 2.0 + 900 - (BOUNCER_SIZE) / 2.0;
+			(pos -> bouncer_x36) = (SCREEN_W) / 2.0 + 900 - (BOUNCER_SIZE) / 2.0;
+			(pos -> bouncer_x37) = (SCREEN_W) / 2.0 + 900 - (BOUNCER_SIZE) / 2.0;
+			(pos -> bouncer_x38) = (SCREEN_W) / 2.0 + 900 - (BOUNCER_SIZE) / 2.0;
+			(pos -> bouncer_x39) = (SCREEN_W) / 2.0 + 900 - (BOUNCER_SIZE) / 2.0;
 		
 			(pos -> bouncer_x4) = (SCREEN_W) / 2.0 - (BOUNCER_SIZE) / 2.0;
 		

@@ -87,6 +87,12 @@ typedef struct posicion {
 	float bouncer_x31;
     float bouncer_x32;
     float bouncer_x33;
+    float bouncer_x34;
+    float bouncer_x35;
+    float bouncer_x36;
+    float bouncer_x37;
+    float bouncer_x38;
+    float bouncer_x39;
 
 	float bouncer_x4;
 
@@ -129,7 +135,13 @@ typedef struct auxpartida {
 
 	int tipo1;
 	int tipo2;
-	int tipo3;	
+	int tipo3;
+	int tipo4;
+	int tipo5;
+	int tipo6;
+	int tipo7;
+	int tipo8;
+	int tipo9;	
 
 	niveles *INI_niv;
 	niveles *aux_niv;
