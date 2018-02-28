@@ -53,6 +53,8 @@ int menu (ini_var **mvar) {
 	sprintf(maux3, "%d", mauxx);
 	sprintf(maux4, "%d", mauxy);
 	
+	
+	
 	if(mauxx > 454 && mauxx < 726 && mauxy > 499 && mauxy < 596) {
 		
 		mauxopcionesjugar=265;
@@ -163,6 +165,78 @@ int cargar_ip (ini_var **cvar, variablescliente *vcl) {
 	char auxip;
 	int auxip2,auxip3,act;//numero|cantidad de numeros|indicador prim. vez|?|indicador de tecla|
 	int auxip4=0;
+	
+	
+	
+	int cauxopcionessalir,cauxopcionesjugar,cauxopcionesvolver,cauxjugarenlinea;	//No se usa volver
+	int cauxx, cauxy;	//mouse
+	char caux3[11],caux4[11];
+	
+	bool credraw = true;
+	
+	cvariables = *(cvar);
+
+	al_start_timer((cvariables -> timer));
+		
+	al_wait_for_event((cvariables -> event_queue), &(cvariables -> ev));
+	
+	if(((cvariables -> ev).mouse.x > 0) && (((cvariables -> ev).mouse.x) < 1280) && (((cvariables -> ev).mouse.y) > 0) && ((cvariables -> ev).mouse.y < 720)){
+		cauxx=(cvariables -> ev).mouse.x;
+		cauxy=(cvariables -> ev).mouse.y;
+	}
+	
+	sprintf(caux3, "%d", cauxx);
+	sprintf(caux4, "%d", cauxy);
+	//printf("%d",cauxx);
+	//printf("%d",cauxy);
+	
+
+	//---------------------------------------------------------------------
+
+
+		
+	
+	if(cauxx > 1056 && cauxx < 1263 && cauxy > 637 && cauxy < 706) {
+
+		cauxopcionessalir=215;
+	}
+	
+	else
+	{
+		cauxopcionessalir=0;
+	} 		
+
+	if((cvariables -> ev).type == ALLEGRO_EVENT_TIMER) {
+		credraw = true;
+	}
+	else if((cvariables -> ev).type == ALLEGRO_EVENT_DISPLAY_CLOSE) {
+		return -1;
+	}
+	else if((cvariables -> ev).type == ALLEGRO_EVENT_MOUSE_AXES ||
+			(cvariables -> ev).type == ALLEGRO_EVENT_MOUSE_ENTER_DISPLAY) {
+
+		
+	}
+	else if((cvariables -> ev).type == ALLEGRO_EVENT_MOUSE_BUTTON_UP) {
+		if(cauxx > 1056 && cauxx < 1263 && cauxy > 637 && cauxy < 706)
+			return -1;
+		if(cauxx > 454 && cauxx < 726 && cauxy > 499 && cauxy < 596){
+				cauxestadojuego=0;
+				
+			}
+		if(cauxx > 354 && cauxx < 970 && cauxy > 610 && cauxy < 680) {
+			cauxestadojuego=3;
+		}
+	}
+
+  //------------------------------------------------------------------------
+
+				
+		
+		
+
+	
+	
 	
 	if(auxip3!=1)
 	{	
@@ -392,6 +466,15 @@ int cargar_ip (ini_var **cvar, variablescliente *vcl) {
 			al_draw_text((cvariables -> font2), al_map_rgb(0, 0, 255), 280, 100, 0, "Inserte su IP:");
 			al_draw_text((cvariables -> font2), al_map_rgb(0, 0, 255), 300, 250, 0, ip2);
 			//+(auxip2*30),
+			
+			al_draw_text((cvariables -> font), al_map_rgb(0, 255, 0), 280, 50, 0, caux3);
+			al_draw_text((cvariables -> font), al_map_rgb(0, 255, 0), 210, 50, 0, "x:");
+	
+			al_draw_text((cvariables -> font), al_map_rgb(0, 255, 0), 480, 50, 0, caux4);
+			al_draw_text((cvariables -> font), al_map_rgb(0, 255, 0), 410, 50, 0, "y:");
+			
+				al_draw_bitmap_region((cvariables -> opcionesmenuimg),430-cauxopcionessalir,90,210,90,1050,625,0);//y625 x1050 y+35 x + 71
+	
 
 			al_flip_display();
 		}
@@ -616,26 +699,39 @@ int partida (ini_var **pvar, posicion *ppos, auxpartida *pauxpar, frameExplosion
 			if((pauxpar -> auxspritecuboy)==5)
 				(pauxpar -> auxspritecuboy)=0;
 			
-			if((pvariables -> key)[KEY_SPACE] ) {
-				if( (ppos -> bouncer_y2) >= 339.0){
-					(pauxpar -> aux1)=1;
-				}  
-					
-			}
-			else{
-				(pauxpar -> aux1)=0;
-				}
-			if((pauxpar -> aux1)==0){
-				if( (ppos -> bouncer_y2) <= 339.0)
-					{
-						(ppos -> bouncer_y2) += 8.0*10*((pauxpar -> nivel)*0.1);
-					}
-			}
-			if((pauxpar -> aux1)==1){
-				
-			if( (ppos -> bouncer_y2) >= -110.0)
+			
+			
+			
+			if((pvariables -> key)[KEY_SPACE] ) 
 			{
-				(ppos -> bouncer_y2) -= 8.0*10*((pauxpar -> nivel)*0.1);
+				if( (ppos -> bouncer_y2) >= 339.0)
+				{		
+					(pauxpar -> aux1)=1;
+				}  		
+			}
+			else
+			{
+				(pauxpar -> aux1)=0;
+			}
+				
+			if((pauxpar -> aux1)==0)
+			{
+				if( (ppos -> bouncer_y2) <= 336.0)
+					{
+						(ppos -> bouncer_y2) += 80.0*((pauxpar -> nivel)*0.1);
+					}
+					
+			
+					
+					
+				//while((ppos -> bouncer_y2) <= 339.0){(ppos -> bouncer_y2) += 40.0*((pauxpar -> nivel)*0.1);}
+			}
+			
+			if((pauxpar -> aux1)==1)
+			{	
+				if( (ppos -> bouncer_y2) >= -110.0)
+				{
+					(ppos -> bouncer_y2) -= 80.0*((pauxpar -> nivel)*0.1);
 				}
 				else
 				{
