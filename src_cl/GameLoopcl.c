@@ -567,7 +567,7 @@ int partida (ini_var **pvar, posicion *ppos, auxpartida *pauxpar, frameExplosion
 
 // Sonido Nivel
 	
-	if((pauxpar -> score) == 1000 || (pauxpar -> score) == 2000 || (pauxpar -> score) == 3000 || (pauxpar -> score) == 4000){
+	if((pauxpar -> t_nivel) == 1000 || (pauxpar -> t_nivel) == 2000 || (pauxpar -> t_nivel) == 3000 || (pauxpar -> t_nivel) == 4000){
 
 		al_play_sample((pvariables -> levelsfx), 1.0, 0.0,1.2,ALLEGRO_PLAYMODE_ONCE,NULL);
 	}
@@ -1385,7 +1385,7 @@ int	GameLoop (ini_var **var, variablescliente *varcliente, auxpartida **axpartid
 			
 // 	Inicializacion de vida y puntaje		
 			
-			(auxpar -> vida) = 3;		// Vida inicial
+			(auxpar -> vida) = 9;		// Vida inicial
 			(auxpar -> score) = 0;		// Puntaje comienza en 0
 			(auxpar -> nivel) = 1;		// Dificultad inicial
 			(auxpar -> t_nivel) = 0;	// Tiempo del nivel comienza en 0
