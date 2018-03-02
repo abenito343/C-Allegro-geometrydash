@@ -157,17 +157,7 @@ int cargar_ip (ini_var **cvar, variablescliente *vcl) {
 	
 	
 	int cauxestadojuego = 3;
-	
-	int tecla; // "tecla": Ind. que impide que hagas letras de mas.
-	char ip[1];
-	char ip2[33];
-	
-	char auxip;
-	int auxip2,auxip3,act;//numero|cantidad de numeros|indicador prim. vez|?|indicador de tecla|
-	int auxip4=0;
-	
-	
-	
+		
 	int cauxopcionessalir,cauxopcionesjugar,cauxopcionesvolver,cauxjugarenlinea;	//No se usa volver
 	int cauxx, cauxy;	//mouse
 	char caux3[11],caux4[11];
@@ -228,159 +218,154 @@ int cargar_ip (ini_var **cvar, variablescliente *vcl) {
 	}
 
   //------------------------------------------------------------------------
-
-				
-		
-		
-
 	
 	
-	if(auxip3!=1)
+	if((vcl -> auxip3)!=1)
 	{	
-		auxip=0;
-		act=0;
-		auxip2=0;
+		(vcl -> auxip)=0;
+		(vcl -> act)=0;
+		(vcl -> auxip2)=0;
 
-		memset(ip2,0,33);
+		memset((vcl -> ip2),0,33);
 		
 	}
 	
-	if(auxip2<16){					// Modificado para cargar localhost
+	if((vcl -> auxip2)<16){					// Modificado para cargar localhost
 				
-		if(auxip2<15){
+		if((vcl -> auxip2)<15){
 			if((cvariables -> key)[KEY_1] ) {
-				auxip='1';act=1;
+				(vcl -> auxip)='1';(vcl -> act)=1;
 			}  	  
 			
 			if((cvariables -> key)[KEY_2] ) {
-				auxip='2';act=1;
+				(vcl -> auxip)='2';(vcl -> act)=1;
 			}	
 			
 			if((cvariables -> key)[KEY_3] ) {
-				auxip='3';act=1;
+				(vcl -> auxip)='3';(vcl -> act)=1;
 					}	
 
 			if((cvariables -> key)[KEY_4] ) {
-				auxip='4';act=1;
+				(vcl -> auxip)='4';(vcl -> act)=1;
 					}	
 
 			if((cvariables -> key)[KEY_5] ) {
-				auxip='5';act=1;
+				(vcl -> auxip)='5';(vcl -> act)=1;
 			}	
 
 			if((cvariables -> key)[KEY_6] ) {
-				auxip='6';act=1; 
+				(vcl -> auxip)='6';(vcl -> act)=1; 
 			}	
 
 			if((cvariables -> key)[KEY_7] ) {
-				auxip='7';act=1;
+				(vcl -> auxip)='7';(vcl -> act)=1;
 				 
 			}	
 
 			if((cvariables -> key)[KEY_8] ) {
-				auxip='8';act=1;
+				(vcl -> auxip)='8';(vcl -> act)=1;
 			}	
 
 			if((cvariables -> key)[KEY_9] ) {
-				auxip='9';act=1;
+				(vcl -> auxip)='9';(vcl -> act)=1;
 					}	
 
 			if((cvariables -> key)[KEY_0] ) {
-				auxip='0';act=1;
+				(vcl -> auxip)='0';(vcl -> act)=1;
 			}	
 
 			if((cvariables -> key)[KEY_FULLSTOP] ) {
-				auxip='.';act=1;
+				(vcl -> auxip)='.';(vcl -> act)=1;
 			}	
 		}
 		if((cvariables -> key)[KEY_ENTER] ) {
-			auxip2=16;
+			(vcl -> auxip2)=16;
 		}
 		
 		if((cvariables -> key)[KEY_BACKSPACE] ) {
 			
-			auxip=0;
+			(vcl -> auxip)=0;
 			
-			act=0;
+			(vcl -> act)=0;
 			
-			auxip2=0;
+			(vcl -> auxip2)=0;
 			
-			memset(ip,0, 1);
+			memset((vcl -> ip),0, 1);
 			
-			memset(ip2,0,33);
+			memset((vcl -> ip2),0,33);
 		}	
 		
-		if(tecla!=1 && act==1){
+		if((vcl -> tecla)!=1 && (vcl -> act)==1){
 				
 				
-				auxip2=auxip2+1;
-				if(auxip3!=1)
+				(vcl -> auxip2)=(vcl -> auxip2)+1;
+				if((vcl -> auxip3)!=1)
 				{	
-					sprintf(ip, "%c",auxip);
-					strcpy(ip2,ip);
+					sprintf((vcl -> ip), "%c",(vcl -> auxip));
+					strcpy((vcl -> ip2),(vcl -> ip));
 				}
 				else{
 		
-				sprintf(ip, "%c",auxip);
-				strcat(ip2,ip);}
-				auxip3=1;
+				sprintf((vcl -> ip), "%c",(vcl -> auxip));
+				strcat((vcl -> ip2),(vcl -> ip));}
+				(vcl -> auxip3)=1;
 			}
-			tecla=1;act=0;
+			(vcl -> tecla)=1;(vcl -> act)=0;
 
 		
 		if((cvariables -> ev).type == ALLEGRO_EVENT_KEY_DOWN) {
 			switch((cvariables -> ev).keyboard.keycode) {
 				
 				case ALLEGRO_KEY_1:
-				tecla=0;
+				(vcl -> tecla)=0;
 				(cvariables -> key)[KEY_1] = true;
 				break;
 				case ALLEGRO_KEY_2:
-				tecla=0;
+				(vcl -> tecla)=0;
 				(cvariables -> key)[KEY_2] = true;
 				break;
 				case ALLEGRO_KEY_3:
-				tecla=0;
+				(vcl -> tecla)=0;
 				(cvariables -> key)[KEY_3] = true;
 				break;
 				case ALLEGRO_KEY_4:
-				tecla=0;
+				(vcl -> tecla)=0;
 				(cvariables -> key)[KEY_4] = true;
 				break;
 				case ALLEGRO_KEY_5:
-				tecla=0;
+				(vcl -> tecla)=0;
 				(cvariables -> key)[KEY_5] = true;
 				break;
 				case ALLEGRO_KEY_6:
-				tecla=0;
+				(vcl -> tecla)=0;
 				(cvariables -> key)[KEY_6] = true;
 				break;
 				case ALLEGRO_KEY_7:
-				tecla=0;
+				(vcl -> tecla)=0;
 				(cvariables -> key)[KEY_7] = true;
 				break;
 				case ALLEGRO_KEY_8:
-				tecla=0;
+				(vcl -> tecla)=0;
 				(cvariables -> key)[KEY_8] = true;
 				break;
 				case ALLEGRO_KEY_9:
-				tecla=0;
+				(vcl -> tecla)=0;
 				(cvariables -> key)[KEY_9] = true;
 				break;
 				case ALLEGRO_KEY_0:
-				tecla=0;
+				(vcl -> tecla)=0;
 				(cvariables -> key)[KEY_0] = true;
 				break;
 				case ALLEGRO_KEY_FULLSTOP:
-				tecla=0;
+				(vcl -> tecla)=0;
 				(cvariables -> key)[KEY_FULLSTOP] = true;
 				break;
 				case ALLEGRO_KEY_ENTER:
-				tecla=0;
+				(vcl -> tecla)=0;
 				(cvariables -> key)[KEY_ENTER] = true;
 				break;
 				case ALLEGRO_KEY_BACKSPACE:
-				tecla=0;
+				(vcl -> tecla)=0;
 				(cvariables -> key)[KEY_BACKSPACE] = true;
 				break;
 			}
@@ -449,8 +434,8 @@ int cargar_ip (ini_var **cvar, variablescliente *vcl) {
 			al_draw_bitmap((cvariables -> fondoipimg),200,0,0);
 			al_draw_bitmap((cvariables -> fondoipimg),1224,0,0);
 			al_draw_text((cvariables -> font2), al_map_rgb(0, 0, 255), 280, 100, 0, "Inserte su IP:");
-			al_draw_text((cvariables -> font2), al_map_rgb(0, 0, 255), 300, 250, 0, ip2);
-			//+(auxip2*30),
+			al_draw_text((cvariables -> font2), al_map_rgb(0, 0, 255), 300, 250, 0, (vcl -> ip2));
+			//+((vcl -> auxip2)*30),
 			
 			al_draw_text((cvariables -> font), al_map_rgb(0, 255, 0), 280, 50, 0, caux3);
 			al_draw_text((cvariables -> font), al_map_rgb(0, 255, 0), 210, 50, 0, "x:");
@@ -466,7 +451,7 @@ int cargar_ip (ini_var **cvar, variablescliente *vcl) {
 
 	} else {
 
-		strcpy((vcl -> hostname), ip2);
+		strcpy((vcl -> hostname), (vcl -> ip2));
 				
 		(vcl -> cx_stat) = inicializar_cl (vcl);
 		
@@ -1440,6 +1425,13 @@ int	GameLoop (ini_var **var, variablescliente *varcliente, auxpartida **axpartid
 			
 			auxestadojuego = menu (&variables);
 
+		}
+		
+		if ((varcliente -> netflag) == 1) {
+			
+			(varcliente -> auxip2) = 0;
+		//	(varcliente -> auxip3) = 0;
+			
 		}
 		
 		while (auxestadojuego == 3){
