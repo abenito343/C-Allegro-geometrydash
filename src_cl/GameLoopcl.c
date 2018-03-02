@@ -159,7 +159,7 @@ int cargar_ip (ini_var **cvar, variablescliente *vcl) {
 	int cauxestadojuego = 3;
 	
 	int tecla; // "tecla": Ind. que impide que hagas letras de mas.
-	char *ip;
+	char ip[1];
 	char ip2[33];
 	
 	char auxip;
@@ -175,8 +175,6 @@ int cargar_ip (ini_var **cvar, variablescliente *vcl) {
 	bool credraw = true;
 	
 	cvariables = *(cvar);
-
-	al_start_timer((cvariables -> timer));
 		
 	al_wait_for_event((cvariables -> event_queue), &(cvariables -> ev));
 	
@@ -237,7 +235,6 @@ int cargar_ip (ini_var **cvar, variablescliente *vcl) {
 
 	
 	
-	
 	if(auxip3!=1)
 	{	
 		auxip=0;
@@ -250,14 +247,6 @@ int cargar_ip (ini_var **cvar, variablescliente *vcl) {
 	
 	if(auxip2<16){					// Modificado para cargar localhost
 			
-			
-		bool credraw = true;
-		
-		cvariables = *(cvar);
-
-			
-		al_wait_for_event((cvariables -> event_queue), &(cvariables -> ev));
-		
 		
 		if((cvariables -> ev).type == ALLEGRO_EVENT_TIMER) {
 			credraw = true;
@@ -320,7 +309,7 @@ int cargar_ip (ini_var **cvar, variablescliente *vcl) {
 				
 				auxip2=0;
 				
-				memset(ip,0, sizeof(ip));
+				memset(ip,0, 1);
 				
 				memset(ip2,0,33);
 			}	
