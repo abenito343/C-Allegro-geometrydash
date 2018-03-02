@@ -129,6 +129,8 @@ int get_network_data(int sockfd, char *buffer, int *s, int *k, char *l, int *num
             *s=false;
 		} else if (!strcmp(status,"VACIO")) {
 			recv_tecla = false;
+		} else if (!strcmp(status,"VERDADERO")) {
+			recv_tecla = true;
         } else {											
             printf("Error recepción. Buffer: %s",buffer);		
             return 0;
@@ -150,6 +152,8 @@ int get_network_data(int sockfd, char *buffer, int *s, int *k, char *l, int *num
 			*k=KEY_P;
 		} else if (!strcmp(key,"VACIO")) {
 			recv_tecla = false;			
+		} else if (!strcmp(key,"VERDADERO")) {
+			recv_tecla = true;
         } else {											
             printf("Error recepción. Buffer: %s",buffer);
             return 0;
@@ -166,6 +170,8 @@ int get_network_data(int sockfd, char *buffer, int *s, int *k, char *l, int *num
             *l='y';
 		} else if (!strcmp(letra,"VACIO")) {
 			recv_pos = false;            
+		} else if (!strcmp(letra,"VERDADERO")) {
+			recv_pos = true;
         } else {											
             printf("Error recepción. Buffer: %s",buffer);		
             return 0;
@@ -173,12 +179,16 @@ int get_network_data(int sockfd, char *buffer, int *s, int *k, char *l, int *num
 
 		if (!strcmp(numero,"VACIO")) {
 			recv_pos = false;		
+		} else if (!strcmp(numero,"VERDADERO")) {
+			recv_pos = true;
 		} else if (*l != 'd') {
 			*num = atoi (numero);
 		}
 
 		if (!strcmp(pos,"VACIO")) {
 			recv_pos = false;	
+		} else if (!strcmp(pos,"VERDADERO")) {
+			recv_pos = true;
 		} else	if (pos == NULL) {
 			return 0;	
 		} else {

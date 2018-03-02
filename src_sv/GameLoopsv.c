@@ -703,12 +703,17 @@ int fin (ini_var **fvar, auxpartida *fauxpar, variablesservidor *fvarsv) {
 	
 	}
 	
+	if ((fauxpar -> vida) == VERDADERO) {				// Si recibe VERDADERO por red, vuelve a wait_cx
+		
+		fauxestadojuego = 1;
+		
+	}
 
 	if (fauxestadojuego == 1){							// Antes de salir: 
 	
 		(fvarsv -> flag) = true;
 		al_stop_timer((fvariables -> timer));			// Frena el timer
-		close (fvarsv -> sockfd);						// Cierra el socket	
+//		close (fvarsv -> sockfd);						// Cierra el socket	
 	}	
 	
 	return fauxestadojuego;
@@ -1036,6 +1041,8 @@ int	GameLoop (ini_var **var, variablesservidor *varservidor, auxpartida **axpart
 		while (auxestadojuego == 2){
 			
 			auxestadojuego = fin (&variables, auxpar, varservidor);
+
+			receive_data (&variables, varservidor, pos, auxpar);
 
 		}
 		

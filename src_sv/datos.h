@@ -16,6 +16,7 @@
 
 #define PUERTO 9123
 #define MY_EVENT_TYPE ALLEGRO_GET_EVENT_TYPE('S','O','C','K')
+#define VERDADERO 255											// Verdadero por red
 
 enum MYKEYS {
 

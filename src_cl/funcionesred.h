@@ -15,7 +15,7 @@ int put_network_data(int sockfd, char *buffer, char *buffer2, char *buffer3, cha
     memset((void *) buffer2, '\0', 256);
     memset((void *) buffer3, '\0', 256);
 
-	if (k != VACIO) {
+	if (k != VACIO && k != VERDADERO) {
 			
 		switch(k) {
 			case KEY_UP:
@@ -50,14 +50,14 @@ int put_network_data(int sockfd, char *buffer, char *buffer2, char *buffer3, cha
 				break;           
 			}
 			
-		} else {
+		} else if (k == VACIO) {
 			
 			strcpy(buffer, "VACIO;");
 			strcat(buffer, "VACIO;");
 			
 		}
 
-	if (num != VACIO) {
+	if (num != VACIO && num != VERDADERO) {
 
 		if (e == 'd') {
 			strcat(buffer,"d;x;");
@@ -82,11 +82,21 @@ int put_network_data(int sockfd, char *buffer, char *buffer2, char *buffer3, cha
 		sprintf(buffer3, "%f;", v);
 		strcat(buffer, buffer3);
 		
-	} else {
+	} else if (num == VACIO) {
 		
 		strcat(buffer, "VACIO;");
 		strcat(buffer, "VACIO;");
 		strcat(buffer, "VACIO;");
+		
+	}
+	
+	if (num != VACIO && k == VERDADERO && num == VERDADERO) {
+		
+		strcat(buffer, "VERDADERO;");
+		strcat(buffer, "VERDADERO;");
+		strcat(buffer, "VERDADERO;");
+		strcat(buffer, "VERDADERO;");
+		strcat(buffer, "VERDADERO;");
 		
 	}
 	

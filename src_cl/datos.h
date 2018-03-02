@@ -16,7 +16,8 @@
 
 #define PUERTO 9123
 #define MY_EVENT_TYPE ALLEGRO_GET_EVENT_TYPE('S','O','C','K')
-#define VACIO 99												//Este valor es para que no interfiera con bool ni con las enum
+#define VACIO 99												// Este valor es para que no interfiera con bool ni con las enum
+#define VERDADERO 255											// Verdadero por red
 
 enum MYKEYS {
 

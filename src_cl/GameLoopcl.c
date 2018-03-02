@@ -1174,16 +1174,6 @@ int partida (ini_var **pvar, posicion *ppos, auxpartida *pauxpar, frameExplosion
 	if (pauxestadojuego == 2){					// Antes de salir frena el timer
 	
 		al_stop_timer((pvariables -> timer));
-
-		if ((pvarcl -> netflag) == 1){
-		
-			for (i = 0 ; i < 4 ; i ++) {				// Manda varias veces para evitar errores de socket
-						
-				put_network_data((pvarcl -> sockfd), (pvarcl -> buffercl), (pvarcl -> buffercl2), (pvarcl -> buffercl3), (pvarcl -> buffercl4), (pvarcl -> buffercl5), VACIO, VACIO, VACIO, VACIO, VACIO , (pauxpar -> score) , (pauxpar -> vida));	// Manda por red barra espaciadora
-				
-			}
-		
-		}
 	
 	}
 	
@@ -1191,7 +1181,7 @@ int partida (ini_var **pvar, posicion *ppos, auxpartida *pauxpar, frameExplosion
 
 }
 
-int fin (ini_var **fvar, auxpartida *pauxpar, variablescliente *fvarcl) {
+int fin (ini_var **fvar, auxpartida *fauxpar, variablescliente *fvarcl) {
 
 	ini_var *fvariables;
 
@@ -1201,6 +1191,8 @@ int fin (ini_var **fvar, auxpartida *pauxpar, variablescliente *fvarcl) {
 	int fauxopcionessalir,fauxopcionesjugar,fauxopcionesvolver;
 	int fauxx, fauxy;	//mouse
 	char faux3[11], faux4[11];
+	
+	int j;						// Contador para el for de envio de vida 
 		
 	fvariables = *(fvar);
 	
@@ -1283,25 +1275,45 @@ int fin (ini_var **fvar, auxpartida *pauxpar, variablescliente *fvarcl) {
 		
 		al_draw_text((fvariables -> font2), al_map_rgb(255, 0, 0), 280, 50, 0, "TE QUEDASTE SIN VIDAS MANCO");
 		
-		al_draw_text((fvariables -> font2), al_map_rgb(0, 255, 144), 750, 300, 0, (pauxpar -> scorec));
+		al_draw_text((fvariables -> font2), al_map_rgb(0, 255, 144), 750, 300, 0, (fauxpar -> scorec));
 		
 		al_draw_text((fvariables -> font2), al_map_rgb(0, 255, 144), 380, 300, 0, "TU SCORE FINAL:");
 		
-		al_draw_text((fvariables -> font2), al_map_rgb(0, 255, 255), 900, 150, 0, (pauxpar -> nivelc));
+		al_draw_text((fvariables -> font2), al_map_rgb(0, 255, 255), 900, 150, 0, (fauxpar -> nivelc));
 		
 		al_draw_text((fvariables -> font2), al_map_rgb(0, 255, 255), 280, 150, 0, "LLEGASTE HASTA EL NIVEL:");
 		
 		al_flip_display();
 	
 	}
+
+	if((fvariables -> ev).type == ALLEGRO_EVENT_TIMER) {
+		
+		if((fvariables -> ev).timer.source == (fvariables -> timer2)) {
+	
+			if ((fvarcl -> netflag) == 1){
+								
+				put_network_data((fvarcl -> sockfd), (fvarcl -> buffercl), (fvarcl -> buffercl2), (fvarcl -> buffercl3), (fvarcl -> buffercl4), (fvarcl -> buffercl5), VERDADERO, VERDADERO, VERDADERO, VERDADERO, VERDADERO , (fauxpar -> score) , (fauxpar -> vida));	// Manda por red fin del juego y puntaje final
+			
+			}
+			
+		}
+		
+	}	
 	
 	if (fauxestadojuego == 1){							// Antes de salir:
 	
 		al_stop_timer((fvariables -> timer));			// Frena el timer
 		
 		if ((fvarcl -> netflag) == 1){
+
+			for (j = 0 ; j < 4 ; j ++) {				// Manda varias veces para evitar errores de socket
 			
-			close (fvarcl -> sockfd);						// Cierra el socket	
+				put_network_data((fvarcl -> sockfd), (fvarcl -> buffercl), (fvarcl -> buffercl2), (fvarcl -> buffercl3), (fvarcl -> buffercl4), (fvarcl -> buffercl5), VERDADERO, VERDADERO, VERDADERO, VERDADERO, VERDADERO , VERDADERO , VERDADERO);	// Manda por red volver a jugar
+			
+			}
+			
+//			close (fvarcl -> sockfd);						// Cierra el socket	
 		
 		}
 	
@@ -1470,7 +1482,7 @@ int	GameLoop (ini_var **var, variablescliente *varcliente, auxpartida **axpartid
 			
 // 	Inicializacion de vida y puntaje		
 			
-			(auxpar -> vida) = 9;		// Vida inicial
+			(auxpar -> vida) = 3;		// Vida inicial
 			(auxpar -> score) = 0;		// Puntaje comienza en 0
 			(auxpar -> nivel) = 1;		// Dificultad inicial
 			(auxpar -> t_nivel) = 0;	// Tiempo del nivel comienza en 0
