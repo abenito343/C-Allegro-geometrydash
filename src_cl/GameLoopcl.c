@@ -33,7 +33,7 @@ int menu (ini_var **mvar) {
 	ini_var *mvariables;
 
 	int mauxestadojuego = 1;
-	int mauxopcionessalir,mauxopcionesjugar,mauxopcionesvolver,mauxjugarenlinea;	//No se usa volver
+	int mauxopcionessalir,mauxopcionesjugar,mauxjugarenlinea;
 	int mauxx, mauxy;	//mouse
 	char maux3[11],maux4[11];
 	
@@ -164,11 +164,11 @@ int cargar_ip (ini_var **cvar, variablescliente *vcl) {
 	
 	char auxip;
 	int auxip2,auxip3,act;//numero|cantidad de numeros|indicador prim. vez|?|indicador de tecla|
-	int auxip4=0;
 	
 	
 	
-	int cauxopcionessalir,cauxopcionesjugar,cauxopcionesvolver,cauxjugarenlinea;	//No se usa volver
+	
+	int cauxopcionessalir;
 	int cauxx, cauxy;	//mouse
 	char caux3[11],caux4[11];
 	
@@ -185,11 +185,9 @@ int cargar_ip (ini_var **cvar, variablescliente *vcl) {
 	
 	sprintf(caux3, "%d", cauxx);
 	sprintf(caux4, "%d", cauxy);
-	//printf("%d",cauxx);
-	//printf("%d",cauxy);
-	
 
-	//---------------------------------------------------------------------
+
+	//---------------------------------------------------------------------  parte del mouse para el boton
 
 
 		
@@ -452,11 +450,11 @@ int cargar_ip (ini_var **cvar, variablescliente *vcl) {
 			al_draw_text((cvariables -> font2), al_map_rgb(0, 0, 255), 300, 250, 0, ip2);
 			//+(auxip2*30),
 			
-			al_draw_text((cvariables -> font), al_map_rgb(0, 255, 0), 280, 50, 0, caux3);
+			/*al_draw_text((cvariables -> font), al_map_rgb(0, 255, 0), 280, 50, 0, caux3);
 			al_draw_text((cvariables -> font), al_map_rgb(0, 255, 0), 210, 50, 0, "x:");
 	
 			al_draw_text((cvariables -> font), al_map_rgb(0, 255, 0), 480, 50, 0, caux4);
-			al_draw_text((cvariables -> font), al_map_rgb(0, 255, 0), 410, 50, 0, "y:");
+			al_draw_text((cvariables -> font), al_map_rgb(0, 255, 0), 410, 50, 0, "y:");*/    //mouse en pantalla
 			
 				al_draw_bitmap_region((cvariables -> opcionesmenuimg),430-cauxopcionessalir,90,210,90,1050,625,0);//y625 x1050 y+35 x + 71
 	
@@ -1184,7 +1182,7 @@ int fin (ini_var **fvar, auxpartida *fauxpar, variablescliente *fvarcl) {
 	bool fredraw = true;
 		
 	int fauxestadojuego = 2;
-	int fauxopcionessalir,fauxopcionesjugar,fauxopcionesvolver;
+	int fauxopcionessalir,fauxopcionesvolver;
 	int fauxx, fauxy;	//mouse
 	char faux3[11], faux4[11];
 	
@@ -1426,8 +1424,7 @@ int	GameLoop (ini_var **var, variablescliente *varcliente, auxpartida **axpartid
 	posicion *pos = malloc (sizeof (posicion));
 		
 	int auxestadojuego = 1;		// Arranca en el menu
-	
-	bool doexit = false;	//AL PEDO
+
 	
 	variables = *(var);
 	auxpar = *(axpartida);
