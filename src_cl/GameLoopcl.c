@@ -208,14 +208,7 @@ int cargar_ip (ini_var **cvar, variablescliente **cvarcl) {
 	}
 	else if((cvariables -> ev).type == ALLEGRO_EVENT_MOUSE_BUTTON_UP) {
 		if(cauxx > 1056 && cauxx < 1263 && cauxy > 637 && cauxy < 706)
-			return -1;
-		if(cauxx > 454 && cauxx < 726 && cauxy > 499 && cauxy < 596){
-				cauxestadojuego=0;
-				
-			}
-		if(cauxx > 354 && cauxx < 970 && cauxy > 610 && cauxy < 680) {
-			cauxestadojuego=3;
-		}
+			cauxestadojuego= 1;
 	}
 
   //------------------------------------------------------------------------
