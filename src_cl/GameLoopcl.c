@@ -127,10 +127,10 @@ int menu (ini_var **mvar) {
 		
 		al_draw_bitmap_region((mvariables -> jugarenlineaimg),0,0+mauxjugarenlinea,650,95,350,590,0);
 		
-		al_draw_bitmap_region((mvariables -> opcionesmenuimg),0+mauxopcionessalir,90,210,90,1050,625,0);//y625 x1050 y+35 x + 71
+		al_draw_bitmap_region((mvariables -> opcionesmenuimg),0+mauxopcionessalir,90,210,90,1050,625,0);
 
-/*
-		al_draw_text((mvariables -> font), al_map_rgb(255, 0, 255), 50, 50, 0, maux3);
+
+		/*al_draw_text((mvariables -> font), al_map_rgb(255, 0, 255), 50, 50, 0, maux3);
 		al_draw_text((mvariables -> font), al_map_rgb(255, 0, 255), 10, 50, 0, "X:");
 		al_draw_text((mvariables -> font), al_map_rgb(255, 0, 255), 50, 100, 0, maux4);
 		al_draw_text((mvariables -> font), al_map_rgb(255, 0, 255), 10, 100, 0, "Y:");*/
@@ -176,9 +176,7 @@ int cargar_ip (ini_var **cvar, variablescliente **cvarcl) {
 	
 	sprintf(caux3, "%d", cauxx);
 	sprintf(caux4, "%d", cauxy);
-	//printf("%d",cauxx);
-	//printf("%d",cauxy);
-	
+
 
 	//---------------------------------------------------------------------
 
@@ -432,13 +430,7 @@ int cargar_ip (ini_var **cvar, variablescliente **cvarcl) {
 			al_draw_bitmap((cvariables -> fondoipimg),1224,0,0);
 			al_draw_text((cvariables -> font2), al_map_rgb(0, 0, 255), 280, 100, 0, "Inserte su IP:");
 			al_draw_text((cvariables -> font2), al_map_rgb(0, 0, 255), 300, 250, 0, (vcl -> ip2));
-			//+((vcl -> auxip2)*30),
 			
-			al_draw_text((cvariables -> font), al_map_rgb(0, 255, 0), 280, 50, 0, caux3);
-			al_draw_text((cvariables -> font), al_map_rgb(0, 255, 0), 210, 50, 0, "x:");
-	
-			al_draw_text((cvariables -> font), al_map_rgb(0, 255, 0), 480, 50, 0, caux4);
-			al_draw_text((cvariables -> font), al_map_rgb(0, 255, 0), 410, 50, 0, "y:");
 			
 				al_draw_bitmap_region((cvariables -> opcionesmenuimg),430-cauxopcionessalir,90,210,90,1050,625,0);//y625 x1050 y+35 x + 71
 	
