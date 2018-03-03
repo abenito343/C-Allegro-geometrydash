@@ -158,9 +158,8 @@ int cargar_ip (ini_var **cvar, variablescliente **cvarcl) {
 	
 	int cauxestadojuego = 3;
 		
-	int cauxopcionessalir,cauxopcionesjugar,cauxopcionesvolver,cauxjugarenlinea;	//No se usa volver
+	int cauxopcionessalir;
 	int cauxx, cauxy;	//mouse
-	char caux3[11],caux4[11];
 	
 	bool credraw = true;
 	
@@ -174,9 +173,6 @@ int cargar_ip (ini_var **cvar, variablescliente **cvarcl) {
 		cauxy=(cvariables -> ev).mouse.y;
 	}
 	
-	sprintf(caux3, "%d", cauxx);
-	sprintf(caux4, "%d", cauxy);
-
 
 	//---------------------------------------------------------------------  parte del mouse para el boton
 
@@ -432,7 +428,7 @@ int cargar_ip (ini_var **cvar, variablescliente **cvarcl) {
 			al_draw_text((cvariables -> font2), al_map_rgb(0, 0, 255), 300, 250, 0, (vcl -> ip2));
 			
 			
-				al_draw_bitmap_region((cvariables -> opcionesmenuimg),430-cauxopcionessalir,90,210,90,1050,625,0);//y625 x1050 y+35 x + 71
+				al_draw_bitmap_region((cvariables -> opcionesmenuimg),430-cauxopcionessalir,90,210,90,1050,625,0);
 	
 
 			al_flip_display();
@@ -698,13 +694,6 @@ int partida (ini_var **pvar, posicion *ppos, auxpartida *pauxpar, frameExplosion
 				}   
 			}
 			//-------------------------------------------------
-			
-			
-			
-			
-			
-			
-			//---------------------------------------------------
 			
 				
 			if((ppos -> bouncer_x) < -256)              
@@ -1088,7 +1077,7 @@ int partida (ini_var **pvar, posicion *ppos, auxpartida *pauxpar, frameExplosion
 			//al_play_sample((pvariables -> monedasfx), 1.0, 0.0,2.0,ALLEGRO_PLAYMODE_ONCE,NULL);
 			al_draw_bitmap_region((pvariables -> explosionimg), ((pfE -> curFrameExplosion) * (pfE -> frameWidthExplosion))-59, 0, (pfE -> frameWidthExplosion), (pfE -> frameHeightExplosion)+20,(ppos -> bouncer_x2)-300, (ppos -> bouncer_y2)+30, 0);
 			
-			(pfE -> curFrameExplosion)==0;
+			//(pfE -> curFrameExplosion)==0;
 			(pauxpar -> auxspriteenemigo)=0;
 			
 			if((pauxpar -> verifvida)==0)
@@ -1105,7 +1094,7 @@ int partida (ini_var **pvar, posicion *ppos, auxpartida *pauxpar, frameExplosion
 	if((pfE -> curFrameExplosion)==9)
 	{      
 		//al_destroy_sample((pvariables -> explosionsfx));
-		(pfE -> curFrameExplosion)==0;
+		//(pfE -> curFrameExplosion)==0;
 		(pauxpar -> auxcolision)=0;
 		
 		(pauxpar -> auxspriteenemigo)=1;
