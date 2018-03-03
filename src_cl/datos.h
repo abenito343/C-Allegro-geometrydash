@@ -190,6 +190,17 @@ typedef struct variablescliente {
     struct sockaddr_in serv_addr;
     struct hostent *server;
 
+// Variables de wait_cx
+
+	int tecla; 						// "tecla": Ind. que impide que hagas letras de mas.
+	char ip[3];
+	char ip2[33];
+	
+	char auxip;
+	int auxip2, auxip3, act;			//numero|cantidad de numeros|indicador prim. vez|indicador de tecla|
+
+// Buffers para put_network_data
+
 	char buffercl[256];
 	char buffercl2[256];
 	char buffercl3[256];

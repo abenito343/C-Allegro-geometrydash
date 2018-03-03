@@ -1051,7 +1051,6 @@ int	GameLoop (ini_var **var, variablesservidor *varservidor, auxpartida **axpart
 	al_destroy_timer(variables -> timer);
 	al_destroy_display(variables -> display);
 	al_destroy_event_queue(variables -> event_queue);
-	al_destroy_display(variables -> display);
 	al_destroy_sample(variables -> temajuego);
 	//al_destroy_bitmap(variables -> bouncer);
 	
