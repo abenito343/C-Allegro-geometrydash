@@ -633,15 +633,8 @@ int fin (ini_var **fvar, auxpartida *fauxpar, variablesservidor *fvarsv) {
 	
 		
 	}
-/*
-	else if((fvariables -> ev).type == ALLEGRO_EVENT_MOUSE_BUTTON_UP) {
-		if(fauxx>406 && fauxx<613&&fauxy>602 && fauxy<671)
-				return -1;
-		if(fauxx>355 && fauxx<750&&fauxy>400 && fauxy<560)		// Cambia el estado para volver al menu
-				fauxestadojuego = 1;				
-			
-	}
-*/	
+	
+	sprintf((fauxpar -> scorec), "%d", (fauxpar -> score)); 	// Actualiza el puntaje mostrado
 	
 	
 	if(fredraw && al_is_event_queue_empty((fvariables -> event_queue))) {
@@ -649,11 +642,6 @@ int fin (ini_var **fvar, auxpartida *fauxpar, variablesservidor *fvarsv) {
 	
 		al_clear_to_color(al_map_rgb(0,0,0));
 		
-		//al_play_sample((fvariables -> temamenu), 1.0, 0.0,1.0,ALLEGRO_PLAYMODE_ONCE,NULL);
-		
-		// al_draw_bitmap((fvariables -> fondomenuimg),0,0,0);
-	
-		//al_draw_bitmap_region((fvariables -> opcionesmenuimg),0+fauxopcionesjugar,0,260,95,457,500,0);
 		
 		al_draw_bitmap((fvariables -> fondoimg[6]),-600,0,0);
 		al_draw_bitmap((fvariables -> fondoimg[6]),420,0,0);
@@ -662,13 +650,6 @@ int fin (ini_var **fvar, auxpartida *fauxpar, variablesservidor *fvarsv) {
 			
 		al_draw_bitmap((fvariables -> muertofinimg) ,790,330,0);
 		
-		//al_draw_bitmap_region((fvariables -> volverimg),0+fauxopcionesvolver,0,400,400,350,390,0);
-		//al_draw_bitmap_region((fvariables -> opcionesmenuimg),0+fauxopcionessalir,90,210,90,400,590,0);
-		
-		/*al_draw_text((fvariables -> font), al_map_rgb(255, 0, 255), 50, 50, 0, faux3);
-		al_draw_text((fvariables -> font), al_map_rgb(255, 0, 255), 10, 50, 0, "X:");
-		al_draw_text((fvariables -> font), al_map_rgb(255, 0, 255), 50, 100, 0, faux4);
-		al_draw_text((fvariables -> font), al_map_rgb(255, 0, 255), 10, 100, 0, "Y:");*/
 		
 		al_draw_text((fvariables -> font2), al_map_rgb(255, 0, 0), 280, 50, 0, "TE QUEDASTE SIN VIDAS MANCO");
 		
