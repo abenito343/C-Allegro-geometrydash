@@ -270,9 +270,6 @@ int partida (ini_var **pvar, posicion *ppos, auxpartida *pauxpar, frameExplosion
 		if( (ppos -> bouncer_y6) >= 339.0){
 			(pauxpar -> auxmoneda1)=1;
 		}  
-		else{
-			// (pauxpar -> auxmoneda1)=0;
-			}
 			
 		if((pauxpar -> auxmoneda1)==0){
 			if( (ppos -> bouncer_y6) <= 339.0)
@@ -338,62 +335,6 @@ int partida (ini_var **pvar, posicion *ppos, auxpartida *pauxpar, frameExplosion
 		return -1;
 	} 
 
-// Teclado Desactivado en server
-
-/*	else if((pvariables -> ev).type == ALLEGRO_EVENT_KEY_DOWN) {
-		switch((pvariables -> ev).keyboard.keycode) {
-			
-			case ALLEGRO_KEY_UP:
-			(pvariables -> key)[KEY_UP] = true;
-			
-			if ((pvarcl -> netflag) == 1){
-				
-				put_network_data((pvarcl -> sockfd), (pvarcl -> buffer), KEY_UP, true);		// Manda por red tecla arriba
-				
-			}
-			
-			break;
-			
-			case ALLEGRO_KEY_SPACE:
-			(pvariables -> key)[KEY_SPACE] = true;
-			
-			if ((pvarcl -> netflag) == 1){
-				
-				put_network_data((pvarcl -> sockfd), (pvarcl -> buffer), KEY_SPACE, true);	// Manda por red barra espaciadora
-				
-			}			
-			
-			break;
-		}
-	}
-	else if((pvariables -> ev).type == ALLEGRO_EVENT_KEY_UP) {
-		switch((pvariables -> ev).keyboard.keycode) {
-			
-			case ALLEGRO_KEY_UP:
-			(pvariables -> key)[KEY_UP] = false;
-
-			if ((pvarcl -> netflag) == 1){
-				
-				put_network_data((pvarcl -> sockfd), (pvarcl -> buffer), KEY_UP, false);		// Manda por red tecla arriba
-				
-			}
-			
-	
-			break;
-			
-			case ALLEGRO_KEY_SPACE:
-			(pvariables -> key)[KEY_SPACE] = false;
-
-			if ((pvarcl -> netflag) == 1){
-				
-				put_network_data((pvarcl -> sockfd), (pvarcl -> buffer), KEY_SPACE, false);	// Manda por red barra espaciadora
-				
-			}			
-
-			break;
-		}
-	}
-*/
 	if(predraw && al_is_event_queue_empty((pvariables -> event_queue))) {
 		predraw = false;
 		
@@ -401,9 +342,6 @@ int partida (ini_var **pvar, posicion *ppos, auxpartida *pauxpar, frameExplosion
 		(pauxpar -> auxfondox)=(ppos -> bouncer_x4);
 			
 		sprintf((pauxpar -> vidac), "%d", (pauxpar -> vida));
-			
-		
-		//fprintf (stderr, "hasta aca anda \n");
 		
 		sprintf((pauxpar -> scorec), "%d", (pauxpar -> score)); //esto
 		
@@ -530,7 +468,7 @@ int partida (ini_var **pvar, posicion *ppos, auxpartida *pauxpar, frameExplosion
 			
 			if((pauxpar -> verifvida)==0)
 				{
-				(pauxpar -> vida) = (pauxpar -> vida) - 1;
+//				(pauxpar -> vida) = (pauxpar -> vida) - 1;		// Colisiones desactivadas en el server
 				(pauxpar -> verifvida)=1;	
 				}
 				(pauxpar -> verifvida)=1;
@@ -1071,6 +1009,12 @@ int	GameLoop (ini_var **var, variablesservidor *varservidor, auxpartida **axpart
 			(auxpar -> tipo1) = 0;
 			(auxpar -> tipo2) = 0;
 			(auxpar -> tipo3) = 0;
+			(auxpar -> tipo4) = 0;
+			(auxpar -> tipo5) = 0;
+			(auxpar -> tipo6) = 0;		
+			(auxpar -> tipo7) = 0;
+			(auxpar -> tipo8) = 0;
+			(auxpar -> tipo9) = 0;
 			
 		}
 			

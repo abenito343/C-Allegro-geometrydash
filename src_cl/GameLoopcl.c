@@ -1559,7 +1559,12 @@ int	GameLoop (ini_var **var, variablescliente **varcl, auxpartida **axpartida, f
 			(auxpar -> tipo1) = 0;
 			(auxpar -> tipo2) = 0;
 			(auxpar -> tipo3) = 0;
-		
+			(auxpar -> tipo4) = 0;
+			(auxpar -> tipo5) = 0;
+			(auxpar -> tipo6) = 0;		
+			(auxpar -> tipo7) = 0;
+			(auxpar -> tipo8) = 0;
+			(auxpar -> tipo9) = 0;
 		}
 			
 		while (auxestadojuego == 0){
