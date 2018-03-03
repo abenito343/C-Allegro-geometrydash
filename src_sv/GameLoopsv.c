@@ -92,7 +92,7 @@ int partida (ini_var **pvar, posicion *ppos, auxpartida *pauxpar, frameExplosion
 		if((pauxpar -> aux_niv) -> sig == NULL){
 			pauxestadojuego = 2;
 		}
-		fprintf(stderr, "No failed to create %d!\n", (pauxpar -> aux_niv)->t_aparicion);
+
 	}
 
 // Sonido Nivel
@@ -917,14 +917,13 @@ int Niveles (auxpartida **naxpartida) {
 	
 	nauxpar = *(naxpartida);
 	
-	printf("s\n");
 	fp = fopen("N","r");
 	if (!fp) return -1;
 	
 	 //NIVEL
 		memset (buffer,0,30);
 		while (fgets(buffer,30,fp) != NULL){ 
-			printf("s\n");
+			
 			if((nauxpar -> INI_niv) == NULL){
 				 
 				aux_new = calloc (1, sizeof (niveles));
@@ -946,16 +945,98 @@ int Niveles (auxpartida **naxpartida) {
 					}
 					
 				memset (buffer, 0, 30);
-				printf("%d;%d\n",aux_new->t_aparicion,aux_new->clase);
+
 				
 			}
-			printf("salio\n");	
 
 	fclose (fp);
 
 	return 0;
 				
 	}
+
+void Liberar (ini_var **lvar, variablesservidor **lvarsv, auxpartida **laxpartida, frameExplosion **lfEx, frameMonedita **lfMo) {
+
+	ini_var *lvariables;
+	variablesservidor *lvarservidor;
+	auxpartida *lauxpar;
+	frameExplosion *lfE;
+	frameMonedita *lfM;
+
+	niveles *laux;
+	niveles *laux_ant;
+	
+	lvariables = *(lvar);
+	lvarservidor = *(lvarsv);
+	lauxpar = *(laxpartida);
+	lfE = *(lfEx);
+	lfM = *(lfMo);
+
+// Libera lista de enemigos
+		
+	laux = (lauxpar -> INI_niv);
+	
+	while ((laux -> sig) != NULL){
+		laux_ant = laux;
+		free (laux_ant);
+		laux = (laux -> sig);
+		
+	}
+
+// Libera variables de allegro
+		
+	al_destroy_timer(lvariables -> timer);
+	al_destroy_display(lvariables -> display);
+	al_destroy_event_queue(lvariables -> event_queue);
+	
+	al_destroy_sample(lvariables -> temamenu);
+	al_destroy_sample(lvariables -> explosionsfx);
+	al_destroy_sample(lvariables -> monedasfx);
+	al_destroy_sample(lvariables -> levelsfx);	
+	
+	al_destroy_bitmap(lvariables -> fondoimg[0]);
+	al_destroy_bitmap(lvariables -> fondoimg[1]);
+	al_destroy_bitmap(lvariables -> fondoimg[2]);
+	al_destroy_bitmap(lvariables -> fondoimg[3]);
+	al_destroy_bitmap(lvariables -> fondoimg[4]);
+	al_destroy_bitmap(lvariables -> fondoimg[5]);
+	
+	al_destroy_bitmap(lvariables -> pisoimg[0]);
+	al_destroy_bitmap(lvariables -> pisoimg[1]);
+	al_destroy_bitmap(lvariables -> pisoimg[2]);
+	al_destroy_bitmap(lvariables -> pisoimg[3]);
+	al_destroy_bitmap(lvariables -> pisoimg[4]);
+	
+	al_destroy_bitmap(lvariables -> cuboimg);
+	
+	al_destroy_bitmap(lvariables -> enemigoimg[0]);
+	al_destroy_bitmap(lvariables -> enemigoimg[1]);
+	al_destroy_bitmap(lvariables -> enemigoimg[2]);
+	al_destroy_bitmap(lvariables -> enemigoimg[3]);
+	al_destroy_bitmap(lvariables -> enemigoimg[4]);
+	al_destroy_bitmap(lvariables -> enemigoimg[5]);
+	 
+	al_destroy_bitmap(lvariables -> muertofinimg);
+	al_destroy_bitmap(lvariables -> monedaimg); 
+	al_destroy_bitmap(lvariables -> volverimg);
+	al_destroy_bitmap(lvariables -> explosionimg);
+	al_destroy_bitmap(lvariables -> bloqueimg);
+	
+	al_destroy_bitmap(lvariables -> fondomenuimg);   
+	al_destroy_bitmap(lvariables -> fondoipimg);
+	al_destroy_bitmap(lvariables -> opcionesmenuimg);
+	al_destroy_bitmap(lvariables -> jugarenlineaimg);
+	
+	al_destroy_font(lvariables -> font);
+	al_destroy_font(lvariables -> font2);
+	
+	free (lvariables);
+	free (lvarservidor);
+	free (lauxpar);
+	free (lfE);
+	free (lfM);
+
+}
 
 int	GameLoop (ini_var **var, variablesservidor *varservidor, auxpartida **axpartida, frameExplosion **fEx, frameMonedita **fMo) {
 
@@ -1047,30 +1128,10 @@ int	GameLoop (ini_var **var, variablesservidor *varservidor, auxpartida **axpart
 		}
 		
 	}
-	
-	al_destroy_timer(variables -> timer);
-	al_destroy_display(variables -> display);
-	al_destroy_event_queue(variables -> event_queue);
-	al_destroy_sample(variables -> temajuego);
-	//al_destroy_bitmap(variables -> bouncer);
-	
-	/*al_destroy_bitmap(variables -> fondoimg1);
-	al_destroy_bitmap(variables -> fondoimg2);
-	al_destroy_bitmap(variables -> fondoimg3);
-	al_destroy_bitmap(variables -> fondoimg4);
-	al_destroy_bitmap(variables -> fondoimg5);*/
-	
-	/*al_destroy_bitmap(variables -> pisoimg1);
-	al_destroy_bitmap(variables -> pisoimg2);
-	al_destroy_bitmap(variables -> pisoimg3);
-	al_destroy_bitmap(variables -> pisoimg4);
-	al_destroy_bitmap(variables -> pisoimg5);*/
-	al_destroy_bitmap(variables -> cuboimg);
-	al_destroy_bitmap(variables -> enemigoimg );
-	al_destroy_bitmap(variables -> explosionimg);
-	al_destroy_bitmap(variables -> bloqueimg);
-	
-	close (varservidor -> sockfd);						// Cierra el socket
+
+	free (pos);
+		
+	close (varservidor -> sockfd);						// Cierra el socket	
 	
 	return 0;
 	

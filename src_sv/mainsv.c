@@ -42,6 +42,8 @@ int main(int argc, char **argv){
 	
 	GameLoop (&variables, varservidor, &auxpar, &fE, &fM);
 	
+	Liberar (&variables, &varservidor, &auxpar, &fE, &fM);				// Libera memoria
+	
 	return 0;
 }
 

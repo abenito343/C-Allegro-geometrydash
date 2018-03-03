@@ -40,6 +40,8 @@ int main(int argc, char **argv){
 	
 	GameLoop (&variables, &varcliente, &auxpar, &fE, &fM);
 	
+	Liberar (&variables, &varcliente, &auxpar, &fE, &fM);				// Libera memoria
+	
 	return 0;
 }
 

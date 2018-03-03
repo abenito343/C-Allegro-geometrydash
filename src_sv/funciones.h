@@ -11,3 +11,4 @@ int fin (ini_var **, auxpartida *, variablesservidor *);
 int wait_cx (variablesservidor *);
 int receive_data (ini_var **, variablesservidor *, posicion *, auxpartida *);
 
+void Liberar (ini_var **, variablesservidor **, auxpartida **, frameExplosion **, frameMonedita **);
