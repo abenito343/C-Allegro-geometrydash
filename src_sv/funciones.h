@@ -3,7 +3,7 @@
 int	Inicializar (ini_var **, auxpartida **, frameExplosion **, frameMonedita **);
 int inicializar_sv (variablesservidor *);
 
-int Niveles (niveles **);
+int Niveles (auxpartida **);
 
 int	GameLoop (ini_var **, variablesservidor *, auxpartida **, frameExplosion **, frameMonedita **);
 int partida (ini_var **, posicion *, auxpartida *, frameExplosion *, frameMonedita *);

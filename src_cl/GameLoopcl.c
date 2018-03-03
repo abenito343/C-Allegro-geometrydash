@@ -1077,7 +1077,7 @@ int partida (ini_var **pvar, posicion *ppos, auxpartida *pauxpar, frameExplosion
 			//al_play_sample((pvariables -> monedasfx), 1.0, 0.0,2.0,ALLEGRO_PLAYMODE_ONCE,NULL);
 			al_draw_bitmap_region((pvariables -> explosionimg), ((pfE -> curFrameExplosion) * (pfE -> frameWidthExplosion))-59, 0, (pfE -> frameWidthExplosion), (pfE -> frameHeightExplosion)+20,(ppos -> bouncer_x2)-300, (ppos -> bouncer_y2)+30, 0);
 			
-			//(pfE -> curFrameExplosion)==0;
+
 			(pauxpar -> auxspriteenemigo)=0;
 			
 			if((pauxpar -> verifvida)==0)
@@ -1094,7 +1094,7 @@ int partida (ini_var **pvar, posicion *ppos, auxpartida *pauxpar, frameExplosion
 	if((pfE -> curFrameExplosion)==9)
 	{      
 		//al_destroy_sample((pvariables -> explosionsfx));
-		//(pfE -> curFrameExplosion)==0;
+
 		(pauxpar -> auxcolision)=0;
 		
 		(pauxpar -> auxspriteenemigo)=1;
@@ -1200,9 +1200,9 @@ int fin (ini_var **fvar, auxpartida *fauxpar, variablescliente *fvarcl) {
 	}
 	else if((fvariables -> ev).type == ALLEGRO_EVENT_MOUSE_BUTTON_UP) {
 		if(fauxx>406 && fauxx<613&&fauxy>602 && fauxy<671)
-				return -1;
+				fauxestadojuego = -1;
 		if(fauxx>355 && fauxx<750&&fauxy>400 && fauxy<560)
-				fauxestadojuego=1;
+				fauxestadojuego = 1;
 			
 	}
 	
@@ -1260,6 +1260,19 @@ int fin (ini_var **fvar, auxpartida *fauxpar, variablescliente *fvarcl) {
 		
 	}	
 	
+	if (fauxestadojuego == -1){							// Antes de salir:
+		
+		if ((fvarcl -> netflag) == 1){
+
+			for (j = 0 ; j < 4 ; j ++) {				// Manda varias veces para evitar errores de socket
+			
+				put_network_data((fvarcl -> sockfd), (fvarcl -> buffercl), (fvarcl -> buffercl2), (fvarcl -> buffercl3), (fvarcl -> buffercl4), (fvarcl -> buffercl5), VERDADERO, VERDADERO, VERDADERO, VERDADERO, VERDADERO , VERDADERO , VACIO);	// Manda por red volver a jugar
+			
+			}
+		}		
+		
+	}
+	
 	if (fauxestadojuego == 1){							// Antes de salir:
 	
 		al_stop_timer((fvariables -> timer));			// Frena el timer
@@ -1268,11 +1281,9 @@ int fin (ini_var **fvar, auxpartida *fauxpar, variablescliente *fvarcl) {
 
 			for (j = 0 ; j < 4 ; j ++) {				// Manda varias veces para evitar errores de socket
 			
-				put_network_data((fvarcl -> sockfd), (fvarcl -> buffercl), (fvarcl -> buffercl2), (fvarcl -> buffercl3), (fvarcl -> buffercl4), (fvarcl -> buffercl5), VERDADERO, VERDADERO, VERDADERO, VERDADERO, VERDADERO , VERDADERO , VERDADERO);	// Manda por red volver a jugar
+				put_network_data((fvarcl -> sockfd), (fvarcl -> buffercl), (fvarcl -> buffercl2), (fvarcl -> buffercl3), (fvarcl -> buffercl4), (fvarcl -> buffercl5), VERDADERO, VERDADERO, VERDADERO, VERDADERO, VERDADERO , VACIO , VERDADERO);	// Manda por red volver a jugar
 			
 			}
-			
-//			close (fvarcl -> sockfd);						// Cierra el socket	
 		
 		}
 	

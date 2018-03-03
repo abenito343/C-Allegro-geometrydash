@@ -526,7 +526,6 @@ int partida (ini_var **pvar, posicion *ppos, auxpartida *pauxpar, frameExplosion
 			//al_play_sample((pvariables -> monedasfx), 1.0, 0.0,2.0,ALLEGRO_PLAYMODE_ONCE,NULL);
 			al_draw_bitmap_region((pvariables -> explosionimg), ((pfE -> curFrameExplosion) * (pfE -> frameWidthExplosion))-59, 0, (pfE -> frameWidthExplosion), (pfE -> frameHeightExplosion)+20,(ppos -> bouncer_x2)-300, (ppos -> bouncer_y2)+30, 0);
 			
-			(pfE -> curFrameExplosion)==0;
 			(pauxpar -> auxspriteenemigo)=0;
 			
 			if((pauxpar -> verifvida)==0)
@@ -543,7 +542,7 @@ int partida (ini_var **pvar, posicion *ppos, auxpartida *pauxpar, frameExplosion
 	if((pfE -> curFrameExplosion)==9)
 	{      
 		//al_destroy_sample((pvariables -> explosionsfx));
-		(pfE -> curFrameExplosion)==0;
+
 		(pauxpar -> auxcolision)=0;
 		
 		(pauxpar -> auxspriteenemigo)=1;
@@ -597,7 +596,6 @@ int fin (ini_var **fvar, auxpartida *fauxpar, variablesservidor *fvarsv) {
 	bool fredraw = true;
 		
 	int fauxestadojuego = 2;
-	int fauxopcionessalir,fauxopcionesjugar,fauxopcionesvolver;
 	int fauxx, fauxy;	//mouse
 	char faux3[11], faux4[11];
 		
@@ -622,25 +620,7 @@ int fin (ini_var **fvar, auxpartida *fauxpar, variablesservidor *fvarsv) {
 	}
 	
 	sprintf(faux3, "%d", fauxx);
-	sprintf(faux4, "%d", fauxy);
-		
-	if(fauxx>355 && fauxx<750&&fauxy>400 && fauxy<560) {
-		fauxopcionesvolver=400;
-	}
-	else{
-		fauxopcionesvolver=0;
-	} 	
-			
-		
-	if(fauxx>406 && fauxx<613 && fauxy>602 && fauxy<671)
-	{
-					fauxopcionessalir=215;
-				}
-				else{
-						fauxopcionessalir=0;
-					} 	
-			
-			
+	sprintf(faux4, "%d", fauxy);		
 	
 	if((fvariables -> ev).type == ALLEGRO_EVENT_TIMER) {
 		fredraw = true;
@@ -653,6 +633,7 @@ int fin (ini_var **fvar, auxpartida *fauxpar, variablesservidor *fvarsv) {
 	
 		
 	}
+/*
 	else if((fvariables -> ev).type == ALLEGRO_EVENT_MOUSE_BUTTON_UP) {
 		if(fauxx>406 && fauxx<613&&fauxy>602 && fauxy<671)
 				return -1;
@@ -660,7 +641,7 @@ int fin (ini_var **fvar, auxpartida *fauxpar, variablesservidor *fvarsv) {
 				fauxestadojuego = 1;				
 			
 	}
-	
+*/	
 	
 	
 	if(fredraw && al_is_event_queue_empty((fvariables -> event_queue))) {
@@ -703,9 +684,15 @@ int fin (ini_var **fvar, auxpartida *fauxpar, variablesservidor *fvarsv) {
 	
 	}
 	
-	if ((fauxpar -> vida) == VERDADERO) {				// Si recibe VERDADERO por red, vuelve a wait_cx
+	if ((fauxpar -> vida) == VERDADERO) {				// Si recibe vida VERDADERO por red, vuelve a wait_cx
 		
 		fauxestadojuego = 1;
+		
+	}
+
+	if ((fauxpar -> score) == VERDADERO) {				// Si recibe score VERDADERO por red, sale del juego
+		
+		fauxestadojuego = -1;
 		
 	}
 
@@ -713,7 +700,7 @@ int fin (ini_var **fvar, auxpartida *fauxpar, variablesservidor *fvarsv) {
 	
 		(fvarsv -> flag) = true;
 		al_stop_timer((fvariables -> timer));			// Frena el timer
-//		close (fvarsv -> sockfd);						// Cierra el socket	
+
 	}	
 	
 	return fauxestadojuego;
@@ -722,15 +709,12 @@ int fin (ini_var **fvar, auxpartida *fauxpar, variablesservidor *fvarsv) {
 
 // Funcion de inicializacion Cliente
 
-int wait_cx (variablesservidor *varsv,ini_var **wvar){
+int wait_cx (variablesservidor *varsv, ini_var **wvar){
 
 
 	ini_var *wvariables;
 	
 	wvariables = *(wvar);
-	/*ini_var **pvar, posicion *ppos, auxpartida *pauxpar, frameExplosion *pfE, frameMonedita *pfM) {
-
-	ini_var *pvariables;*/
 
     printf("Esperando jugador en red...\n");
     
@@ -1051,8 +1035,6 @@ int	GameLoop (ini_var **var, variablesservidor *varservidor, auxpartida **axpart
 
 	(varservidor -> flag) = true;
 	
-	bool doexit = false;	//AL PEDO
-	
 	variables = *(var);
 	auxpar = *(axpartida);
 	fE = *(fEx);
@@ -1121,9 +1103,9 @@ int	GameLoop (ini_var **var, variablesservidor *varservidor, auxpartida **axpart
 		
 		while (auxestadojuego == 2){
 			
-			auxestadojuego = fin (&variables, auxpar, varservidor);
-
 			receive_data (&variables, varservidor, pos, auxpar);
+			
+			auxestadojuego = fin (&variables, auxpar, varservidor);
 
 		}
 		
