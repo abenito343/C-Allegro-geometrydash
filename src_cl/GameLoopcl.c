@@ -151,10 +151,10 @@ int menu (ini_var **mvar) {
 	return mauxestadojuego;
 }
 
-int cargar_ip (ini_var **cvar, variablescliente *vcl) {
+int cargar_ip (ini_var **cvar, variablescliente **cvarcl) {
 
 	ini_var *cvariables;
-	
+	variablescliente *vcl;
 	
 	int cauxestadojuego = 3;
 		
@@ -165,6 +165,7 @@ int cargar_ip (ini_var **cvar, variablescliente *vcl) {
 	bool credraw = true;
 	
 	cvariables = *(cvar);
+	vcl = *(cvarcl);
 		
 	al_wait_for_event((cvariables -> event_queue), &(cvariables -> ev));
 	
@@ -194,10 +195,10 @@ int cargar_ip (ini_var **cvar, variablescliente *vcl) {
 		cauxopcionessalir=0;
 	} 		
 
-	if((cvariables -> ev).type == ALLEGRO_EVENT_TIMER) {
+/*	if((cvariables -> ev).type == ALLEGRO_EVENT_TIMER) {
 		credraw = true;
 	}
-	else if((cvariables -> ev).type == ALLEGRO_EVENT_DISPLAY_CLOSE) {
+*/ if((cvariables -> ev).type == ALLEGRO_EVENT_DISPLAY_CLOSE) {
 		return -1;
 	}
 	else if((cvariables -> ev).type == ALLEGRO_EVENT_MOUSE_AXES ||
@@ -233,6 +234,7 @@ int cargar_ip (ini_var **cvar, variablescliente *vcl) {
 	if((vcl -> auxip2)<16){					// Modificado para cargar localhost
 				
 		if((vcl -> auxip2)<15){
+
 			if((cvariables -> key)[KEY_1] ) {
 				(vcl -> auxip)='1';(vcl -> act)=1;
 			}  	  
@@ -290,7 +292,7 @@ int cargar_ip (ini_var **cvar, variablescliente *vcl) {
 			
 			(vcl -> auxip2)=0;
 			
-			memset((vcl -> ip),0, 1);
+			memset((vcl -> ip),0, 3);
 			
 			memset((vcl -> ip2),0,33);
 		}	
@@ -299,18 +301,20 @@ int cargar_ip (ini_var **cvar, variablescliente *vcl) {
 				
 				
 				(vcl -> auxip2)=(vcl -> auxip2)+1;
-				if((vcl -> auxip3)!=1)
+				if((vcl -> auxip3) != 1)
 				{	
 					sprintf((vcl -> ip), "%c",(vcl -> auxip));
 					strcpy((vcl -> ip2),(vcl -> ip));
 				}
-				else{
+				else {
 		
 				sprintf((vcl -> ip), "%c",(vcl -> auxip));
-				strcat((vcl -> ip2),(vcl -> ip));}
-				(vcl -> auxip3)=1;
+				strcat((vcl -> ip2),(vcl -> ip));
+				
+				}
+			(vcl -> auxip3)=1;
 			}
-			(vcl -> tecla)=1;(vcl -> act)=0;
+		(vcl -> tecla)=1;(vcl -> act)=0;
 
 		
 		if((cvariables -> ev).type == ALLEGRO_EVENT_KEY_DOWN) {
@@ -1402,9 +1406,10 @@ int Niveles (auxpartida **naxpartida) {
 	}
 
 
-int	GameLoop (ini_var **var, variablescliente *varcliente, auxpartida **axpartida, frameExplosion **fEx, frameMonedita **fMo) {
+int	GameLoop (ini_var **var, variablescliente **varcl, auxpartida **axpartida, frameExplosion **fEx, frameMonedita **fMo) {
 
 	ini_var *variables;
+	variablescliente *varcliente;
 	auxpartida *auxpar;
 	frameExplosion *fE;
 	frameMonedita *fM;
@@ -1415,6 +1420,7 @@ int	GameLoop (ini_var **var, variablescliente *varcliente, auxpartida **axpartid
 	bool doexit = false;	//AL PEDO
 	
 	variables = *(var);
+	varcliente = *(varcl);
 	auxpar = *(axpartida);
 	fE = *(fEx);
 	fM = *(fMo);
@@ -1426,17 +1432,26 @@ int	GameLoop (ini_var **var, variablescliente *varcliente, auxpartida **axpartid
 			auxestadojuego = menu (&variables);
 
 		}
+
+// Inicializacion de variables cargar_ip
 		
-		if ((varcliente -> netflag) == 1) {
-			
+		if (auxestadojuego == 3) {
+
+			(varcliente -> tecla) = 0;
+			(varcliente -> auxip) = 0;			
 			(varcliente -> auxip2) = 0;
-		//	(varcliente -> auxip3) = 0;
-			
+			(varcliente -> auxip3) = 0;
+			(varcliente -> act) = 0;
+
+			memset ((varcliente -> ip), 0, strlen (varcliente -> ip));
+			memset ((varcliente -> ip2), 0, strlen (varcliente -> ip2));
+			(variables -> key)[KEY_ENTER] = false;
+
 		}
 		
 		while (auxestadojuego == 3){
 			
-			auxestadojuego = cargar_ip (&variables, varcliente);
+			auxestadojuego = cargar_ip (&variables, &varcliente);
 
 		}
 

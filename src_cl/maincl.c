@@ -38,7 +38,7 @@ int main(int argc, char **argv){
 
 	Niveles (&auxpar);
 	
-	GameLoop (&variables, varcliente, &auxpar, &fE, &fM);
+	GameLoop (&variables, &varcliente, &auxpar, &fE, &fM);
 	
 	return 0;
 }

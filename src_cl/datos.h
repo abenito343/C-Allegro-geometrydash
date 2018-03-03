@@ -193,7 +193,7 @@ typedef struct variablescliente {
 // Variables de wait_cx
 
 	int tecla; 						// "tecla": Ind. que impide que hagas letras de mas.
-	char ip[1];
+	char ip[3];
 	char ip2[33];
 	
 	char auxip;
