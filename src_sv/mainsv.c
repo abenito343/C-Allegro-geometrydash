@@ -1,4 +1,6 @@
-// Main Server
+/*! \file mainsv.c
+    \brief Main Servidor.
+*/
 
 #include <stdio.h>
 #include <stdlib.h>

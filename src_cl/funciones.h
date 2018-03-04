@@ -1,3 +1,7 @@
+/*! \file funciones.h
+    \brief Archivo cabecera de todas las funciones cliente.
+*/
+
 #include "datos.h"
 
 int	Inicializar (ini_var **, auxpartida **, frameExplosion **, frameMonedita **);

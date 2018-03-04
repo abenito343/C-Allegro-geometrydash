@@ -1,4 +1,6 @@
-// GameLoop y sus funciones server
+/*! \file GameLoopsv.c
+    \brief GameLoop y sus funciones servidor.
+*/
 
 #include <stdio.h>
 #include <stdlib.h>

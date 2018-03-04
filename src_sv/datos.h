@@ -1,3 +1,7 @@
+/*! \file datos.h
+    \brief Archivo cabecera de todas las variables, enumeraciones y definiciones.
+*/
+
 #include <allegro5/allegro.h>
 #include "allegro5/allegro.h"
 #include "allegro5/allegro_image.h"

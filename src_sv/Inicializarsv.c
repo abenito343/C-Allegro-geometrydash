@@ -1,4 +1,6 @@
-// Funciones de inicializacion Server
+/*! \file Inicializarsv.c
+    \brief Funciones de inicializacion Servidor.
+*/
 
 #include <stdio.h>
 #include <stdlib.h>
