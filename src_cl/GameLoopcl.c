@@ -1546,6 +1546,8 @@ int	GameLoop (ini_var **var, variablescliente **varcl, auxpartida **axpartida, f
 			(pos -> bouncer_y6) = (SCREEN_H) / 2.0 - (BOUNCER_SIZE) / 2.0;//MONEDA
 		
 			(pos -> bouncer_dx) = -4.0;
+
+			(variables -> key)[KEY_SPACE] = false;
 			
 // 	Inicializacion de vida y puntaje		
 			
