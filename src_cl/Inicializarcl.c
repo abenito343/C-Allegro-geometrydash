@@ -1,4 +1,6 @@
-// Funciones de inicializacion Cliente
+/*! \file Inicializarcl.c
+    \brief Funciones de inicializacion Cliente.
+*/
 
 #include <stdio.h>
 #include <stdlib.h>

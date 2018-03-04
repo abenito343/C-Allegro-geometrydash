@@ -1,4 +1,6 @@
-// Main Cliente
+/*! \file maincl.c
+    \brief Main Cliente.
+*/
 
 #include <stdio.h>
 #include <stdlib.h>

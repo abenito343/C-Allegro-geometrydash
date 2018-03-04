@@ -1,4 +1,6 @@
-// GameLoop y sus funciones cliente
+/*! \file GameLoopcl.c
+    \brief GameLoop y sus funciones cliente.
+*/
 
 #include <stdio.h>
 #include <stdlib.h>

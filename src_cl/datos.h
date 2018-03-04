@@ -1,3 +1,7 @@
+/*! \file datos.h
+    \brief Archivo cabecera de todas las variables, enumeraciones y definiciones.
+*/
+
 #include <allegro5/allegro.h>
 #include "allegro5/allegro.h"
 #include "allegro5/allegro_image.h"
@@ -16,8 +20,8 @@
 
 #define PUERTO 9123
 #define MY_EVENT_TYPE ALLEGRO_GET_EVENT_TYPE('S','O','C','K')
-#define VACIO 99												// Este valor es para que no interfiera con bool ni con las enum
-#define VERDADERO 255											// Verdadero por red
+#define VACIO 99												//!< Este valor es para que no interfiera con bool ni con las enum
+#define VERDADERO 255											//!< Verdadero por red
 
 enum MYKEYS {
 
@@ -30,25 +34,25 @@ typedef struct ini_var {
 	ALLEGRO_EVENT_QUEUE *event_queue;
 	
 	ALLEGRO_TIMER *timer;	
-	ALLEGRO_TIMER *timer2;				// Timer para red
+	ALLEGRO_TIMER *timer2;						//!< Timer para red
 	
 	ALLEGRO_EVENT ev;
 	
-	ALLEGRO_BITMAP  *fondoimg[7];
+	ALLEGRO_BITMAP *fondoimg[7];
 
 	
-	ALLEGRO_BITMAP  *pisoimg[6];
+	ALLEGRO_BITMAP *pisoimg[6];
 
-	ALLEGRO_BITMAP  *enemigoimg[6];//enemigo
+	ALLEGRO_BITMAP *enemigoimg[6];				//!< enemigo
 	
 	
-	ALLEGRO_BITMAP  *cuboimg;//cubo
+	ALLEGRO_BITMAP *cuboimg;					//!< cubo
 	
-	ALLEGRO_BITMAP  *explosionimg;//explosion
-	ALLEGRO_BITMAP  *bloqueimg;//bloque
-	ALLEGRO_BITMAP  *muertofinimg; // muerto
-	ALLEGRO_BITMAP  *monedaimg; // moneda
-	ALLEGRO_BITMAP  *volverimg; // volver al menu
+	ALLEGRO_BITMAP *explosionimg;				//!< explosion
+	ALLEGRO_BITMAP *bloqueimg;					//!< bloque
+	ALLEGRO_BITMAP *muertofinimg; 				//!< muerto
+	ALLEGRO_BITMAP *monedaimg; 					//!< moneda
+	ALLEGRO_BITMAP *volverimg; 					//!< volver al menu
 	
 	ALLEGRO_SAMPLE *temajuego;  
 	ALLEGRO_SAMPLE *explosionsfx;  
@@ -58,10 +62,10 @@ typedef struct ini_var {
    
 	// menu
 	
-	ALLEGRO_BITMAP  *fondomenuimg; // fondo menu
-	ALLEGRO_BITMAP  *fondoipimg; // fondo menu
-	ALLEGRO_BITMAP  *opcionesmenuimg; // opciones menu
-    ALLEGRO_BITMAP  *jugarenlineaimg;
+	ALLEGRO_BITMAP *fondomenuimg; 				//!< fondo menu
+	ALLEGRO_BITMAP *fondoipimg; 				//!< fondo menu
+	ALLEGRO_BITMAP *opcionesmenuimg;			//!< opciones menu
+    ALLEGRO_BITMAP *jugarenlineaimg;
 	ALLEGRO_FONT   *font;
 	ALLEGRO_FONT   *font2;
 	ALLEGRO_SAMPLE *temamenu;
@@ -178,13 +182,10 @@ typedef struct frameMonedita {
    
 typedef struct variablescliente {
     
-/*  int cantarg;					//	argc del main
-    char strarg;					//	argv del main
-*/
 	char hostname[16];
 	
-    int netflag;					//	Indica si esta en modo red
-	int cx_stat;					//	Indica si hay conexion (0 = sin cx; 1 = hay cx) (PROBAR)
+    int netflag;						//!<	Indica si esta en modo red
+	int cx_stat;						//!<	Indica si hay conexion (0 = sin cx; 1 = hay cx) (PROBAR)
     
     int sockfd;
     struct sockaddr_in serv_addr;
@@ -192,12 +193,12 @@ typedef struct variablescliente {
 
 // Variables de wait_cx
 
-	int tecla; 						// "tecla": Ind. que impide que hagas letras de mas.
+	int tecla; 							//!< "tecla": Ind. que impide que hagas letras de mas.
 	char ip[3];
 	char ip2[33];
 	
 	char auxip;
-	int auxip2, auxip3, act;			//numero|cantidad de numeros|indicador prim. vez|indicador de tecla|
+	int auxip2, auxip3, act;			//!< numero|cantidad de numeros|indicador prim. vez|indicador de tecla|
 
 // Buffers para put_network_data
 

@@ -1,4 +1,6 @@
-// Funciones de red
+/*! \file funcionesdered.h
+    \brief Funciones de red Cliente.
+*/
 
 #include "datos.h"
 
