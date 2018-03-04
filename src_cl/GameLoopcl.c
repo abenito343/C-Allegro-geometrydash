@@ -1014,7 +1014,7 @@ int partida (ini_var **pvar, posicion *ppos, auxpartida *pauxpar, frameExplosion
 		al_draw_bitmap_region((pvariables -> enemigoimg[(pauxpar -> nivel)]) ,0,0,140,150,(ppos -> bouncer_x36),-15,0);
 	}
 	if((pauxpar -> tipo7) == 1){
-		al_draw_bitmap_region((pvariables -> enemigoimg[(pauxpar -> nivel)]) ,0,0,140,150,(ppos -> bouncer_x37),-50,0);
+		al_draw_bitmap_region((pvariables -> enemigoimg[(pauxpar -> nivel)]) ,0,0,140,150,(ppos -> bouncer_x37),150,0);
 	}
 	if((pauxpar -> tipo8) == 1){
 		al_draw_bitmap_region((pvariables -> enemigoimg[(pauxpar -> nivel)]) ,0,0,140,150,(ppos -> bouncer_x38),150,0);
