@@ -268,6 +268,9 @@ int cargar_ip (ini_var **cvar, variablescliente **cvarcl) {
 			if((cvariables -> key)[KEY_FULLSTOP] ) {
 				(vcl -> auxip)='.';(vcl -> act)=1;
 			}	
+			if((cvariables -> key)[KEY_PAD_DELETE] ) {
+				(vcl -> auxip)='.';(vcl -> act)=1;
+			}
 		}
 		if((cvariables -> key)[KEY_ENTER] ) {
 			(vcl -> auxip2)=16;
@@ -361,6 +364,10 @@ int cargar_ip (ini_var **cvar, variablescliente **cvarcl) {
 				(vcl -> tecla)=0;
 				(cvariables -> key)[KEY_BACKSPACE] = true;
 				break;
+				case ALLEGRO_KEY_PAD_DELETE:
+				(vcl -> tecla)=0;
+				(cvariables -> key)[KEY_PAD_DELETE] = true;
+				break;
 			}
 		}
 		else if((cvariables -> ev).type == ALLEGRO_EVENT_KEY_UP) {
@@ -406,6 +413,9 @@ int cargar_ip (ini_var **cvar, variablescliente **cvarcl) {
 				break;
 				case ALLEGRO_KEY_BACKSPACE:
 				(cvariables -> key)[KEY_BACKSPACE] = false;
+				break;
+				case ALLEGRO_KEY_PAD_DELETE:
+				(cvariables -> key)[KEY_PAD_DELETE] = false;
 				break;
 			}
 		}
