@@ -25,7 +25,7 @@
 
 enum MYKEYS {
 
-   KEY_UP, KEY_DOWN, KEY_LEFT, KEY_RIGHT, KEY_EXIT, KEY_SPACE,KEY_0,KEY_1,KEY_2,KEY_3,KEY_4,KEY_5,KEY_6,KEY_7,KEY_8,KEY_P,KEY_FULLSTOP,KEY_ENTER,KEY_BACKSPACE,KEY_PAD_DELETE
+   KEY_UP, KEY_DOWN, KEY_LEFT, KEY_RIGHT, KEY_EXIT, KEY_SPACE,KEY_0,KEY_1,KEY_2,KEY_3,KEY_4,KEY_5,KEY_6,KEY_7,KEY_8,KEY_9,KEY_P,KEY_FULLSTOP,KEY_ENTER,KEY_BACKSPACE,KEY_PAD_DELETE
 };
 
 typedef struct ini_var {
@@ -66,11 +66,14 @@ typedef struct ini_var {
 	ALLEGRO_BITMAP *fondoipimg; 				//!< fondo menu
 	ALLEGRO_BITMAP *opcionesmenuimg;			//!< opciones menu
     ALLEGRO_BITMAP *jugarenlineaimg;
+    ALLEGRO_BITMAP *mapasimg;
+    ALLEGRO_BITMAP *mapasimg2;
 	ALLEGRO_FONT   *font;
 	ALLEGRO_FONT   *font2;
 	ALLEGRO_SAMPLE *temamenu;
 	
-
+	int auxmapas; 
+	
 	bool key[37];
 	char ip[22];
 	

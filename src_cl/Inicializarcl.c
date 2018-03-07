@@ -88,9 +88,13 @@ int	Inicializar (ini_var **var, auxpartida **axpartida, frameExplosion **fEx, fr
 	(variables -> fondoipimg)   = NULL; // fondo menu
 	(variables -> opcionesmenuimg)  = NULL; // opciones menu
 	(variables -> jugarenlineaimg)  = NULL; 
+	(variables -> mapasimg)  = NULL; 
+	(variables -> mapasimg2)  = NULL; 
 	(variables -> font) = NULL;
 	(variables -> font2) = NULL;
 	(variables -> temamenu) = NULL;
+	
+	(variables -> auxmapas) = 0;
 
 // Inicializacion Teclas
 	
@@ -312,6 +316,8 @@ int	Inicializar (ini_var **var, auxpartida **axpartida, frameExplosion **fEx, fr
 	(variables -> monedaimg) = al_load_bitmap("imagenes/monedita.png");
 	(variables -> volverimg) = al_load_bitmap("imagenes/volveralmenu.png");
 	(variables -> muertofinimg)  = al_load_bitmap("imagenes/muerto.png");
+	(variables -> mapasimg) = al_load_bitmap("imagenes/mapas.png");
+	(variables -> mapasimg2) = al_load_bitmap("imagenes/mapas2.png");
 
 	al_convert_mask_to_alpha((variables -> explosionimg), al_map_rgb(106, 76, 48));		//DA CORE DUMP NETBOOK MAX
 	

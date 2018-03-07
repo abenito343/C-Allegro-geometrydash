@@ -39,6 +39,7 @@ int menu (ini_var **mvar) {
 	int mauxx, mauxy;	//mouse
 	char maux3[11],maux4[11];
 	
+	
 	bool mredraw = true;
 	
 	mvariables = *(mvar);
@@ -86,6 +87,13 @@ int menu (ini_var **mvar) {
 	else{
 		mauxopcionessalir=0;
 	} 		
+	
+	
+
+	
+
+	
+	
 
 	if((mvariables -> ev).type == ALLEGRO_EVENT_TIMER) {
 		mredraw = true;
@@ -99,6 +107,7 @@ int menu (ini_var **mvar) {
 		
 	}
 	else if((mvariables -> ev).type == ALLEGRO_EVENT_MOUSE_BUTTON_UP) {
+		
 		if(mauxx > 1056 && mauxx < 1263 && mauxy > 637 && mauxy < 706)
 			return -1;
 		if(mauxx > 454 && mauxx < 726 && mauxy > 499 && mauxy < 596){
@@ -108,6 +117,18 @@ int menu (ini_var **mvar) {
 		if(mauxx > 354 && mauxx < 970 && mauxy > 610 && mauxy < 680) {
 			mauxestadojuego=3;
 		}
+		
+		if(mauxx > 961 && mauxx < 1084 && mauxy > 122 && mauxy < 144) {
+		
+			(mvariables -> auxmapas)=0;
+		
+		}
+		if(mauxx > 1139 && mauxx < 1269 && mauxy > 122 && mauxy < 144) {
+		
+			(mvariables -> auxmapas)=33;
+		
+		}
+		
 	}
 
 
@@ -136,6 +157,10 @@ int menu (ini_var **mvar) {
 		al_draw_text((mvariables -> font), al_map_rgb(255, 0, 255), 10, 50, 0, "X:");
 		al_draw_text((mvariables -> font), al_map_rgb(255, 0, 255), 50, 100, 0, maux4);
 		al_draw_text((mvariables -> font), al_map_rgb(255, 0, 255), 10, 100, 0, "Y:");*/
+		
+		
+		al_draw_bitmap_region((mvariables -> mapasimg2),0,0,500,40,950,80,0);
+		al_draw_bitmap_region((mvariables -> mapasimg),0,7+(mvariables -> auxmapas),500,35,950,115,0);
 
 
 		al_flip_display();
