@@ -1,4 +1,6 @@
-// Funciones de red
+/*! \file funcionesdered.h
+    \brief Funciones de red Servidor.
+*/
 
 #include "datos.h"
 
@@ -7,89 +9,6 @@ void error(const char *msg)
 {
     perror(msg);
     exit(0);
-}
-
-int put_network_data(int sockfd, char *buffer, int k, char s) {
-    int n;
-
-    memset((void *) buffer, '\0', 256);
-
-    switch(k) {
-        case KEY_UP:
-            strcpy(buffer,"KEY_UP;");
-            break;
-        case KEY_DOWN:
-            strcpy(buffer,"KEY_DOWN;"); 
-            break;
-        case KEY_LEFT:
-            strcpy(buffer,"KEY_LEFT;");
-            break;
-        case KEY_RIGHT:
-            strcpy(buffer,"KEY_RIGHT;");
-            break;
-        case KEY_EXIT:
-            strcpy(buffer,"KEY_EXIT;");
-            break;
-        case KEY_SPACE:
-            strcpy(buffer,"KEY_SPACE;"); 
-            break;    
-        case KEY_P:
-            strcpy(buffer,"KEY_P;"); 
-            break; 
-        }
-
-    switch(s) {
-        case true:
-            strcat(buffer,"true;");
-            break;
-        case false:
-            strcat(buffer,"false;");
-            break;
-        }
-
-	strcat(buffer,"\0");
-	
-    //DBG - printf("Buffer: %s",buffer);
-    n = write(sockfd,buffer,strlen(buffer));
-    if (n < 0) error("ERROR writing to socket");
-
-    return n;
-}
-
-int put_network_data2(int sockfd, char *buffer, char *buffer2, char *buffer3, char e, int num, float v) {		// Para mandar posicion
-    int n;
-
-    memset((void *) buffer, '\0', 256);
-    memset((void *) buffer2, '\0', 256);
-    memset((void *) buffer3, '\0', 256);
-    
-    if (e == 'd') {
-		strcpy(buffer,"d;x;");
-	
-	} else {
-			
-		switch(e) {
-			case 'x':
-				strcpy(buffer,"x;");
-				break;          
-						
-			case 'y':
-				strcpy(buffer,"y;");
-				break;       
-		}
-		
-		sprintf(buffer2, "%i;", num);
-		strcat(buffer, buffer2);
-	}
-	
-	sprintf(buffer3, "%f\0", v);
-    strcat(buffer, buffer3);
-
-    //DBG - printf("Buffer: %s",buffer);
-    n = write(sockfd,buffer,strlen(buffer));
-    if (n < 0) error("ERROR writing to socket");
-
-    return n;
 }
 
 int get_network_data(int sockfd, char *buffer, int *s, int *k, char *l, int *num, float *p, int *pt, int *v) {
@@ -129,6 +48,8 @@ int get_network_data(int sockfd, char *buffer, int *s, int *k, char *l, int *num
             *s=false;
 		} else if (!strcmp(status,"VACIO")) {
 			recv_tecla = false;
+		} else if (!strcmp(status,"VERDADERO")) {
+			recv_tecla = true;
         } else {											
             printf("Error recepción. Buffer: %s",buffer);		
             return 0;
@@ -150,6 +71,8 @@ int get_network_data(int sockfd, char *buffer, int *s, int *k, char *l, int *num
 			*k=KEY_P;
 		} else if (!strcmp(key,"VACIO")) {
 			recv_tecla = false;			
+		} else if (!strcmp(key,"VERDADERO")) {
+			recv_tecla = true;
         } else {											
             printf("Error recepción. Buffer: %s",buffer);
             return 0;
@@ -166,6 +89,8 @@ int get_network_data(int sockfd, char *buffer, int *s, int *k, char *l, int *num
             *l='y';
 		} else if (!strcmp(letra,"VACIO")) {
 			recv_pos = false;            
+		} else if (!strcmp(letra,"VERDADERO")) {
+			recv_pos = true;
         } else {											
             printf("Error recepción. Buffer: %s",buffer);		
             return 0;
@@ -173,12 +98,16 @@ int get_network_data(int sockfd, char *buffer, int *s, int *k, char *l, int *num
 
 		if (!strcmp(numero,"VACIO")) {
 			recv_pos = false;		
+		} else if (!strcmp(numero,"VERDADERO")) {
+			recv_pos = true;
 		} else if (*l != 'd') {
 			*num = atoi (numero);
 		}
 
 		if (!strcmp(pos,"VACIO")) {
 			recv_pos = false;	
+		} else if (!strcmp(pos,"VERDADERO")) {
+			recv_pos = true;
 		} else	if (pos == NULL) {
 			return 0;	
 		} else {

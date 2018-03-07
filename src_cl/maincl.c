@@ -1,4 +1,6 @@
-// Main Cliente
+/*! \file maincl.c
+    \brief Main Cliente.
+*/
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -38,7 +40,9 @@ int main(int argc, char **argv){
 
 	Niveles (&auxpar);
 	
-	GameLoop (&variables, varcliente, &auxpar, &fE, &fM);
+	GameLoop (&variables, &varcliente, &auxpar, &fE, &fM);
+	
+	Liberar (&variables, &varcliente, &auxpar, &fE, &fM);				// Libera memoria
 	
 	return 0;
 }

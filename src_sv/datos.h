@@ -1,3 +1,7 @@
+/*! \file datos.h
+    \brief Archivo cabecera de todas las variables, enumeraciones y definiciones.
+*/
+
 #include <allegro5/allegro.h>
 #include "allegro5/allegro.h"
 #include "allegro5/allegro_image.h"
@@ -16,6 +20,7 @@
 
 #define PUERTO 9123
 #define MY_EVENT_TYPE ALLEGRO_GET_EVENT_TYPE('S','O','C','K')
+#define VERDADERO 255											// Verdadero por red
 
 enum MYKEYS {
 
@@ -35,7 +40,7 @@ typedef struct ini_var {
 	
 	ALLEGRO_BITMAP  *pisoimg[6];
 
-	ALLEGRO_BITMAP  *enemigoimg[6];//enemigo
+	ALLEGRO_BITMAP  *enemigoimg[8];//enemigo
 	
 	
 	ALLEGRO_BITMAP  *cuboimg;//cubo

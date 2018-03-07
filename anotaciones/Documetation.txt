@@ -1,0 +1,250 @@
+/*! \file Documentation.txt
+    \brief Archivo con toda la documentacion de las funciones.
+	\author Grupo 2
+	\date 2018.03.09
+*/
+/*! \mainpage Documentacion Geometry Dash
+ 
+	\section intro_sec Introduccion
+ 
+  	El juego consiste en superar obstáculos y ganar puntuación mediante el avance ,y la recolección de monedas. Estos obstáculos pueden ser bloques o puas. 
+	Cada vez que el personaje choque con un obstáculo, el jugador perderá una de las 3 vidas de las que dispone. Cuando pierda todas las vidas, finalizara el nivel y deberá iniciar de nuevo. 
+	Por último, se puede jugar de forma remota desde otra maquina. 
+ 
+	\section install_sec Instalacion
+ 
+	\subsection step1  1. Compilar
+	
+	Para compilar ejecutar: 	
+				
+	$ make all_cl 		// para el cliente
+				
+	$ make all_sv 		// para el servidor
+							
+	Lo mismo para el clean.
+
+	\subsection step2  2. Ejecutar servidor
+
+	\subsection step3  3. Ejecutar cliente
+   
+*/
+/*! \def PUERTO
+    \brief Puerto para la conexion de red.
+*/
+/*! \def VACIO
+*/
+/*! \def VERDADERO
+*/
+/*! \enum MYKEYS
+	\brief Teclas
+*/
+/*! \struct ini_var
+	\brief Variables de allegro.
+*/
+/*! \fn int main (int , char **)
+    \brief Main
+    \param argc Cantidad de argumentos del Main.
+    \param argv Argumentos del Main.  
+
+    \details 
+    1. Crea las variables.
+    2. Reserva memoria.
+    3. Inicializa las variables.
+    4. Crea la lista de enemigos.
+    5. Entra en el GameLoop.
+    6. Antes de salir libera memoria.
+     
+*/
+/*! \fn int Inicializar (ini_var **, auxpartida **, frameExplosion **, frameMonedita **)
+    \brief Inicializa todas las variables de allegro.
+    \param var Estructura con las variables de allegro.
+    \param axpartida Estructura con las variables de la partida.
+    \param fEx Estructura con las variables de la explosion.
+    \param fMo Estructura con las variables de las moneditas.
+*/
+/*! \fn int inicializar_cl (variablescliente *)
+    \brief Inicializa el socket para jugar en red.
+    \param varcl Estructura con las variables de red del cliente.
+    \return 0 si hubo error al conectar, 1 si se logro la conexion.
+*/
+/*! \fn int Niveles (auxpartida **)
+    \brief Crea una lista con los enemigos leyendo del archivo "n".
+    \param naxpartida Estructura con las variables de la partida.
+    \return 0 si se creo correctamente la lista, -1 si no se pudo leer el archivo.    
+
+*/
+/*! \fn int	GameLoop (ini_var **, variablescliente **, auxpartida **, frameExplosion **, frameMonedita **)
+    \brief Funcion principal. Es un gran loop con un loop para cada pantalla.
+    \param var Estructura con las variables de allegro.
+    \param varcl Estructura con las variables de red del cliente.
+    \param axpartida Estructura con las variables de la partida.
+    \param fEx Estructura con las variables de la explosion.    
+    \param fMo Estructura con las variables de las moneditas.    
+
+    \details Mantiene la ejecucion del juego. Sale del loop cuando el estado del juego es -1.
+     
+*/
+/*! \fn int	menu (ini_var **)
+    \brief Menu principal.
+    \param mvar Estructura con las variables de allegro.   
+    \return 0 para jugar, 1 para permanecer en el menu, 3 para cargar la IP y jugar en red, -1 para salir.   
+           
+    \details Pantalla de comienzo del juego donde permite eligir la modalidad de red. Tiene un boton para salir del juego.
+     
+*/
+/*! \fn int partida (ini_var **, posicion *, auxpartida *, frameExplosion *, frameMonedita *, variablescliente *) 
+    \brief Pantalla de ejecucion del juego.
+    \param pvar Estructura con las variables de allegro.
+    \param ppos Estructura con las variables de las posiciones de cada objeto.
+    \param pvarcl Estructura con las variables de red del cliente.
+    \param pauxpar Estructura con las variables de la partida.
+    \param pfE Estructura con las variables de la explosion.    
+    \param pfM Estructura con las variables de las moneditas.    
+    \return 0 para que mantenga el juego, 2 para ir a la pantalla final, cuando muere.   
+       
+	\details La partida se muestra en pantalla. Comienza con 3 vidas desde el nivel 1. A medida que pasa el tiempo, el jugador va pasando de nivel hasta llegar al nivel 5.
+    Se muestran unas moneditas, que al alcanzarlas, el jugador gana mas puntos. El puntaje es incrementado tambien a medida que pasa el tiempo.
+    Los enemigos se muestran en funcion de la lista previamente formada. Al colisionar con uno de ellos se emite un sonido y se quita una vida.
+    Al terminarse las vidas el jugador pierde y la funcion termina.
+     
+*/
+/*! \fn int fin (ini_var **, auxpartida *, variablescliente *)
+    \brief Pantalla final de la partida.
+    \param fvar Estructura con las variables de allegro.
+    \param fvarcl Estructura con las variables de red del cliente.
+    \param fauxpar Estructura con las variables de la partida.
+    \return 2 para que mantenga la pantalla final, 1 para ir al menu , -1 para salir.   
+       
+	\details Al terminarse las vidas del jugador y perder, se carga esta funcion mostrando las estadisticas (nivel alcanzado y puntaje).
+     
+*/
+/*! \fn int cargar_ip (ini_var **, variablescliente **)
+    \brief Pantalla de carga de IP.
+    \param cvar Estructura con las variables de allegro.
+    \param cvarcl Estructura con las variables de red del cliente.
+    \return 3 para que mantenga la pantalla de carga de ip, 1 para ir al menu, 0 para jugar.   
+       
+	\details En esta pantalla el jugador puede escribir la IP del servidor al que se quiere conectar. Debe escribir la IP con puntos y apretar ENTER.
+	Permite borrar en caso de cargar mal la direccion. Tambien puede volver al menu.
+	     
+*/
+/*! \fn int send_pos (ini_var **, variablescliente *, posicion *, auxpartida *)
+    \brief Manda las posiciones de los objetos del juego por red.
+    \param svar Estructura con las variables de allegro.
+    \param spos Estructura con las variables de las posiciones de cada objeto.
+    \param svarcl Estructura con las variables de red del cliente.
+    \param sauxpar Estructura con las variables de la partida. 
+       
+	\details Manda en funcion de timer2.
+	Tiene un retardo entre envio para evitar saturar el socket y posteriormente errores.
+     
+*/
+/*! \fn void Liberar (ini_var **, variablescliente **, auxpartida **, frameExplosion **, frameMonedita **) 
+    \brief Libera todos los puntero y la lista de los enemigos.
+    \param lvar Estructura con las variables de allegro.
+    \param lvarcl Estructura con las variables de red del cliente.
+    \param laxpartida Estructura con las variables de la partida.
+    \param lfEx Estructura con las variables de la explosion.    
+    \param lfMo Estructura con las variables de las moneditas.    
+           
+*/
+/*! \fn int inicializar_sv (variablesservidor *)
+    \brief Inicializa el socket para jugar en red.
+    \param varsv Estructura con las variables de red del servidor.
+    \return El error lo devuelve por consola, 0 si se logro la conexion.
+*/
+/*! \fn int	GameLoop (ini_var **, variablesservidor *, auxpartida **, frameExplosion **, frameMonedita **)
+    \brief Funcion principal. Es un gran loop con un loop para cada pantalla.
+    \param var Estructura con las variables de allegro.
+    \param varservidor Estructura con las variables de red del cliente.
+    \param axpartida Estructura con las variables de la partida.
+    \param fEx Estructura con las variables de la explosion.    
+    \param fMo Estructura con las variables de las moneditas.    
+
+    \details Mantiene la ejecucion del juego. Sale del loop cuando el estado del juego es -1.
+     
+*/
+/*! \fn int partida (ini_var **, posicion *, auxpartida *, frameExplosion *, frameMonedita *)
+    \brief Pantalla de ejecucion del juego.
+    \param pvar Estructura con las variables de allegro.
+    \param ppos Estructura con las variables de las posiciones de cada objeto.
+    \param pauxpar Estructura con las variables de la partida.
+    \param pfE Estructura con las variables de la explosion.    
+    \param pfM Estructura con las variables de las moneditas.    
+    \return 0 para que mantenga el juego, 2 para ir a la pantalla final, cuando muere.   
+       
+	\details La partida se muestra en pantalla. Comienza con 3 vidas desde el nivel 1. A medida que pasa el tiempo, el jugador va pasando de nivel hasta llegar al nivel 5.
+    Se muestran unas moneditas, que al alcanzarlas, el jugador gana mas puntos. El puntaje es incrementado tambien a medida que pasa el tiempo.
+    Los enemigos se muestran en funcion de la lista previamente formada. Al colisionar con uno de ellos se emite un sonido y se quita una vida.
+    Al terminarse las vidas el jugador pierde y la funcion termina.
+     
+*/
+/*! \fn int fin (ini_var **, auxpartida *, variablesservidor *)
+    \brief Pantalla final de la partida.
+    \param fvar Estructura con las variables de allegro.
+    \param fvarsv Estructura con las variables de red del servidor.
+    \param fauxpar Estructura con las variables de la partida.
+    \return 2 para que mantenga la pantalla final, 1 para ir a esperando conexion , -1 para salir.   
+       
+	\details Al terminarse las vidas del jugador y perder, se carga esta funcion mostrando las estadisticas (nivel alcanzado y puntaje).
+     
+*/
+/*! \fn int wait_cx (variablesservidor *, ini_var **)
+    \brief Pantalla de esperando conexion.
+    \param wvar Estructura con las variables de allegro.
+    \param varsv Estructura con las variables de red del servidor.
+    \return 1 para que mantenga la pantalla de esperando conexion, 0 para jugar.   
+       
+	\details En esta pantalla el socket queda a la espera de establecer una conexion con el cliente.
+	Cuando se conecta empieza el juego.
+	     
+*/
+/*! \fn int receive_data (ini_var **, variablesservidor *, posicion *, auxpartida *)
+    \brief Recibe las teclas, posiciones de los objetos, vidas y score del juego por red.
+    \param rvar Estructura con las variables de allegro.
+    \param spos Estructura con las variables de las posiciones de cada objeto.
+    \param varsv2 Estructura con las variables de red del servidor.
+    \param rauxpar Estructura con las variables de la partida. 
+   
+*/
+/*! \fn void Liberar (ini_var **, variablesservidor **, auxpartida **, frameExplosion **, frameMonedita **)
+    \brief Libera todos los puntero y la lista de los enemigos.
+    \param lvar Estructura con las variables de allegro.
+    \param lvarsv Estructura con las variables de red del servidor.
+    \param laxpartida Estructura con las variables de la partida.
+    \param lfEx Estructura con las variables de la explosion.    
+    \param lfMo Estructura con las variables de las moneditas.    
+           
+*/
+/*! \fn int put_network_data(int , char *, char *, char *, char *, char *, int , char , char , int , float , int , int )
+    \brief Manda las variables por red.
+    \param sockfd Socket.
+    \param buffer Buffer tecla.
+    \param buffer2 Buffer eje.
+    \param buffer3 Buffer posicion.
+    \param buffer4 Buffer puntaje.
+    \param buffer5 Buffer vida.
+    \param k Tecla.
+    \param s Status.
+    \param e Eje.
+    \param num Numero de objeto.
+    \param v Valor posicion.
+    \param puntos Puntos.
+    \param life Vida.
+    \details Se manda en el siguiente orden: Tecla-estado-eje-objeto-posicion-puntaje-vida.
+     
+*/
+/*! \fn int get_network_data(int , char *, int *, int *, char *, int *, float *, int *, int *)
+    \brief Recibe las variables por red.
+    \param sockfd Socket.
+    \param buffer Buffer de lo recibido.
+    \param k Tecla.
+    \param s Status.
+    \param l Letra (Eje).
+    \param num Numero de objeto.
+    \param p Valor posicion.
+    \param pt Puntos.
+    \param v Vida.
+    \details Se recibe en el siguiente orden: Tecla-estado-eje-objeto-posicion-puntaje-vida.
+     
+*/

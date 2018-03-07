@@ -1,4 +1,6 @@
-// GameLoop y sus funciones server
+/*! \file GameLoopsv.c
+    \brief GameLoop y sus funciones servidor.
+*/
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -92,7 +94,7 @@ int partida (ini_var **pvar, posicion *ppos, auxpartida *pauxpar, frameExplosion
 		if((pauxpar -> aux_niv) -> sig == NULL){
 			pauxestadojuego = 2;
 		}
-		fprintf(stderr, "No failed to create %d!\n", (pauxpar -> aux_niv)->t_aparicion);
+
 	}
 
 // Sonido Nivel
@@ -239,21 +241,21 @@ int partida (ini_var **pvar, posicion *ppos, auxpartida *pauxpar, frameExplosion
 				(ppos -> bouncer_x37)= (ppos -> bouncer_x37)+1556;
 				(pauxpar -> tipo7) = 0;
 			}
-			(ppos -> bouncer_x37) += (ppos -> bouncer_dx)*10*((pauxpar -> nivel)*0.1);
+			(ppos -> bouncer_x37) += (ppos -> bouncer_dx)*30*((pauxpar -> nivel)*0.1);
 		}
 		if((pauxpar -> tipo8) == 1){
 			if((ppos -> bouncer_x38) < -256) {               
 				(ppos -> bouncer_x38)= (ppos -> bouncer_x38)+1556;
 				(pauxpar -> tipo8) = 0;
 			}
-			(ppos -> bouncer_x38) += (ppos -> bouncer_dx)*10*((pauxpar -> nivel)*0.1);
+			(ppos -> bouncer_x38) += (ppos -> bouncer_dx)*30*((pauxpar -> nivel)*0.1);
 		}
 		if((pauxpar -> tipo9) == 1){
 			if((ppos -> bouncer_x39) < -256) {               
 				(ppos -> bouncer_x39)= (ppos -> bouncer_x33)+1556;
 				(pauxpar -> tipo9) = 0;
 			}
-			(ppos -> bouncer_x39) += (ppos -> bouncer_dx)*10*((pauxpar -> nivel)*0.1);
+			(ppos -> bouncer_x39) += (ppos -> bouncer_dx)*30*((pauxpar -> nivel)*0.1);
 		}
 	
 		if((ppos -> bouncer_x5) < -956)                
@@ -270,9 +272,6 @@ int partida (ini_var **pvar, posicion *ppos, auxpartida *pauxpar, frameExplosion
 		if( (ppos -> bouncer_y6) >= 339.0){
 			(pauxpar -> auxmoneda1)=1;
 		}  
-		else{
-			// (pauxpar -> auxmoneda1)=0;
-			}
 			
 		if((pauxpar -> auxmoneda1)==0){
 			if( (ppos -> bouncer_y6) <= 339.0)
@@ -338,62 +337,6 @@ int partida (ini_var **pvar, posicion *ppos, auxpartida *pauxpar, frameExplosion
 		return -1;
 	} 
 
-// Teclado Desactivado en server
-
-/*	else if((pvariables -> ev).type == ALLEGRO_EVENT_KEY_DOWN) {
-		switch((pvariables -> ev).keyboard.keycode) {
-			
-			case ALLEGRO_KEY_UP:
-			(pvariables -> key)[KEY_UP] = true;
-			
-			if ((pvarcl -> netflag) == 1){
-				
-				put_network_data((pvarcl -> sockfd), (pvarcl -> buffer), KEY_UP, true);		// Manda por red tecla arriba
-				
-			}
-			
-			break;
-			
-			case ALLEGRO_KEY_SPACE:
-			(pvariables -> key)[KEY_SPACE] = true;
-			
-			if ((pvarcl -> netflag) == 1){
-				
-				put_network_data((pvarcl -> sockfd), (pvarcl -> buffer), KEY_SPACE, true);	// Manda por red barra espaciadora
-				
-			}			
-			
-			break;
-		}
-	}
-	else if((pvariables -> ev).type == ALLEGRO_EVENT_KEY_UP) {
-		switch((pvariables -> ev).keyboard.keycode) {
-			
-			case ALLEGRO_KEY_UP:
-			(pvariables -> key)[KEY_UP] = false;
-
-			if ((pvarcl -> netflag) == 1){
-				
-				put_network_data((pvarcl -> sockfd), (pvarcl -> buffer), KEY_UP, false);		// Manda por red tecla arriba
-				
-			}
-			
-	
-			break;
-			
-			case ALLEGRO_KEY_SPACE:
-			(pvariables -> key)[KEY_SPACE] = false;
-
-			if ((pvarcl -> netflag) == 1){
-				
-				put_network_data((pvarcl -> sockfd), (pvarcl -> buffer), KEY_SPACE, false);	// Manda por red barra espaciadora
-				
-			}			
-
-			break;
-		}
-	}
-*/
 	if(predraw && al_is_event_queue_empty((pvariables -> event_queue))) {
 		predraw = false;
 		
@@ -401,9 +344,6 @@ int partida (ini_var **pvar, posicion *ppos, auxpartida *pauxpar, frameExplosion
 		(pauxpar -> auxfondox)=(ppos -> bouncer_x4);
 			
 		sprintf((pauxpar -> vidac), "%d", (pauxpar -> vida));
-			
-		
-		//fprintf (stderr, "hasta aca anda \n");
 		
 		sprintf((pauxpar -> scorec), "%d", (pauxpar -> score)); //esto
 		
@@ -454,22 +394,22 @@ int partida (ini_var **pvar, posicion *ppos, auxpartida *pauxpar, frameExplosion
 		al_draw_bitmap_region((pvariables -> enemigoimg[(pauxpar -> nivel)]) ,0,0,140,150,(ppos -> bouncer_x33),355,0);
 	}
 	if((pauxpar -> tipo4) == 1){
-		al_draw_bitmap_region((pvariables -> enemigoimg[(pauxpar -> nivel)]) ,0,0,140,150,(ppos -> bouncer_x34),-15,0);
+		al_draw_bitmap_region((pvariables -> enemigoimg[6]) ,0,0,140,150,(ppos -> bouncer_x34),-15,0);
 	}
 	if((pauxpar -> tipo5) == 1){
-		al_draw_bitmap_region((pvariables -> enemigoimg[(pauxpar -> nivel)]) ,0,0,140,150,(ppos -> bouncer_x35),-15,0);
+		al_draw_bitmap_region((pvariables -> enemigoimg[6]) ,0,0,140,150,(ppos -> bouncer_x35),-15,0);
 	}
 	if((pauxpar -> tipo6) == 1){
-		al_draw_bitmap_region((pvariables -> enemigoimg[(pauxpar -> nivel)]) ,0,0,140,150,(ppos -> bouncer_x36),-15,0);
+		al_draw_bitmap_region((pvariables -> enemigoimg[6]) ,0,0,140,150,(ppos -> bouncer_x36),-15,0);
 	}
 	if((pauxpar -> tipo7) == 1){
-		al_draw_bitmap_region((pvariables -> enemigoimg[(pauxpar -> nivel)]) ,0,0,140,150,(ppos -> bouncer_x37),-50,0);
+		al_draw_bitmap_region((pvariables -> enemigoimg[7]) ,0,0,140,150,(ppos -> bouncer_x37),-50,0);
 	}
 	if((pauxpar -> tipo8) == 1){
-		al_draw_bitmap_region((pvariables -> enemigoimg[(pauxpar -> nivel)]) ,0,0,140,150,(ppos -> bouncer_x38),150,0);
+		al_draw_bitmap_region((pvariables -> enemigoimg[7]) ,0,0,140,150,(ppos -> bouncer_x38),150,0);
 	}
 	if((pauxpar -> tipo9) == 1){
-		al_draw_bitmap_region((pvariables -> enemigoimg[(pauxpar -> nivel)]) ,0,0,140,150,(ppos -> bouncer_x39),150,0);
+		al_draw_bitmap_region((pvariables -> enemigoimg[7]) ,0,0,140,150,(ppos -> bouncer_x39),150,0);
 	}
 	
 	//al_draw_bitmap_region((pvariables -> enemigoimg) ,(pauxpar -> auxspriteenemigo)*140,0,140,150,(ppos -> bouncer_x3),355,0);
@@ -526,12 +466,11 @@ int partida (ini_var **pvar, posicion *ppos, auxpartida *pauxpar, frameExplosion
 			//al_play_sample((pvariables -> monedasfx), 1.0, 0.0,2.0,ALLEGRO_PLAYMODE_ONCE,NULL);
 			al_draw_bitmap_region((pvariables -> explosionimg), ((pfE -> curFrameExplosion) * (pfE -> frameWidthExplosion))-59, 0, (pfE -> frameWidthExplosion), (pfE -> frameHeightExplosion)+20,(ppos -> bouncer_x2)-300, (ppos -> bouncer_y2)+30, 0);
 			
-			(pfE -> curFrameExplosion)==0;
 			(pauxpar -> auxspriteenemigo)=0;
 			
 			if((pauxpar -> verifvida)==0)
 				{
-				(pauxpar -> vida) = (pauxpar -> vida) - 1;
+//				(pauxpar -> vida) = (pauxpar -> vida) - 1;		// Colisiones desactivadas en el server
 				(pauxpar -> verifvida)=1;	
 				}
 				(pauxpar -> verifvida)=1;
@@ -543,7 +482,7 @@ int partida (ini_var **pvar, posicion *ppos, auxpartida *pauxpar, frameExplosion
 	if((pfE -> curFrameExplosion)==9)
 	{      
 		//al_destroy_sample((pvariables -> explosionsfx));
-		(pfE -> curFrameExplosion)==0;
+
 		(pauxpar -> auxcolision)=0;
 		
 		(pauxpar -> auxspriteenemigo)=1;
@@ -597,7 +536,6 @@ int fin (ini_var **fvar, auxpartida *fauxpar, variablesservidor *fvarsv) {
 	bool fredraw = true;
 		
 	int fauxestadojuego = 2;
-	int fauxopcionessalir,fauxopcionesjugar,fauxopcionesvolver;
 	int fauxx, fauxy;	//mouse
 	char faux3[11], faux4[11];
 		
@@ -622,25 +560,7 @@ int fin (ini_var **fvar, auxpartida *fauxpar, variablesservidor *fvarsv) {
 	}
 	
 	sprintf(faux3, "%d", fauxx);
-	sprintf(faux4, "%d", fauxy);
-		
-	if(fauxx>355 && fauxx<750&&fauxy>400 && fauxy<560) {
-		fauxopcionesvolver=400;
-	}
-	else{
-		fauxopcionesvolver=0;
-	} 	
-			
-		
-	if(fauxx>406 && fauxx<613 && fauxy>602 && fauxy<671)
-	{
-					fauxopcionessalir=215;
-				}
-				else{
-						fauxopcionessalir=0;
-					} 	
-			
-			
+	sprintf(faux4, "%d", fauxy);		
 	
 	if((fvariables -> ev).type == ALLEGRO_EVENT_TIMER) {
 		fredraw = true;
@@ -653,14 +573,8 @@ int fin (ini_var **fvar, auxpartida *fauxpar, variablesservidor *fvarsv) {
 	
 		
 	}
-	else if((fvariables -> ev).type == ALLEGRO_EVENT_MOUSE_BUTTON_UP) {
-		if(fauxx>406 && fauxx<613&&fauxy>602 && fauxy<671)
-				return -1;
-		if(fauxx>355 && fauxx<750&&fauxy>400 && fauxy<560)		// Cambia el estado para volver al menu
-				fauxestadojuego = 1;				
-			
-	}
 	
+	sprintf((fauxpar -> scorec), "%d", (fauxpar -> score)); 	// Actualiza el puntaje mostrado
 	
 	
 	if(fredraw && al_is_event_queue_empty((fvariables -> event_queue))) {
@@ -668,11 +582,6 @@ int fin (ini_var **fvar, auxpartida *fauxpar, variablesservidor *fvarsv) {
 	
 		al_clear_to_color(al_map_rgb(0,0,0));
 		
-		//al_play_sample((fvariables -> temamenu), 1.0, 0.0,1.0,ALLEGRO_PLAYMODE_ONCE,NULL);
-		
-		// al_draw_bitmap((fvariables -> fondomenuimg),0,0,0);
-	
-		//al_draw_bitmap_region((fvariables -> opcionesmenuimg),0+fauxopcionesjugar,0,260,95,457,500,0);
 		
 		al_draw_bitmap((fvariables -> fondoimg[6]),-600,0,0);
 		al_draw_bitmap((fvariables -> fondoimg[6]),420,0,0);
@@ -681,13 +590,6 @@ int fin (ini_var **fvar, auxpartida *fauxpar, variablesservidor *fvarsv) {
 			
 		al_draw_bitmap((fvariables -> muertofinimg) ,790,330,0);
 		
-		//al_draw_bitmap_region((fvariables -> volverimg),0+fauxopcionesvolver,0,400,400,350,390,0);
-		//al_draw_bitmap_region((fvariables -> opcionesmenuimg),0+fauxopcionessalir,90,210,90,400,590,0);
-		
-		/*al_draw_text((fvariables -> font), al_map_rgb(255, 0, 255), 50, 50, 0, faux3);
-		al_draw_text((fvariables -> font), al_map_rgb(255, 0, 255), 10, 50, 0, "X:");
-		al_draw_text((fvariables -> font), al_map_rgb(255, 0, 255), 50, 100, 0, faux4);
-		al_draw_text((fvariables -> font), al_map_rgb(255, 0, 255), 10, 100, 0, "Y:");*/
 		
 		al_draw_text((fvariables -> font2), al_map_rgb(255, 0, 0), 280, 50, 0, "TE QUEDASTE SIN VIDAS MANCO");
 		
@@ -703,12 +605,23 @@ int fin (ini_var **fvar, auxpartida *fauxpar, variablesservidor *fvarsv) {
 	
 	}
 	
+	if ((fauxpar -> vida) == VERDADERO) {				// Si recibe vida VERDADERO por red, vuelve a wait_cx
+		
+		fauxestadojuego = 1;
+		
+	}
+
+	if ((fauxpar -> score) == VERDADERO) {				// Si recibe score VERDADERO por red, sale del juego
+		
+		fauxestadojuego = -1;
+		
+	}
 
 	if (fauxestadojuego == 1){							// Antes de salir: 
 	
 		(fvarsv -> flag) = true;
 		al_stop_timer((fvariables -> timer));			// Frena el timer
-		close (fvarsv -> sockfd);						// Cierra el socket	
+
 	}	
 	
 	return fauxestadojuego;
@@ -717,15 +630,12 @@ int fin (ini_var **fvar, auxpartida *fauxpar, variablesservidor *fvarsv) {
 
 // Funcion de inicializacion Cliente
 
-int wait_cx (variablesservidor *varsv,ini_var **wvar){
+int wait_cx (variablesservidor *varsv, ini_var **wvar){
 
 
 	ini_var *wvariables;
 	
 	wvariables = *(wvar);
-	/*ini_var **pvar, posicion *ppos, auxpartida *pauxpar, frameExplosion *pfE, frameMonedita *pfM) {
-
-	ini_var *pvariables;*/
 
     printf("Esperando jugador en red...\n");
     
@@ -912,14 +822,13 @@ int Niveles (auxpartida **naxpartida) {
 	
 	nauxpar = *(naxpartida);
 	
-	printf("s\n");
 	fp = fopen("N","r");
 	if (!fp) return -1;
 	
 	 //NIVEL
 		memset (buffer,0,30);
 		while (fgets(buffer,30,fp) != NULL){ 
-			printf("s\n");
+			
 			if((nauxpar -> INI_niv) == NULL){
 				 
 				aux_new = calloc (1, sizeof (niveles));
@@ -941,16 +850,100 @@ int Niveles (auxpartida **naxpartida) {
 					}
 					
 				memset (buffer, 0, 30);
-				printf("%d;%d\n",aux_new->t_aparicion,aux_new->clase);
+
 				
 			}
-			printf("salio\n");	
 
 	fclose (fp);
 
 	return 0;
 				
 	}
+
+void Liberar (ini_var **lvar, variablesservidor **lvarsv, auxpartida **laxpartida, frameExplosion **lfEx, frameMonedita **lfMo) {
+
+	ini_var *lvariables;
+	variablesservidor *lvarservidor;
+	auxpartida *lauxpar;
+	frameExplosion *lfE;
+	frameMonedita *lfM;
+
+	niveles *laux;
+	niveles *laux_ant;
+	
+	lvariables = *(lvar);
+	lvarservidor = *(lvarsv);
+	lauxpar = *(laxpartida);
+	lfE = *(lfEx);
+	lfM = *(lfMo);
+
+// Libera lista de enemigos
+		
+	laux = (lauxpar -> INI_niv);
+	
+	while ((laux -> sig) != NULL){
+		laux_ant = laux;
+		free (laux_ant);
+		laux = (laux -> sig);
+		
+	}
+
+// Libera variables de allegro
+		
+	al_destroy_timer(lvariables -> timer);
+	al_destroy_display(lvariables -> display);
+	al_destroy_event_queue(lvariables -> event_queue);
+	
+	al_destroy_sample(lvariables -> temamenu);
+	al_destroy_sample(lvariables -> explosionsfx);
+	al_destroy_sample(lvariables -> monedasfx);
+	al_destroy_sample(lvariables -> levelsfx);	
+	
+	al_destroy_bitmap(lvariables -> fondoimg[0]);
+	al_destroy_bitmap(lvariables -> fondoimg[1]);
+	al_destroy_bitmap(lvariables -> fondoimg[2]);
+	al_destroy_bitmap(lvariables -> fondoimg[3]);
+	al_destroy_bitmap(lvariables -> fondoimg[4]);
+	al_destroy_bitmap(lvariables -> fondoimg[5]);
+	
+	al_destroy_bitmap(lvariables -> pisoimg[0]);
+	al_destroy_bitmap(lvariables -> pisoimg[1]);
+	al_destroy_bitmap(lvariables -> pisoimg[2]);
+	al_destroy_bitmap(lvariables -> pisoimg[3]);
+	al_destroy_bitmap(lvariables -> pisoimg[4]);
+	
+	al_destroy_bitmap(lvariables -> cuboimg);
+	
+	al_destroy_bitmap(lvariables -> enemigoimg[0]);
+	al_destroy_bitmap(lvariables -> enemigoimg[1]);
+	al_destroy_bitmap(lvariables -> enemigoimg[2]);
+	al_destroy_bitmap(lvariables -> enemigoimg[3]);
+	al_destroy_bitmap(lvariables -> enemigoimg[4]);
+	al_destroy_bitmap(lvariables -> enemigoimg[5]);
+	al_destroy_bitmap(lvariables -> enemigoimg[6]);
+	al_destroy_bitmap(lvariables -> enemigoimg[7]);
+	 
+	al_destroy_bitmap(lvariables -> muertofinimg);
+	al_destroy_bitmap(lvariables -> monedaimg); 
+	al_destroy_bitmap(lvariables -> volverimg);
+	al_destroy_bitmap(lvariables -> explosionimg);
+	al_destroy_bitmap(lvariables -> bloqueimg);
+	
+	al_destroy_bitmap(lvariables -> fondomenuimg);   
+	al_destroy_bitmap(lvariables -> fondoipimg);
+	al_destroy_bitmap(lvariables -> opcionesmenuimg);
+	al_destroy_bitmap(lvariables -> jugarenlineaimg);
+	
+	al_destroy_font(lvariables -> font);
+	al_destroy_font(lvariables -> font2);
+	
+	free (lvariables);
+	free (lvarservidor);
+	free (lauxpar);
+	free (lfE);
+	free (lfM);
+
+}
 
 int	GameLoop (ini_var **var, variablesservidor *varservidor, auxpartida **axpartida, frameExplosion **fEx, frameMonedita **fMo) {
 
@@ -964,8 +957,6 @@ int	GameLoop (ini_var **var, variablesservidor *varservidor, auxpartida **axpart
 	int auxestadojuego = 1;		// Arranca esperando la cx
 
 	(varservidor -> flag) = true;
-	
-	bool doexit = false;	//AL PEDO
 	
 	variables = *(var);
 	auxpar = *(axpartida);
@@ -1008,7 +999,9 @@ int	GameLoop (ini_var **var, variablesservidor *varservidor, auxpartida **axpart
 			(pos -> bouncer_y6) = (SCREEN_H) / 2.0 - (BOUNCER_SIZE) / 2.0;//MONEDA
 		
 			(pos -> bouncer_dx) = -4.0;
-			
+
+			(variables -> key)[KEY_SPACE] = false;
+						
 // 	Inicializacion de vida y puntaje		
 			
 			(auxpar -> vida) = 3;		// Vida inicial
@@ -1022,6 +1015,12 @@ int	GameLoop (ini_var **var, variablesservidor *varservidor, auxpartida **axpart
 			(auxpar -> tipo1) = 0;
 			(auxpar -> tipo2) = 0;
 			(auxpar -> tipo3) = 0;
+			(auxpar -> tipo4) = 0;
+			(auxpar -> tipo5) = 0;
+			(auxpar -> tipo6) = 0;		
+			(auxpar -> tipo7) = 0;
+			(auxpar -> tipo8) = 0;
+			(auxpar -> tipo9) = 0;
 			
 		}
 			
@@ -1035,36 +1034,17 @@ int	GameLoop (ini_var **var, variablesservidor *varservidor, auxpartida **axpart
 		
 		while (auxestadojuego == 2){
 			
+			receive_data (&variables, varservidor, pos, auxpar);
+			
 			auxestadojuego = fin (&variables, auxpar, varservidor);
 
 		}
 		
 	}
-	
-	al_destroy_timer(variables -> timer);
-	al_destroy_display(variables -> display);
-	al_destroy_event_queue(variables -> event_queue);
-	al_destroy_display(variables -> display);
-	al_destroy_sample(variables -> temajuego);
-	//al_destroy_bitmap(variables -> bouncer);
-	
-	/*al_destroy_bitmap(variables -> fondoimg1);
-	al_destroy_bitmap(variables -> fondoimg2);
-	al_destroy_bitmap(variables -> fondoimg3);
-	al_destroy_bitmap(variables -> fondoimg4);
-	al_destroy_bitmap(variables -> fondoimg5);*/
-	
-	/*al_destroy_bitmap(variables -> pisoimg1);
-	al_destroy_bitmap(variables -> pisoimg2);
-	al_destroy_bitmap(variables -> pisoimg3);
-	al_destroy_bitmap(variables -> pisoimg4);
-	al_destroy_bitmap(variables -> pisoimg5);*/
-	al_destroy_bitmap(variables -> cuboimg);
-	al_destroy_bitmap(variables -> enemigoimg );
-	al_destroy_bitmap(variables -> explosionimg);
-	al_destroy_bitmap(variables -> bloqueimg);
-	
-	close (varservidor -> sockfd);						// Cierra el socket
+
+	free (pos);
+		
+	close (varservidor -> sockfd);						// Cierra el socket	
 	
 	return 0;
 	

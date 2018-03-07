@@ -1,4 +1,6 @@
-// Main Server
+/*! \file mainsv.c
+    \brief Main Servidor.
+*/
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -41,6 +43,8 @@ int main(int argc, char **argv){
 	Niveles (&auxpar);
 	
 	GameLoop (&variables, varservidor, &auxpar, &fE, &fM);
+	
+	Liberar (&variables, &varservidor, &auxpar, &fE, &fM);				// Libera memoria
 	
 	return 0;
 }

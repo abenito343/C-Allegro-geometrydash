@@ -1,4 +1,6 @@
-// GameLoop y sus funciones cliente
+/*! \file GameLoopcl.c
+    \brief GameLoop y sus funciones cliente.
+*/
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -33,7 +35,7 @@ int menu (ini_var **mvar) {
 	ini_var *mvariables;
 
 	int mauxestadojuego = 1;
-	int mauxopcionessalir,mauxopcionesjugar,mauxopcionesvolver,mauxjugarenlinea;	//No se usa volver
+	int mauxopcionessalir,mauxopcionesjugar,mauxjugarenlinea;
 	int mauxx, mauxy;	//mouse
 	char maux3[11],maux4[11];
 	
@@ -52,6 +54,8 @@ int menu (ini_var **mvar) {
 	
 	sprintf(maux3, "%d", mauxx);
 	sprintf(maux4, "%d", mauxy);
+	
+	
 	
 	if(mauxx > 454 && mauxx < 726 && mauxy > 499 && mauxy < 596) {
 		
@@ -125,10 +129,10 @@ int menu (ini_var **mvar) {
 		
 		al_draw_bitmap_region((mvariables -> jugarenlineaimg),0,0+mauxjugarenlinea,650,95,350,590,0);
 		
-		al_draw_bitmap_region((mvariables -> opcionesmenuimg),0+mauxopcionessalir,90,210,90,1050,625,0);//y625 x1050 y+35 x + 71
+		al_draw_bitmap_region((mvariables -> opcionesmenuimg),0+mauxopcionessalir,90,210,90,1050,625,0);
 
-/*
-		al_draw_text((mvariables -> font), al_map_rgb(255, 0, 255), 50, 50, 0, maux3);
+
+		/*al_draw_text((mvariables -> font), al_map_rgb(255, 0, 255), 50, 50, 0, maux3);
 		al_draw_text((mvariables -> font), al_map_rgb(255, 0, 255), 10, 50, 0, "X:");
 		al_draw_text((mvariables -> font), al_map_rgb(255, 0, 255), 50, 100, 0, maux4);
 		al_draw_text((mvariables -> font), al_map_rgb(255, 0, 255), 10, 100, 0, "Y:");*/
@@ -149,179 +153,212 @@ int menu (ini_var **mvar) {
 	return mauxestadojuego;
 }
 
-int cargar_ip (ini_var **cvar, variablescliente *vcl) {
+int cargar_ip (ini_var **cvar, variablescliente **cvarcl) {
 
 	ini_var *cvariables;
-	
+	variablescliente *vcl;
 	
 	int cauxestadojuego = 3;
+		
+	int cauxopcionessalir;
+	int cauxx, cauxy;	//mouse
 	
-	int tecla; // "tecla": Ind. que impide que hagas letras de mas.
-	char *ip;
-	char ip2[33];
+	bool credraw = true;
 	
-	char auxip;
-	int auxip2,auxip3,act;//numero|cantidad de numeros|indicador prim. vez|?|indicador de tecla|
-	int auxip4=0;
+	cvariables = *(cvar);
+	vcl = *(cvarcl);
+		
+	al_wait_for_event((cvariables -> event_queue), &(cvariables -> ev));
 	
-	if(auxip3!=1)
-	{	
-		auxip=0;
-		act=0;
-		auxip2=0;
+	if(((cvariables -> ev).mouse.x > 0) && (((cvariables -> ev).mouse.x) < 1280) && (((cvariables -> ev).mouse.y) > 0) && ((cvariables -> ev).mouse.y < 720)){
+		cauxx=(cvariables -> ev).mouse.x;
+		cauxy=(cvariables -> ev).mouse.y;
+	}
+	
 
-		memset(ip2,0,33);
+	//---------------------------------------------------------------------  parte del mouse para el boton
+
+
+		
+	
+	if(cauxx > 1056 && cauxx < 1263 && cauxy > 637 && cauxy < 706) {
+
+		cauxopcionessalir=215;
+	}
+	
+	else
+	{
+		cauxopcionessalir=0;
+	} 		
+
+/*	if((cvariables -> ev).type == ALLEGRO_EVENT_TIMER) {
+		credraw = true;
+	}
+*/ if((cvariables -> ev).type == ALLEGRO_EVENT_DISPLAY_CLOSE) {
+		return -1;
+	}
+	else if((cvariables -> ev).type == ALLEGRO_EVENT_MOUSE_AXES ||
+			(cvariables -> ev).type == ALLEGRO_EVENT_MOUSE_ENTER_DISPLAY) {
+
+		
+	}
+	else if((cvariables -> ev).type == ALLEGRO_EVENT_MOUSE_BUTTON_UP) {
+		if(cauxx > 1056 && cauxx < 1263 && cauxy > 637 && cauxy < 706)
+			cauxestadojuego= 1;
+	}
+
+  //------------------------------------------------------------------------
+	
+	
+	if((vcl -> auxip3)!=1)
+	{	
+		(vcl -> auxip)=0;
+		(vcl -> act)=0;
+		(vcl -> auxip2)=0;
+
+		memset((vcl -> ip2),0,33);
 		
 	}
 	
-	if(auxip2<16){					// Modificado para cargar localhost
+	if((vcl -> auxip2)<16){					// Modificado para cargar localhost
+				
+		if((vcl -> auxip2)<15){
+
+			if((cvariables -> key)[KEY_1] ) {
+				(vcl -> auxip)='1';(vcl -> act)=1;
+			}  	  
 			
-			
-		bool credraw = true;
-		
-		cvariables = *(cvar);
-
-			
-		al_wait_for_event((cvariables -> event_queue), &(cvariables -> ev));
-		
-		
-		if((cvariables -> ev).type == ALLEGRO_EVENT_TIMER) {
-			credraw = true;
-				
-			if(auxip2<15){
-				if((cvariables -> key)[KEY_1] ) {
-					auxip='1';act=1;
-				}  	  
-				
-				if((cvariables -> key)[KEY_2] ) {
-					auxip='2';act=1;
-				}	
-				
-				if((cvariables -> key)[KEY_3] ) {
-					auxip='3';act=1;
-						}	
-
-				if((cvariables -> key)[KEY_4] ) {
-					auxip='4';act=1;
-						}	
-
-				if((cvariables -> key)[KEY_5] ) {
-					auxip='5';act=1;
-				}	
-
-				if((cvariables -> key)[KEY_6] ) {
-					auxip='6';act=1; 
-				}	
-
-				if((cvariables -> key)[KEY_7] ) {
-					auxip='7';act=1;
-					 
-				}	
-
-				if((cvariables -> key)[KEY_8] ) {
-					auxip='8';act=1;
-				}	
-
-				if((cvariables -> key)[KEY_9] ) {
-					auxip='9';act=1;
-						}	
-
-				if((cvariables -> key)[KEY_0] ) {
-					auxip='0';act=1;
-				}	
-
-				if((cvariables -> key)[KEY_FULLSTOP] ) {
-					auxip='.';act=1;
-				}	
-			}
-			if((cvariables -> key)[KEY_ENTER] ) {
-				auxip2=16;
-			}
-			
-			if((cvariables -> key)[KEY_BACKSPACE] ) {
-				
-				auxip=0;
-				
-				act=0;
-				
-				auxip2=0;
-				
-				memset(ip,0, sizeof(ip));
-				
-				memset(ip2,0,33);
+			if((cvariables -> key)[KEY_2] ) {
+				(vcl -> auxip)='2';(vcl -> act)=1;
 			}	
 			
-			if(tecla!=1 && act==1){
-					
-					
-					auxip2=auxip2+1;
-					if(auxip3!=1)
-					{	
-						sprintf(ip, "%c",auxip);
-						strcpy(ip2,ip);
-					}
-					else{
-			
-					sprintf(ip, "%c",auxip);
-					strcat(ip2,ip);}
-					auxip3=1;
-				}
-				tecla=1;act=0;
+			if((cvariables -> key)[KEY_3] ) {
+				(vcl -> auxip)='3';(vcl -> act)=1;
+					}	
 
+			if((cvariables -> key)[KEY_4] ) {
+				(vcl -> auxip)='4';(vcl -> act)=1;
+					}	
+
+			if((cvariables -> key)[KEY_5] ) {
+				(vcl -> auxip)='5';(vcl -> act)=1;
+			}	
+
+			if((cvariables -> key)[KEY_6] ) {
+				(vcl -> auxip)='6';(vcl -> act)=1; 
+			}	
+
+			if((cvariables -> key)[KEY_7] ) {
+				(vcl -> auxip)='7';(vcl -> act)=1;
+				 
+			}	
+
+			if((cvariables -> key)[KEY_8] ) {
+				(vcl -> auxip)='8';(vcl -> act)=1;
+			}	
+
+			if((cvariables -> key)[KEY_9] ) {
+				(vcl -> auxip)='9';(vcl -> act)=1;
+					}	
+
+			if((cvariables -> key)[KEY_0] ) {
+				(vcl -> auxip)='0';(vcl -> act)=1;
+			}	
+
+			if((cvariables -> key)[KEY_FULLSTOP] ) {
+				(vcl -> auxip)='.';(vcl -> act)=1;
+			}	
 		}
-			else if((cvariables -> ev).type == ALLEGRO_EVENT_KEY_DOWN) {
+		if((cvariables -> key)[KEY_ENTER] ) {
+			(vcl -> auxip2)=16;
+		}
+		
+		if((cvariables -> key)[KEY_BACKSPACE] ) {
+			
+			(vcl -> auxip)=0;
+			
+			(vcl -> act)=0;
+			
+			(vcl -> auxip2)=0;
+			
+			memset((vcl -> ip),0, 3);
+			
+			memset((vcl -> ip2),0,33);
+		}	
+		
+		if((vcl -> tecla)!=1 && (vcl -> act)==1){
+				
+				
+				(vcl -> auxip2)=(vcl -> auxip2)+1;
+				if((vcl -> auxip3) != 1)
+				{	
+					sprintf((vcl -> ip), "%c",(vcl -> auxip));
+					strcpy((vcl -> ip2),(vcl -> ip));
+				}
+				else {
+		
+				sprintf((vcl -> ip), "%c",(vcl -> auxip));
+				strcat((vcl -> ip2),(vcl -> ip));
+				
+				}
+			(vcl -> auxip3)=1;
+			}
+		(vcl -> tecla)=1;(vcl -> act)=0;
+
+		
+		if((cvariables -> ev).type == ALLEGRO_EVENT_KEY_DOWN) {
 			switch((cvariables -> ev).keyboard.keycode) {
 				
 				case ALLEGRO_KEY_1:
-				tecla=0;
+				(vcl -> tecla)=0;
 				(cvariables -> key)[KEY_1] = true;
 				break;
 				case ALLEGRO_KEY_2:
-				tecla=0;
+				(vcl -> tecla)=0;
 				(cvariables -> key)[KEY_2] = true;
 				break;
 				case ALLEGRO_KEY_3:
-				tecla=0;
+				(vcl -> tecla)=0;
 				(cvariables -> key)[KEY_3] = true;
 				break;
 				case ALLEGRO_KEY_4:
-				tecla=0;
+				(vcl -> tecla)=0;
 				(cvariables -> key)[KEY_4] = true;
 				break;
 				case ALLEGRO_KEY_5:
-				tecla=0;
+				(vcl -> tecla)=0;
 				(cvariables -> key)[KEY_5] = true;
 				break;
 				case ALLEGRO_KEY_6:
-				tecla=0;
+				(vcl -> tecla)=0;
 				(cvariables -> key)[KEY_6] = true;
 				break;
 				case ALLEGRO_KEY_7:
-				tecla=0;
+				(vcl -> tecla)=0;
 				(cvariables -> key)[KEY_7] = true;
 				break;
 				case ALLEGRO_KEY_8:
-				tecla=0;
+				(vcl -> tecla)=0;
 				(cvariables -> key)[KEY_8] = true;
 				break;
 				case ALLEGRO_KEY_9:
-				tecla=0;
+				(vcl -> tecla)=0;
 				(cvariables -> key)[KEY_9] = true;
 				break;
 				case ALLEGRO_KEY_0:
-				tecla=0;
+				(vcl -> tecla)=0;
 				(cvariables -> key)[KEY_0] = true;
 				break;
 				case ALLEGRO_KEY_FULLSTOP:
-				tecla=0;
+				(vcl -> tecla)=0;
 				(cvariables -> key)[KEY_FULLSTOP] = true;
 				break;
 				case ALLEGRO_KEY_ENTER:
-				tecla=0;
+				(vcl -> tecla)=0;
 				(cvariables -> key)[KEY_ENTER] = true;
 				break;
 				case ALLEGRO_KEY_BACKSPACE:
-				tecla=0;
+				(vcl -> tecla)=0;
 				(cvariables -> key)[KEY_BACKSPACE] = true;
 				break;
 			}
@@ -390,15 +427,18 @@ int cargar_ip (ini_var **cvar, variablescliente *vcl) {
 			al_draw_bitmap((cvariables -> fondoipimg),200,0,0);
 			al_draw_bitmap((cvariables -> fondoipimg),1224,0,0);
 			al_draw_text((cvariables -> font2), al_map_rgb(0, 0, 255), 280, 100, 0, "Inserte su IP:");
-			al_draw_text((cvariables -> font2), al_map_rgb(0, 0, 255), 300, 250, 0, ip2);
-			//+(auxip2*30),
+			al_draw_text((cvariables -> font2), al_map_rgb(0, 0, 255), 300, 250, 0, (vcl -> ip2));
+			
+			
+				al_draw_bitmap_region((cvariables -> opcionesmenuimg),430-cauxopcionessalir,90,210,90,1050,625,0);
+	
 
 			al_flip_display();
 		}
 
 	} else {
 
-		strcpy((vcl -> hostname), ip2);
+		strcpy((vcl -> hostname), (vcl -> ip2));
 				
 		(vcl -> cx_stat) = inicializar_cl (vcl);
 		
@@ -562,12 +602,12 @@ int partida (ini_var **pvar, posicion *ppos, auxpartida *pauxpar, frameExplosion
 		if((pauxpar -> aux_niv) -> sig == NULL){
 			pauxestadojuego = 2;
 		}
-		fprintf(stderr, "No failed to create %d!\n", (pauxpar -> aux_niv)->t_aparicion);
+		
 	}
 
 // Sonido Nivel
 	
-	if((pauxpar -> score) == 1000 || (pauxpar -> score) == 2000 || (pauxpar -> score) == 3000 || (pauxpar -> score) == 4000){
+	if((pauxpar -> t_nivel) == 1000 || (pauxpar -> t_nivel) == 2000 || (pauxpar -> t_nivel) == 3000 || (pauxpar -> t_nivel) == 4000){
 
 		al_play_sample((pvariables -> levelsfx), 1.0, 0.0,1.2,ALLEGRO_PLAYMODE_ONCE,NULL);
 	}
@@ -616,26 +656,39 @@ int partida (ini_var **pvar, posicion *ppos, auxpartida *pauxpar, frameExplosion
 			if((pauxpar -> auxspritecuboy)==5)
 				(pauxpar -> auxspritecuboy)=0;
 			
-			if((pvariables -> key)[KEY_SPACE] ) {
-				if( (ppos -> bouncer_y2) >= 339.0){
-					(pauxpar -> aux1)=1;
-				}  
-					
-			}
-			else{
-				(pauxpar -> aux1)=0;
-				}
-			if((pauxpar -> aux1)==0){
-				if( (ppos -> bouncer_y2) <= 339.0)
-					{
-						(ppos -> bouncer_y2) += 8.0*10*((pauxpar -> nivel)*0.1);
-					}
-			}
-			if((pauxpar -> aux1)==1){
-				
-			if( (ppos -> bouncer_y2) >= -110.0)
+			
+			
+			
+			if((pvariables -> key)[KEY_SPACE] ) 
 			{
-				(ppos -> bouncer_y2) -= 8.0*10*((pauxpar -> nivel)*0.1);
+				if( (ppos -> bouncer_y2) >= 339.0)
+				{		
+					(pauxpar -> aux1)=1;
+				}  		
+			}
+			else
+			{
+				(pauxpar -> aux1)=0;
+			}
+				
+			if((pauxpar -> aux1)==0)
+			{
+				if( (ppos -> bouncer_y2) <= 336.0)
+					{
+						(ppos -> bouncer_y2) += 80.0*((pauxpar -> nivel)*0.1);
+					}
+					
+			
+					
+					
+				//while((ppos -> bouncer_y2) <= 339.0){(ppos -> bouncer_y2) += 40.0*((pauxpar -> nivel)*0.1);}
+			}
+			
+			if((pauxpar -> aux1)==1)
+			{	
+				if( (ppos -> bouncer_y2) >= -110.0)
+				{
+					(ppos -> bouncer_y2) -= 80.0*((pauxpar -> nivel)*0.1);
 				}
 				else
 				{
@@ -643,13 +696,6 @@ int partida (ini_var **pvar, posicion *ppos, auxpartida *pauxpar, frameExplosion
 				}   
 			}
 			//-------------------------------------------------
-			
-			
-			
-			
-			
-			
-			//---------------------------------------------------
 			
 				
 			if((ppos -> bouncer_x) < -256)              
@@ -710,21 +756,21 @@ int partida (ini_var **pvar, posicion *ppos, auxpartida *pauxpar, frameExplosion
 				(ppos -> bouncer_x37)= (ppos -> bouncer_x37)+1556;
 				(pauxpar -> tipo7) = 0;
 			}
-			(ppos -> bouncer_x37) += (ppos -> bouncer_dx)*10*((pauxpar -> nivel)*0.1);
+			(ppos -> bouncer_x37) += (ppos -> bouncer_dx)*30*((pauxpar -> nivel)*0.1);
 		}
 		if((pauxpar -> tipo8) == 1){
 			if((ppos -> bouncer_x38) < -256) {               
 				(ppos -> bouncer_x38)= (ppos -> bouncer_x38)+1556;
 				(pauxpar -> tipo8) = 0;
 			}
-			(ppos -> bouncer_x38) += (ppos -> bouncer_dx)*10*((pauxpar -> nivel)*0.1);
+			(ppos -> bouncer_x38) += (ppos -> bouncer_dx)*30*((pauxpar -> nivel)*0.1);
 		}
 		if((pauxpar -> tipo9) == 1){
 			if((ppos -> bouncer_x39) < -256) {               
 				(ppos -> bouncer_x39)= (ppos -> bouncer_x33)+1556;
 				(pauxpar -> tipo9) = 0;
 			}
-			(ppos -> bouncer_x39) += (ppos -> bouncer_dx)*10*((pauxpar -> nivel)*0.1);
+			(ppos -> bouncer_x39) += (ppos -> bouncer_dx)*30*((pauxpar -> nivel)*0.1);
 		}
 			
 			if((ppos -> bouncer_x5) < -956)                
@@ -961,22 +1007,22 @@ int partida (ini_var **pvar, posicion *ppos, auxpartida *pauxpar, frameExplosion
 		al_draw_bitmap_region((pvariables -> enemigoimg[(pauxpar -> nivel)]) ,0,0,140,150,(ppos -> bouncer_x33),355,0);
 	}
 	if((pauxpar -> tipo4) == 1){
-		al_draw_bitmap_region((pvariables -> enemigoimg[(pauxpar -> nivel)]) ,0,0,140,150,(ppos -> bouncer_x34),-15,0);
+		al_draw_bitmap_region((pvariables -> enemigoimg[6]) ,0,0,140,150,(ppos -> bouncer_x34),-15,0);
 	}
 	if((pauxpar -> tipo5) == 1){
-		al_draw_bitmap_region((pvariables -> enemigoimg[(pauxpar -> nivel)]) ,0,0,140,150,(ppos -> bouncer_x35),-15,0);
+		al_draw_bitmap_region((pvariables -> enemigoimg[6]) ,0,0,140,150,(ppos -> bouncer_x35),-15,0);
 	}
 	if((pauxpar -> tipo6) == 1){
-		al_draw_bitmap_region((pvariables -> enemigoimg[(pauxpar -> nivel)]) ,0,0,140,150,(ppos -> bouncer_x36),-15,0);
+		al_draw_bitmap_region((pvariables -> enemigoimg[6]) ,0,0,140,150,(ppos -> bouncer_x36),-15,0);
 	}
 	if((pauxpar -> tipo7) == 1){
-		al_draw_bitmap_region((pvariables -> enemigoimg[(pauxpar -> nivel)]) ,0,0,140,150,(ppos -> bouncer_x37),150,0);
+		al_draw_bitmap_region((pvariables -> enemigoimg[7]) ,0,0,140,150,(ppos -> bouncer_x37),150,0);
 	}
 	if((pauxpar -> tipo8) == 1){
-		al_draw_bitmap_region((pvariables -> enemigoimg[(pauxpar -> nivel)]) ,0,0,140,150,(ppos -> bouncer_x38),150,0);
+		al_draw_bitmap_region((pvariables -> enemigoimg[7]) ,0,0,140,150,(ppos -> bouncer_x38),150,0);
 	}
 	if((pauxpar -> tipo9) == 1){
-		al_draw_bitmap_region((pvariables -> enemigoimg[(pauxpar -> nivel)]) ,0,0,140,150,(ppos -> bouncer_x39),150,0);
+		al_draw_bitmap_region((pvariables -> enemigoimg[7]) ,0,0,140,150,(ppos -> bouncer_x39),150,0);
 	}
 	
 	//al_draw_bitmap_region((pvariables -> enemigoimg) ,(pauxpar -> auxspriteenemigo)*140,0,140,150,(ppos -> bouncer_x3),355,0);
@@ -1033,7 +1079,7 @@ int partida (ini_var **pvar, posicion *ppos, auxpartida *pauxpar, frameExplosion
 			//al_play_sample((pvariables -> monedasfx), 1.0, 0.0,2.0,ALLEGRO_PLAYMODE_ONCE,NULL);
 			al_draw_bitmap_region((pvariables -> explosionimg), ((pfE -> curFrameExplosion) * (pfE -> frameWidthExplosion))-59, 0, (pfE -> frameWidthExplosion), (pfE -> frameHeightExplosion)+20,(ppos -> bouncer_x2)-300, (ppos -> bouncer_y2)+30, 0);
 			
-			(pfE -> curFrameExplosion)==0;
+
 			(pauxpar -> auxspriteenemigo)=0;
 			
 			if((pauxpar -> verifvida)==0)
@@ -1050,7 +1096,7 @@ int partida (ini_var **pvar, posicion *ppos, auxpartida *pauxpar, frameExplosion
 	if((pfE -> curFrameExplosion)==9)
 	{      
 		//al_destroy_sample((pvariables -> explosionsfx));
-		(pfE -> curFrameExplosion)==0;
+
 		(pauxpar -> auxcolision)=0;
 		
 		(pauxpar -> auxspriteenemigo)=1;
@@ -1089,16 +1135,6 @@ int partida (ini_var **pvar, posicion *ppos, auxpartida *pauxpar, frameExplosion
 	if (pauxestadojuego == 2){					// Antes de salir frena el timer
 	
 		al_stop_timer((pvariables -> timer));
-
-		if ((pvarcl -> netflag) == 1){
-		
-			for (i = 0 ; i < 4 ; i ++) {				// Manda varias veces para evitar errores de socket
-						
-				put_network_data((pvarcl -> sockfd), (pvarcl -> buffercl), (pvarcl -> buffercl2), (pvarcl -> buffercl3), (pvarcl -> buffercl4), (pvarcl -> buffercl5), VACIO, VACIO, VACIO, VACIO, VACIO , (pauxpar -> score) , (pauxpar -> vida));	// Manda por red barra espaciadora
-				
-			}
-		
-		}
 	
 	}
 	
@@ -1106,16 +1142,18 @@ int partida (ini_var **pvar, posicion *ppos, auxpartida *pauxpar, frameExplosion
 
 }
 
-int fin (ini_var **fvar, auxpartida *pauxpar, variablescliente *fvarcl) {
+int fin (ini_var **fvar, auxpartida *fauxpar, variablescliente *fvarcl) {
 
 	ini_var *fvariables;
 
 	bool fredraw = true;
 		
 	int fauxestadojuego = 2;
-	int fauxopcionessalir,fauxopcionesjugar,fauxopcionesvolver;
+	int fauxopcionessalir,fauxopcionesvolver;
 	int fauxx, fauxy;	//mouse
 	char faux3[11], faux4[11];
+	
+	int j;						// Contador para el for de envio de vida 
 		
 	fvariables = *(fvar);
 	
@@ -1164,9 +1202,9 @@ int fin (ini_var **fvar, auxpartida *pauxpar, variablescliente *fvarcl) {
 	}
 	else if((fvariables -> ev).type == ALLEGRO_EVENT_MOUSE_BUTTON_UP) {
 		if(fauxx>406 && fauxx<613&&fauxy>602 && fauxy<671)
-				return -1;
+				fauxestadojuego = -1;
 		if(fauxx>355 && fauxx<750&&fauxy>400 && fauxy<560)
-				fauxestadojuego=1;
+				fauxestadojuego = 1;
 			
 	}
 	
@@ -1198,16 +1236,43 @@ int fin (ini_var **fvar, auxpartida *pauxpar, variablescliente *fvarcl) {
 		
 		al_draw_text((fvariables -> font2), al_map_rgb(255, 0, 0), 280, 50, 0, "TE QUEDASTE SIN VIDAS MANCO");
 		
-		al_draw_text((fvariables -> font2), al_map_rgb(0, 255, 144), 750, 300, 0, (pauxpar -> scorec));
+		al_draw_text((fvariables -> font2), al_map_rgb(0, 255, 144), 750, 300, 0, (fauxpar -> scorec));
 		
 		al_draw_text((fvariables -> font2), al_map_rgb(0, 255, 144), 380, 300, 0, "TU SCORE FINAL:");
 		
-		al_draw_text((fvariables -> font2), al_map_rgb(0, 255, 255), 900, 150, 0, (pauxpar -> nivelc));
+		al_draw_text((fvariables -> font2), al_map_rgb(0, 255, 255), 900, 150, 0, (fauxpar -> nivelc));
 		
 		al_draw_text((fvariables -> font2), al_map_rgb(0, 255, 255), 280, 150, 0, "LLEGASTE HASTA EL NIVEL:");
 		
 		al_flip_display();
 	
+	}
+
+	if((fvariables -> ev).type == ALLEGRO_EVENT_TIMER) {
+		
+		if((fvariables -> ev).timer.source == (fvariables -> timer2)) {
+	
+			if ((fvarcl -> netflag) == 1){
+								
+				put_network_data((fvarcl -> sockfd), (fvarcl -> buffercl), (fvarcl -> buffercl2), (fvarcl -> buffercl3), (fvarcl -> buffercl4), (fvarcl -> buffercl5), VERDADERO, VERDADERO, VERDADERO, VERDADERO, VERDADERO , (fauxpar -> score) , (fauxpar -> vida));	// Manda por red fin del juego y puntaje final
+			
+			}
+			
+		}
+		
+	}	
+	
+	if (fauxestadojuego == -1){							// Antes de salir:
+		
+		if ((fvarcl -> netflag) == 1){
+
+			for (j = 0 ; j < 4 ; j ++) {				// Manda varias veces para evitar errores de socket
+			
+				put_network_data((fvarcl -> sockfd), (fvarcl -> buffercl), (fvarcl -> buffercl2), (fvarcl -> buffercl3), (fvarcl -> buffercl4), (fvarcl -> buffercl5), VERDADERO, VERDADERO, VERDADERO, VERDADERO, VERDADERO , VERDADERO , VACIO);	// Manda por red volver a jugar
+			
+			}
+		}		
+		
 	}
 	
 	if (fauxestadojuego == 1){							// Antes de salir:
@@ -1215,8 +1280,12 @@ int fin (ini_var **fvar, auxpartida *pauxpar, variablescliente *fvarcl) {
 		al_stop_timer((fvariables -> timer));			// Frena el timer
 		
 		if ((fvarcl -> netflag) == 1){
+
+			for (j = 0 ; j < 4 ; j ++) {				// Manda varias veces para evitar errores de socket
 			
-			close (fvarcl -> sockfd);						// Cierra el socket	
+				put_network_data((fvarcl -> sockfd), (fvarcl -> buffercl), (fvarcl -> buffercl2), (fvarcl -> buffercl3), (fvarcl -> buffercl4), (fvarcl -> buffercl5), VERDADERO, VERDADERO, VERDADERO, VERDADERO, VERDADERO , VACIO , VERDADERO);	// Manda por red volver a jugar
+			
+			}
 		
 		}
 	
@@ -1283,14 +1352,13 @@ int Niveles (auxpartida **naxpartida) {
 	
 	nauxpar = *(naxpartida);
 	
-	printf("s\n");
 	fp = fopen("N","r");
 	if (!fp) return -1;
 	
 	 //NIVEL
 		memset (buffer,0,30);
 		while (fgets(buffer,30,fp) != NULL){ 
-			printf("s\n");
+			
 			if((nauxpar -> INI_niv) == NULL){
 				 
 				aux_new = calloc (1, sizeof (niveles));
@@ -1312,10 +1380,8 @@ int Niveles (auxpartida **naxpartida) {
 					}
 					
 				memset (buffer, 0, 30);
-				printf("%d;%d\n",aux_new->t_aparicion,aux_new->clase);
 				
 			}
-			printf("salio\n");	
 
 	fclose (fp);
 
@@ -1323,10 +1389,95 @@ int Niveles (auxpartida **naxpartida) {
 				
 	}
 
+void Liberar (ini_var **lvar, variablescliente **lvarcl, auxpartida **laxpartida, frameExplosion **lfEx, frameMonedita **lfMo) {
 
-int	GameLoop (ini_var **var, variablescliente *varcliente, auxpartida **axpartida, frameExplosion **fEx, frameMonedita **fMo) {
+	ini_var *lvariables;
+	variablescliente *lvarcliente;
+	auxpartida *lauxpar;
+	frameExplosion *lfE;
+	frameMonedita *lfM;
+
+	niveles *laux;
+	niveles *laux_ant;
+	
+	lvariables = *(lvar);
+	lvarcliente = *(lvarcl);
+	lauxpar = *(laxpartida);
+	lfE = *(lfEx);
+	lfM = *(lfMo);
+
+// Libera lista de enemigos
+		
+	laux = (lauxpar -> INI_niv);
+	
+	while ((laux -> sig) != NULL){
+		laux_ant = laux;
+		free (laux_ant);
+		laux = (laux -> sig);
+		
+	}
+
+// Libera variables de allegro
+		
+	al_destroy_timer(lvariables -> timer);
+	al_destroy_display(lvariables -> display);
+	al_destroy_event_queue(lvariables -> event_queue);
+	
+	al_destroy_sample(lvariables -> temamenu);
+	al_destroy_sample(lvariables -> explosionsfx);
+	al_destroy_sample(lvariables -> monedasfx);
+	al_destroy_sample(lvariables -> levelsfx);	
+	
+	al_destroy_bitmap(lvariables -> fondoimg[0]);
+	al_destroy_bitmap(lvariables -> fondoimg[1]);
+	al_destroy_bitmap(lvariables -> fondoimg[2]);
+	al_destroy_bitmap(lvariables -> fondoimg[3]);
+	al_destroy_bitmap(lvariables -> fondoimg[4]);
+	al_destroy_bitmap(lvariables -> fondoimg[5]);
+	
+	al_destroy_bitmap(lvariables -> pisoimg[0]);
+	al_destroy_bitmap(lvariables -> pisoimg[1]);
+	al_destroy_bitmap(lvariables -> pisoimg[2]);
+	al_destroy_bitmap(lvariables -> pisoimg[3]);
+	al_destroy_bitmap(lvariables -> pisoimg[4]);
+	
+	al_destroy_bitmap(lvariables -> cuboimg);
+	
+	al_destroy_bitmap(lvariables -> enemigoimg[0]);
+	al_destroy_bitmap(lvariables -> enemigoimg[1]);
+	al_destroy_bitmap(lvariables -> enemigoimg[2]);
+	al_destroy_bitmap(lvariables -> enemigoimg[3]);
+	al_destroy_bitmap(lvariables -> enemigoimg[4]);
+	al_destroy_bitmap(lvariables -> enemigoimg[5]);
+	al_destroy_bitmap(lvariables -> enemigoimg[6]);
+	al_destroy_bitmap(lvariables -> enemigoimg[7]);
+	 
+	al_destroy_bitmap(lvariables -> muertofinimg);
+	al_destroy_bitmap(lvariables -> monedaimg); 
+	al_destroy_bitmap(lvariables -> volverimg);
+	al_destroy_bitmap(lvariables -> explosionimg);
+	al_destroy_bitmap(lvariables -> bloqueimg);
+	
+	al_destroy_bitmap(lvariables -> fondomenuimg);   
+	al_destroy_bitmap(lvariables -> fondoipimg);
+	al_destroy_bitmap(lvariables -> opcionesmenuimg);
+	al_destroy_bitmap(lvariables -> jugarenlineaimg);
+	
+	al_destroy_font(lvariables -> font);
+	al_destroy_font(lvariables -> font2);
+	
+	free (lvariables);
+	free (lvarcliente);
+	free (lauxpar);
+	free (lfE);
+	free (lfM);
+
+}
+
+int	GameLoop (ini_var **var, variablescliente **varcl, auxpartida **axpartida, frameExplosion **fEx, frameMonedita **fMo) {
 
 	ini_var *variables;
+	variablescliente *varcliente;
 	auxpartida *auxpar;
 	frameExplosion *fE;
 	frameMonedita *fM;
@@ -1334,9 +1485,8 @@ int	GameLoop (ini_var **var, variablescliente *varcliente, auxpartida **axpartid
 		
 	int auxestadojuego = 1;		// Arranca en el menu
 	
-	bool doexit = false;	//AL PEDO
-	
 	variables = *(var);
+	varcliente = *(varcl);
 	auxpar = *(axpartida);
 	fE = *(fEx);
 	fM = *(fMo);
@@ -1348,10 +1498,26 @@ int	GameLoop (ini_var **var, variablescliente *varcliente, auxpartida **axpartid
 			auxestadojuego = menu (&variables);
 
 		}
+
+// Inicializacion de variables cargar_ip
+		
+		if (auxestadojuego == 3) {
+
+			(varcliente -> tecla) = 0;
+			(varcliente -> auxip) = 0;			
+			(varcliente -> auxip2) = 0;
+			(varcliente -> auxip3) = 0;
+			(varcliente -> act) = 0;
+
+			memset ((varcliente -> ip), 0, strlen (varcliente -> ip));
+			memset ((varcliente -> ip2), 0, strlen (varcliente -> ip2));
+			(variables -> key)[KEY_ENTER] = false;
+
+		}
 		
 		while (auxestadojuego == 3){
 			
-			auxestadojuego = cargar_ip (&variables, varcliente);
+			auxestadojuego = cargar_ip (&variables, &varcliente);
 
 		}
 
@@ -1382,6 +1548,8 @@ int	GameLoop (ini_var **var, variablescliente *varcliente, auxpartida **axpartid
 			(pos -> bouncer_y6) = (SCREEN_H) / 2.0 - (BOUNCER_SIZE) / 2.0;//MONEDA
 		
 			(pos -> bouncer_dx) = -4.0;
+
+			(variables -> key)[KEY_SPACE] = false;
 			
 // 	Inicializacion de vida y puntaje		
 			
@@ -1397,7 +1565,12 @@ int	GameLoop (ini_var **var, variablescliente *varcliente, auxpartida **axpartid
 			(auxpar -> tipo1) = 0;
 			(auxpar -> tipo2) = 0;
 			(auxpar -> tipo3) = 0;
-		
+			(auxpar -> tipo4) = 0;
+			(auxpar -> tipo5) = 0;
+			(auxpar -> tipo6) = 0;		
+			(auxpar -> tipo7) = 0;
+			(auxpar -> tipo8) = 0;
+			(auxpar -> tipo9) = 0;
 		}
 			
 		while (auxestadojuego == 0){
@@ -1420,32 +1593,14 @@ int	GameLoop (ini_var **var, variablescliente *varcliente, auxpartida **axpartid
 		
 	}
 	
-	al_destroy_timer(variables -> timer);
-	al_destroy_display(variables -> display);
-	al_destroy_event_queue(variables -> event_queue);
-	al_destroy_display(variables -> display);
-	al_destroy_sample(variables -> temajuego);
-	//al_destroy_bitmap(variables -> bouncer);
+	free (pos);
 	
-	/*al_destroy_bitmap(variables -> fondoimg1);
-	al_destroy_bitmap(variables -> fondoimg2);
-	al_destroy_bitmap(variables -> fondoimg3);
-	al_destroy_bitmap(variables -> fondoimg4);
-	al_destroy_bitmap(variables -> fondoimg5);*/
+	if ((varcliente -> netflag) == 1){
+		
+		close (varcliente -> sockfd);						// Cierra el socket
 	
-	/*al_destroy_bitmap(variables -> pisoimg1);
-	al_destroy_bitmap(variables -> pisoimg2);
-	al_destroy_bitmap(variables -> pisoimg3);
-	al_destroy_bitmap(variables -> pisoimg4);
-	al_destroy_bitmap(variables -> pisoimg5);*/
-	al_destroy_bitmap(variables -> cuboimg);
-	al_destroy_bitmap(variables -> enemigoimg );
-	al_destroy_bitmap(variables -> explosionimg);
-	al_destroy_bitmap(variables -> bloqueimg);
+	}
 
-	close (varcliente -> sockfd);						// Cierra el socket
-	
 	return 0;
 	
-
 }

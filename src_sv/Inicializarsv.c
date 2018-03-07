@@ -1,4 +1,6 @@
-// Funciones de inicializacion Server
+/*! \file Inicializarsv.c
+    \brief Funciones de inicializacion Servidor.
+*/
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -64,6 +66,8 @@ int	Inicializar (ini_var **var, auxpartida **axpartida, frameExplosion **fEx, fr
     (variables -> enemigoimg[3])   = NULL;
     (variables -> enemigoimg[4])   = NULL;
     (variables -> enemigoimg[5])   = NULL;
+    (variables -> enemigoimg[6])   = NULL;
+    (variables -> enemigoimg[7])   = NULL;
 	
 				
 	(variables -> cuboimg)  = NULL;//cubo
@@ -290,6 +294,8 @@ int	Inicializar (ini_var **var, auxpartida **axpartida, frameExplosion **fEx, fr
 	(variables -> enemigoimg[3])  = al_load_bitmap("imagenes/enemigo3.png"); 
 	(variables -> enemigoimg[4])  = al_load_bitmap("imagenes/enemigo42.jpg");
 	(variables -> enemigoimg[5])  = al_load_bitmap("imagenes/enemigo52.jpg");   
+	(variables -> enemigoimg[6])  = al_load_bitmap("imagenes/Modelo-Estalactita_de_Hielo2.png");
+	(variables -> enemigoimg[7])  = al_load_bitmap("imagenes/index.png"); 
 				
 	
 	
