@@ -403,7 +403,7 @@ int partida (ini_var **pvar, posicion *ppos, auxpartida *pauxpar, frameExplosion
 		al_draw_bitmap_region((pvariables -> enemigoimg[6]) ,0,0,140,150,(ppos -> bouncer_x36),-15,0);
 	}
 	if((pauxpar -> tipo7) == 1){
-		al_draw_bitmap_region((pvariables -> enemigoimg[7]) ,0,0,140,150,(ppos -> bouncer_x37),-50,0);
+		al_draw_bitmap_region((pvariables -> enemigoimg[7]) ,0,0,140,150,(ppos -> bouncer_x37),150,0);
 	}
 	if((pauxpar -> tipo8) == 1){
 		al_draw_bitmap_region((pvariables -> enemigoimg[7]) ,0,0,140,150,(ppos -> bouncer_x38),150,0);
@@ -969,7 +969,7 @@ int	GameLoop (ini_var **var, variablesservidor *varservidor, auxpartida **axpart
 	frameExplosion *fE = malloc (sizeof (frameExplosion));
 	frameMonedita *fM = malloc (sizeof (frameMonedita));
 
-	int r;						// Repetidor de red
+	//int r;						// Repetidor de red
 		
 	int auxestadojuego = 1;		// Arranca esperando la cx
 
@@ -1037,7 +1037,7 @@ int	GameLoop (ini_var **var, variablesservidor *varservidor, auxpartida **axpart
 
 // 	Inicializacion de vida y puntaje		
 			
-			(auxpar -> vida) = 3;		// Vida inicial
+			(auxpar -> vida) = 5;		// Vida inicial
 			(auxpar -> score) = 0;	    // Puntaje comienza en 0
 			(auxpar -> nivel) = 1;      // Dificultad inicial
 			(auxpar -> t_nivel) = 0;	// Tiempo del nivel comienza en 0

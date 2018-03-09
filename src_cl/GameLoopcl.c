@@ -1537,7 +1537,7 @@ int	GameLoop (ini_var **var, variablescliente **varcl, auxpartida **axpartida, f
 	frameMonedita *fM;
 	posicion *pos = malloc (sizeof (posicion));
 
-	int r;						// Repetidor de red
+	//int r;						// Repetidor de red
 			
 	int auxestadojuego = 1;		// Arranca en el menu
 	
@@ -1610,7 +1610,7 @@ int	GameLoop (ini_var **var, variablescliente **varcl, auxpartida **axpartida, f
 			
 // 	Inicializacion de vida y puntaje		
 			
-			(auxpar -> vida) = 3;		// Vida inicial
+			(auxpar -> vida) = 5;		// Vida inicial
 			(auxpar -> score) = 0;		// Puntaje comienza en 0
 			(auxpar -> nivel) = 1;		// Dificultad inicial
 			(auxpar -> t_nivel) = 0;	// Tiempo del nivel comienza en 0
