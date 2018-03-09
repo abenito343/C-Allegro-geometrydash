@@ -40,7 +40,7 @@ typedef struct ini_var {
 	
 	ALLEGRO_BITMAP  *pisoimg[6];
 
-	ALLEGRO_BITMAP  *enemigoimg[6];//enemigo
+	ALLEGRO_BITMAP  *enemigoimg[8];//enemigo
 	
 	
 	ALLEGRO_BITMAP  *cuboimg;//cubo

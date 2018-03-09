@@ -792,21 +792,21 @@ int partida (ini_var **pvar, posicion *ppos, auxpartida *pauxpar, frameExplosion
 				(ppos -> bouncer_x37)= (ppos -> bouncer_x37)+1556;
 				(pauxpar -> tipo7) = 0;
 			}
-			(ppos -> bouncer_x37) += (ppos -> bouncer_dx)*10*((pauxpar -> nivel)*0.1);
+			(ppos -> bouncer_x37) += (ppos -> bouncer_dx)*30*((pauxpar -> nivel)*0.1);
 		}
 		if((pauxpar -> tipo8) == 1){
 			if((ppos -> bouncer_x38) < -256) {               
 				(ppos -> bouncer_x38)= (ppos -> bouncer_x38)+1556;
 				(pauxpar -> tipo8) = 0;
 			}
-			(ppos -> bouncer_x38) += (ppos -> bouncer_dx)*10*((pauxpar -> nivel)*0.1);
+			(ppos -> bouncer_x38) += (ppos -> bouncer_dx)*30*((pauxpar -> nivel)*0.1);
 		}
 		if((pauxpar -> tipo9) == 1){
 			if((ppos -> bouncer_x39) < -256) {               
 				(ppos -> bouncer_x39)= (ppos -> bouncer_x33)+1556;
 				(pauxpar -> tipo9) = 0;
 			}
-			(ppos -> bouncer_x39) += (ppos -> bouncer_dx)*10*((pauxpar -> nivel)*0.1);
+			(ppos -> bouncer_x39) += (ppos -> bouncer_dx)*30*((pauxpar -> nivel)*0.1);
 		}
 			
 			if((ppos -> bouncer_x5) < -956)                
@@ -1043,22 +1043,22 @@ int partida (ini_var **pvar, posicion *ppos, auxpartida *pauxpar, frameExplosion
 		al_draw_bitmap_region((pvariables -> enemigoimg[(pauxpar -> nivel)]) ,0,0,140,150,(ppos -> bouncer_x33),355,0);
 	}
 	if((pauxpar -> tipo4) == 1){
-		al_draw_bitmap_region((pvariables -> enemigoimg[(pauxpar -> nivel)]) ,0,0,140,150,(ppos -> bouncer_x34),-15,0);
+		al_draw_bitmap_region((pvariables -> enemigoimg[6]) ,0,0,140,150,(ppos -> bouncer_x34),-15,0);
 	}
 	if((pauxpar -> tipo5) == 1){
-		al_draw_bitmap_region((pvariables -> enemigoimg[(pauxpar -> nivel)]) ,0,0,140,150,(ppos -> bouncer_x35),-15,0);
+		al_draw_bitmap_region((pvariables -> enemigoimg[6]) ,0,0,140,150,(ppos -> bouncer_x35),-15,0);
 	}
 	if((pauxpar -> tipo6) == 1){
-		al_draw_bitmap_region((pvariables -> enemigoimg[(pauxpar -> nivel)]) ,0,0,140,150,(ppos -> bouncer_x36),-15,0);
+		al_draw_bitmap_region((pvariables -> enemigoimg[6]) ,0,0,140,150,(ppos -> bouncer_x36),-15,0);
 	}
 	if((pauxpar -> tipo7) == 1){
-		al_draw_bitmap_region((pvariables -> enemigoimg[(pauxpar -> nivel)]) ,0,0,140,150,(ppos -> bouncer_x37),150,0);
+		al_draw_bitmap_region((pvariables -> enemigoimg[7]) ,0,0,140,150,(ppos -> bouncer_x37),150,0);
 	}
 	if((pauxpar -> tipo8) == 1){
-		al_draw_bitmap_region((pvariables -> enemigoimg[(pauxpar -> nivel)]) ,0,0,140,150,(ppos -> bouncer_x38),150,0);
+		al_draw_bitmap_region((pvariables -> enemigoimg[7]) ,0,0,140,150,(ppos -> bouncer_x38),150,0);
 	}
 	if((pauxpar -> tipo9) == 1){
-		al_draw_bitmap_region((pvariables -> enemigoimg[(pauxpar -> nivel)]) ,0,0,140,150,(ppos -> bouncer_x39),150,0);
+		al_draw_bitmap_region((pvariables -> enemigoimg[7]) ,0,0,140,150,(ppos -> bouncer_x39),150,0);
 	}
 	
 	//al_draw_bitmap_region((pvariables -> enemigoimg) ,(pauxpar -> auxspriteenemigo)*140,0,140,150,(ppos -> bouncer_x3),355,0);
@@ -1485,6 +1485,8 @@ void Liberar (ini_var **lvar, variablescliente **lvarcl, auxpartida **laxpartida
 	al_destroy_bitmap(lvariables -> enemigoimg[3]);
 	al_destroy_bitmap(lvariables -> enemigoimg[4]);
 	al_destroy_bitmap(lvariables -> enemigoimg[5]);
+	al_destroy_bitmap(lvariables -> enemigoimg[6]);
+	al_destroy_bitmap(lvariables -> enemigoimg[7]);
 	 
 	al_destroy_bitmap(lvariables -> muertofinimg);
 	al_destroy_bitmap(lvariables -> monedaimg); 
