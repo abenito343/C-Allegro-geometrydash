@@ -118,15 +118,7 @@ int	Inicializar (ini_var **var, auxpartida **axpartida, frameExplosion **fEx, fr
 	(variables -> key)[19] = false;
 	(variables -> key)[20] = false;
 	(variables -> key)[21] = false;
-	(variables -> key)[22] = false;
-	(variables -> key)[23] = false;
-	(variables -> key)[24] = false;
-	(variables -> key)[25] = false;
-	(variables -> key)[26] = false;
-	(variables -> key)[27] = false;
-	(variables -> key)[28] = false;
-	(variables -> key)[29] = false;
-	(variables -> key)[30] = false;
+
 
 // Inicializacion de variables partidas
 

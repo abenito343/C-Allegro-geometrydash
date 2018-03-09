@@ -268,6 +268,9 @@ int cargar_ip (ini_var **cvar, variablescliente **cvarcl) {
 			if((cvariables -> key)[KEY_FULLSTOP] ) {
 				(vcl -> auxip)='.';(vcl -> act)=1;
 			}	
+			if((cvariables -> key)[KEY_PAD_DELETE] ) {
+				(vcl -> auxip)='.';(vcl -> act)=1;
+			}
 		}
 		if((cvariables -> key)[KEY_ENTER] ) {
 			(vcl -> auxip2)=16;
@@ -361,6 +364,10 @@ int cargar_ip (ini_var **cvar, variablescliente **cvarcl) {
 				(vcl -> tecla)=0;
 				(cvariables -> key)[KEY_BACKSPACE] = true;
 				break;
+				case ALLEGRO_KEY_PAD_DELETE:
+				(vcl -> tecla)=0;
+				(cvariables -> key)[KEY_PAD_DELETE] = true;
+				break;
 			}
 		}
 		else if((cvariables -> ev).type == ALLEGRO_EVENT_KEY_UP) {
@@ -407,6 +414,9 @@ int cargar_ip (ini_var **cvar, variablescliente **cvarcl) {
 				case ALLEGRO_KEY_BACKSPACE:
 				(cvariables -> key)[KEY_BACKSPACE] = false;
 				break;
+				case ALLEGRO_KEY_PAD_DELETE:
+				(cvariables -> key)[KEY_PAD_DELETE] = false;
+				break;
 			}
 		}
 			
@@ -426,8 +436,9 @@ int cargar_ip (ini_var **cvar, variablescliente **cvarcl) {
 			al_draw_bitmap((cvariables -> fondoipimg),-764,0,0);
 			al_draw_bitmap((cvariables -> fondoipimg),200,0,0);
 			al_draw_bitmap((cvariables -> fondoipimg),1224,0,0);
-			al_draw_text((cvariables -> font2), al_map_rgb(0, 0, 255), 280, 100, 0, "Inserte su IP:");
-			al_draw_text((cvariables -> font2), al_map_rgb(0, 0, 255), 300, 250, 0, (vcl -> ip2));
+			al_draw_text((cvariables -> font2), al_map_rgb(0, 0, 255), 250, 100, 0, "Inserte su IP:");
+			al_draw_text((cvariables -> font2), al_map_rgb(0, 0, 255), 250, 175, 0, "( exacta CON puntos y aprete enter )");
+			al_draw_text((cvariables -> font2), al_map_rgb(0, 0, 255), 300, 325, 0, (vcl -> ip2));
 			
 			
 				al_draw_bitmap_region((cvariables -> opcionesmenuimg),430-cauxopcionessalir,90,210,90,1050,625,0);
