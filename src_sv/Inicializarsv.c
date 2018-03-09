@@ -124,7 +124,8 @@ int	Inicializar (ini_var **var, auxpartida **axpartida, frameExplosion **fEx, fr
 	(auxpar -> auxspritecubov) = 0;
 	(auxpar -> auxspritecuboy) = 0;
 	
-	(auxpar -> INI_niv) = NULL;
+	(auxpar -> INI_niv[0]) = NULL;
+	(auxpar -> INI_niv[1]) = NULL;
 	(auxpar -> aux_niv) = NULL;
 	
 	(fE -> curFrameExplosion) = 0;

@@ -155,8 +155,10 @@ typedef struct auxpartida {
 	int tipo7;
 	int tipo8;
 	int tipo9;	
+
+	int map;						//!< Mapa seleccionado
 	
-	niveles *INI_niv;
+	niveles *INI_niv[2];	
 	niveles *aux_niv;
 
 } auxpartida;

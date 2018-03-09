@@ -813,32 +813,40 @@ int receive_data (ini_var **rvar, variablesservidor *varsv2, posicion *p, auxpar
 
 int Niveles (auxpartida **naxpartida) {
 	
-	FILE *fp;
-	
+	FILE *fp[2];
+		
 	auxpartida *nauxpar;
 	niveles *aux_new, *aux_ant;
+	
+	int m;
 	
 	char buffer[30];
 	
 	nauxpar = *(naxpartida);
 	
-	fp = fopen("N","r");
-	if (!fp) return -1;
+	fp[0] = fopen("N","r");					// Mapa 1
+	if (!fp[0]) return -1;
+
+	fp[1] = fopen("N2","r");				// Mapa 2
+	if (!fp[1]) return -1;
 	
 	 //NIVEL
-		memset (buffer,0,30);
-		while (fgets(buffer,30,fp) != NULL){ 
+	for (m = 0 ; m < 2 ; m ++) {
+		
+		memset (buffer , 0 , 30);
+		
+		while (fgets(buffer , 30 , fp[m]) != NULL){ 
 			
-			if((nauxpar -> INI_niv) == NULL){
+			if((nauxpar -> INI_niv[m]) == NULL){
 				 
 				aux_new = calloc (1, sizeof (niveles));
 				aux_new -> t_aparicion = atoi (strtok(buffer,","));
 				aux_new -> clase = atoi (strtok(NULL,","));
 				aux_new -> sig = NULL;
-				(nauxpar -> INI_niv) = aux_new;
+				(nauxpar -> INI_niv[m]) = aux_new;
 			}
 			else { 
-				aux_ant = (nauxpar -> INI_niv);
+				aux_ant = (nauxpar -> INI_niv[m]);
 				aux_new = calloc (1, sizeof (niveles));
 				aux_new -> t_aparicion = atoi (strtok(buffer,","));
 				aux_new -> clase = atoi (strtok(NULL,","));
@@ -850,11 +858,12 @@ int Niveles (auxpartida **naxpartida) {
 					}
 					
 				memset (buffer, 0, 30);
-
 				
 			}
 
-	fclose (fp);
+			fclose (fp[m]);
+			
+		}
 
 	return 0;
 				
@@ -870,7 +879,9 @@ void Liberar (ini_var **lvar, variablesservidor **lvarsv, auxpartida **laxpartid
 
 	niveles *laux;
 	niveles *laux_ant;
-	
+
+	int lm;
+		
 	lvariables = *(lvar);
 	lvarservidor = *(lvarsv);
 	lauxpar = *(laxpartida);
@@ -878,14 +889,18 @@ void Liberar (ini_var **lvar, variablesservidor **lvarsv, auxpartida **laxpartid
 	lfM = *(lfMo);
 
 // Libera lista de enemigos
+
+	for (lm = 0 ; lm < 2 ; lm ++) {
 		
-	laux = (lauxpar -> INI_niv);
+		laux = (lauxpar -> INI_niv[lm]);
+		
+		while ((laux -> sig) != NULL){
+			laux_ant = laux;
+			free (laux_ant);
+			laux = (laux -> sig);
+			
+		}
 	
-	while ((laux -> sig) != NULL){
-		laux_ant = laux;
-		free (laux_ant);
-		laux = (laux -> sig);
-		
 	}
 
 // Libera variables de allegro
@@ -953,6 +968,8 @@ int	GameLoop (ini_var **var, variablesservidor *varservidor, auxpartida **axpart
 	auxpartida *auxpar = malloc (sizeof (auxpartida));
 	frameExplosion *fE = malloc (sizeof (frameExplosion));
 	frameMonedita *fM = malloc (sizeof (frameMonedita));
+
+	int r;						// Repetidor de red
 		
 	int auxestadojuego = 1;		// Arranca esperando la cx
 
@@ -1001,16 +1018,10 @@ int	GameLoop (ini_var **var, variablesservidor *varservidor, auxpartida **axpart
 			(pos -> bouncer_dx) = -4.0;
 
 			(variables -> key)[KEY_SPACE] = false;
-						
-// 	Inicializacion de vida y puntaje		
-			
-			(auxpar -> vida) = 3;		// Vida inicial
-			(auxpar -> score) = 0;	    // Puntaje comienza en 0
-			(auxpar -> nivel) = 1;      // Dificultad inicial
-			(auxpar -> t_nivel) = 0;	// Tiempo del nivel comienza en 0
+
 // Inicializacion de enemigos
 
-			(auxpar -> aux_niv) = (auxpar -> INI_niv);			
+			(auxpar -> aux_niv) = (auxpar -> INI_niv[0]);		// Inicializacion mapa	
 			
 			(auxpar -> tipo1) = 0;
 			(auxpar -> tipo2) = 0;
@@ -1022,7 +1033,14 @@ int	GameLoop (ini_var **var, variablesservidor *varservidor, auxpartida **axpart
 			(auxpar -> tipo8) = 0;
 			(auxpar -> tipo9) = 0;
 			
-		}
+		}						
+
+// 	Inicializacion de vida y puntaje		
+			
+			(auxpar -> vida) = 3;		// Vida inicial
+			(auxpar -> score) = 0;	    // Puntaje comienza en 0
+			(auxpar -> nivel) = 1;      // Dificultad inicial
+			(auxpar -> t_nivel) = 0;	// Tiempo del nivel comienza en 0
 			
 		while (auxestadojuego == 0){
 			

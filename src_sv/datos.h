@@ -149,7 +149,7 @@ typedef struct auxpartida {
 	int tipo8;
 	int tipo9;	
 
-	niveles *INI_niv;
+	niveles *INI_niv[2];
 	niveles *aux_niv;
 
 } auxpartida;

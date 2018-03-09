@@ -10,7 +10,7 @@ int inicializar_cl (variablescliente *);
 int Niveles (auxpartida **);
 
 int	GameLoop (ini_var **, variablescliente **, auxpartida **, frameExplosion **, frameMonedita **);
-int menu(ini_var **);
+int menu(ini_var **, auxpartida *);
 int partida (ini_var **, posicion *, auxpartida *, frameExplosion *, frameMonedita *, bool **, variablescliente *);
 int fin (ini_var **, auxpartida *, variablescliente *);	
 int cargar_ip (ini_var **, variablescliente **);
