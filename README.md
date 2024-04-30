@@ -1,4 +1,6 @@
-# Instrucciones
+# Trabajo práctico para Info 1, 1er añop de ingenieria en electronica de la UTN.
+
+Instrucciones:
 
 1ero)   Compilar    (carpeta anotaciones para mas detalles)
 
