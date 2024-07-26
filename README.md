@@ -1,4 +1,4 @@
-# Trabajo práctico para Info 1, 1er añop de ingenieria en electronica de la UTN.
+# Juego en C con libreria Allegro
 
 Instrucciones:
 
